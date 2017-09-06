@@ -1,0 +1,148 @@
+
+<div class="col-md-12">
+  <div class="col-md-3 pull-right">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addcategory">Add Category</button>
+    <button class="btn btn-primary">Delete Category</button>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12" style="display:none">
+
+  <section class="widget ng2-table" widget>
+    <header>
+      <h5>Categories</h5>
+      <div class="widget-controls">
+        <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+        <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+        <a data-widgster="close" title="Close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+      </div>
+    </header>
+    <div class="widget-body">
+      <p>
+        All Category       
+      </p>
+      <p class="search-filter">
+        <input *ngIf="config.filtering"
+               [ngTableFiltering]="config.filtering"
+               (tableChanged)="onChangeTable(config)"
+               class="form-control input-transparent"
+               placeholder="Filter Table" type="text">
+      </p>
+      <ng-table [config]="config.sorting"
+                (tableChanged)="onChangeTable(config)"
+                [rows]="rows" [columns]="columns">
+      </ng-table>
+      <pagination *ngIf="config.paging"
+                  class="pagination mt-1"
+                  [(ngModel)]="page"
+                  [totalItems]="length"
+                  [itemsPerPage]="itemsPerPage"
+                  [maxSize]="maxSize"
+                  [boundaryLinks]="true"
+                  [rotate]="false"
+                  (pageChanged)="onChangeTable(config, $event)"
+                  (numPages)="numPages = $event">
+      </pagination>
+      <pre *ngIf="config.paging" class="card card-block card-header" [ngStyle]="pagingConfigStyle">Page: {{page}} / {{numPages}}</pre>
+    </div>
+  
+  </section>
+</div>
+<div class="col-md-12">
+  <table  class="table table-striped">
+    <tr>
+      <th>S.N </th>
+      <th>Category Name</th>
+      <th>Description </th>
+      <th>Action </th>
+    </tr>
+    <tr *ngFor="let item of categoryitems | async; let i= index">
+        <td>{{i+1}}</td>
+      <td>{{item.cname}}</td>
+      <td>{{item.desc}}</td>
+      <td><button (click)="deletecategory(item)">Delete</button> <button data-toggle="modal" data-target="#editcategory" (click)="editcategory(item)">Edit</button></td>
+    </tr>
+  </table>
+</div>
+
+<div id="addcategory" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">       
+        <h4 class="modal-title">Add Your Category</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <h4 class="modal-title">{{error}}</h4>
+        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submitcategory(form.value)">
+          <div class="form-group">
+            <label class="control-label col-sm-12" for="cname">Category Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" required name="cname" id="cname" placeholder="Enter Category Name"  ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-12"  for="desc">Description</label>
+            <div class="col-sm-10"> 
+              <textarea class="form-control"  name="desc" id="desc" ngModel ></textarea>
+            </div>
+          </div>
+          
+          <div class="form-group"> 
+            <div class="col-sm-offset-12">
+              <button type="submit" class="btn btn-default">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="editcategory" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">       
+          <h4 class="modal-title">Update Your Category</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h4 class="modal-title">{{error}}</h4>
+          <form class="form-horizontal"  #upform="ngForm" (ngSubmit)="updatecategory(upform.value)">
+            <div class="form-group">
+              <label class="control-label col-sm-12" for="ecname">Category Name</label>
+              <div class="col-sm-10">
+                <input type="hidden" [(ngModel)]='updata.$key' name="key">
+                <input type="text" class="form-control" [(ngModel)]='updata.cname' required name="cname" id="ecname"  placeholder="Enter Category Name"  ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-12"  for="edesc">Description</label>
+              <div class="col-sm-10"> 
+                <textarea class="form-control" [(ngModel)]='updata.desc'  name="desc" id="edesc" ngModel ></textarea>
+              </div>
+            </div>
+            
+            <div class="form-group"> 
+              <div class="col-sm-offset-12">
+                <button type="submit" class="btn btn-default">Update</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
