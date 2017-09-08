@@ -2,6 +2,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {LoginService} from './login.service';
+
+
+import { AngularFireModule } from 'angularfire2';
+// for AngularFireDatabase
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+// for AngularFireAuth
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+import {FirebaseConfig}  from './masters/firebaseConfig';
+
 import {
   NgModule,
   ApplicationRef
@@ -61,14 +74,18 @@ type StoreType = {
     RouterModule.forRoot(ROUTES, {
       useHash: true,
       preloadingStrategy: PreloadAllModules
-    })
+    }),
+    AngularFireModule.initializeApp(FirebaseConfig),
+    AngularFireDatabaseModule,  
+    AngularFireAuthModule,
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.
    */
   providers: [
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    LoginService
   ]
 })
 export class AppModule {

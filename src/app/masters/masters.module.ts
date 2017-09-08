@@ -44,6 +44,7 @@ import 'bootstrap-slider/dist/bootstrap-slider.js';
 
 import { Category } from './category/category.component';
 import { Contractor } from './contractor/contractor.component';
+import { ListContractor } from './listcontractor/listcontractor.component';
 import { SubCategory } from './subcategory/subcategory.component';
 
 import {
@@ -56,7 +57,8 @@ import {
 
 export const routes = [
   {path: '', redirectTo: 'category', pathMatch: 'full'},
-  {path: 'category', component: Category},
+  {path: 'category', component: Category},  
+  {path: 'listcontractor', component: ListContractor},
   {path: 'subcategory', component: SubCategory},
   {path: 'contractor', component: Contractor},
 ];
@@ -67,6 +69,7 @@ export const routes = [
     Category,
     SubCategory,
     Contractor,
+    ListContractor,
     Autosize,
     MarkdownToolbarTransparent,        
     DatetimeTransparent,

@@ -4,6 +4,33 @@
   </li>
   <li class="accordion-group panel" [routerLinkActive]="['active']">
     <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+       data-parent="#side-nav" href="#vendors-collapse">
+			 <i class="fa fa-pencil"></i>
+			 <span class="name">Vendors</span>
+		 </a>
+    <ul id="vendors-collapse" class="accordion-body collapse" aria-expanded="false">
+      <li [routerLinkActive]="['active']"><a routerLink="vendors/vendor">Add Vendor</a></li>
+      <li [routerLinkActive]="['active']"><a routerLink="vendors/vendorlist">List Vendor</a></li>
+
+     
+    </ul>
+  </li>
+  <li class="accordion-group panel" [routerLinkActive]="['active']">
+      <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#contractor-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">Contractors</span>
+       </a>
+      <ul id="contractor-collapse" class="accordion-body collapse" aria-expanded="false">
+        <li [routerLinkActive]="['active']"><a routerLink="masters/contractor">Add Contractor</a></li> 
+         <li [routerLinkActive]="['active']"><a routerLink="masters/listcontractor">List Contractor</a></li>
+  
+       
+      </ul>
+    </li>
+    
+  <!--<li class="accordion-group panel" [routerLinkActive]="['active']">
+    <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
        data-parent="#side-nav" href="#masters-collapse">
 			 <i class="fa fa-pencil"></i>
 			 <span class="name">Masters</span>
@@ -95,15 +122,15 @@
       <li><a href="#">Item 1.2</a></li>
       <li><a href="#">Item 1.3</a></li>
     </ul>
-  </li>
+  </li>-->
 </ul>
 
-<h5 class="sidebar-nav-title">Labels <a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
-<!-- some styled links in sidebar. ready to use as links to email folders, projects, groups, etc -->
+<!--<h5 class="sidebar-nav-title">Labels <a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
+
 <ul class="sidebar-labels">
   <li>
     <a href="#">
-      <!-- yep, .circle again -->
+      
       <i class="fa fa-circle text-warning"></i>
       <span class="label-name">My Recent</span>
     </a>
@@ -123,7 +150,7 @@
 </ul>
 
 <h5 class="sidebar-nav-title">Projects</h5>
-<!-- A place for sidebar notifications & alerts -->
+
 <div class="sidebar-alerts">
   <div class="alert fade show">
     <a href="#" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
@@ -141,4 +168,4 @@
     </div>
     <small>Provide required notes</small>
   </div>
-</div>
+</div>-->

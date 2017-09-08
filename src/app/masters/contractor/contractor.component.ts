@@ -35,16 +35,12 @@ export class Contractor {
     public error:string="";
     public uperror:string="";
     public updata :object={};
-    addcontractor(data:any){
-     
-      
-      if(data.fname==""){
-        this.error="Please Fill Full Name";
-        return ;
-      }
+    public success :string;
+    addcontractor(data:any){   
       
       if(data.cname!=""){
       this.contractors.push(data);
+      this.success = "Contractor Record Inserted";
       }else{
       this.error="Please Fill All Mandatory  Field";
       }

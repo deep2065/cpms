@@ -1,4 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import {LoginService}from '../login.service';
+
+import { ActivatedRoute, Router }       from '@angular/router';
 
 declare let jQuery: any;
 declare let d3: any;
@@ -90,7 +93,10 @@ export class Dashboard {
     maxSpotColor: false
   };
 
-  constructor() {
+  constructor(private login :LoginService, private route : Router) {
+    /*if(!this.login.isLogin){
+     route.navigate(["/login"]);
+    }*/
     for (let i = 0; i < this.tableSparklineValues.length; i++) {
       this.tableSparklineValues[i] = [
         10 + this.randomValue(), 15 + this.randomValue(),
@@ -104,6 +110,7 @@ export class Dashboard {
     for (let i = 0; i < this.tableSparklineOptions.length; i++) {
       Object.assign(this.tableSparklineOptions[i], this.tableSparklineGeneralOptions);
     }
+  
   }
 
   randomValue() {

@@ -6,6 +6,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'dashboard', loadChildren: '../dashboard/dashboard.module#DashboardModule' },   
     { path: 'masters', loadChildren: '../masters/masters.module#MastersModule' },
+    { path: 'vendors', loadChildren: '../vendors/vendors.module#VendorsModule' },
     { path: 'statistics', loadChildren: '../statistics/statistics.module#StatisticsModule' },
     { path: 'ui', loadChildren: '../ui/ui.module#UiModule' },
     { path: 'components', loadChildren: '../components/components.module#ComponentsModule' },
