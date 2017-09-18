@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {LoginService} from './login.service';
 
-
 import { AngularFireModule } from 'angularfire2';
 // for AngularFireDatabase
 import { AngularFireDatabaseModule } from 'angularfire2/database';

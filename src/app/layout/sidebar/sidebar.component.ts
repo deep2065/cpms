@@ -1,6 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
 import { Renderer } from '@angular/core';
 
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+
 declare let jQuery: any;
 
 @Component({
@@ -11,7 +13,20 @@ export class Sidebar {
   sidebarHeight: number = 0;
   sidebarMenu: any = 0;
 
-  constructor(private renderer: Renderer, private el: ElementRef) {
+  menus =[];
+  user : FirebaseListObservable<any>;
+  constructor(private renderer: Renderer, private el: ElementRef, private db :AngularFireDatabase) {
+    var key = window.sessionStorage.getItem("userkey");
+     db.list('/users/'+key+'/permission').subscribe(keys=>keys.forEach(permi=>{
+      console.log(permi);
+      db.list('/menus').subscribe(keys=>keys.forEach(menu=>{
+        console.log(menu);
+        if(menu.mname==permi.$key){
+        this.menus.push(menu);
+        }
+      }));
+    }));
+    
   }
 
   ngAfterViewInit() {

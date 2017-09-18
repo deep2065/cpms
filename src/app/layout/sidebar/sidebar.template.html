@@ -2,7 +2,7 @@
   <li [routerLinkActive]="['active']">
     <a routerLink="dashboard"><i class="fa fa-home"></i> <span class="name">Dashboard <sup class="text-warning fw-bold">new</sup></span></a>
   </li>
-  <li class="accordion-group panel" [routerLinkActive]="['active']">
+<!--  <li class="accordion-group panel" [routerLinkActive]="['active']">
     <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
        data-parent="#side-nav" href="#vendors-collapse">
 			 <i class="fa fa-pencil"></i>
@@ -28,8 +28,111 @@
        
       </ul>
     </li>
+
+    <li class="accordion-group panel" [routerLinkActive]="['active']">
+      <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#trade-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">Trade</span>
+       </a>
+      <ul id="trade-collapse" class="accordion-body collapse" aria-expanded="false">
+        <li [routerLinkActive]="['active']"><a routerLink="masters/category">Add Trade</a></li> 
+         <li [routerLinkActive]="['active']"><a routerLink="masters/listcategory">List Trade</a></li>
+  
+       
+      </ul>
+    </li>
+
+
+    <li class="accordion-group panel" [routerLinkActive]="['active']">
+      <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#unit-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">Units</span>
+       </a>
+      <ul id="unit-collapse" class="accordion-body collapse" aria-expanded="false">
+        <li [routerLinkActive]="['active']"><a routerLink="masters/unit">Add Unit</a></li> 
+         <li [routerLinkActive]="['active']"><a routerLink="masters/listunit">List Unit</a></li>
+  
+       
+      </ul>
+    </li>
+
+    <li class="accordion-group panel" [routerLinkActive]="['active']">
+      <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#quantity-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">Quantity</span>
+       </a>
+      <ul id="quantity-collapse" class="accordion-body collapse" aria-expanded="false">
+        <li [routerLinkActive]="['active']"><a routerLink="masters/quantity">Add Quantity</a></li> 
+         <li [routerLinkActive]="['active']"><a routerLink="masters/listquantity">List Quantity</a></li>
+  
+       
+      </ul>
+    </li>
+
+    <li class="accordion-group panel" [routerLinkActive]="['active']">
+      <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#item-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">Item Materials</span>
+       </a>
+      <ul id="item-collapse" class="accordion-body collapse" aria-expanded="false">
+        <li [routerLinkActive]="['active']"><a routerLink="masters/item">Add Material</a></li> 
+         <li [routerLinkActive]="['active']"><a routerLink="masters/listitem">List Materials</a></li>
+  
+       
+      </ul>
+    </li>
     
-  <!--<li class="accordion-group panel" [routerLinkActive]="['active']">
+    <li class="accordion-group panel" [routerLinkActive]="['active']">
+      <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#employee-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">Employee</span>
+       </a>
+      <ul id="employee-collapse" class="accordion-body collapse" aria-expanded="false">
+        <li [routerLinkActive]="['active']"><a routerLink="masters/employee">Add Employee</a></li> 
+         <li [routerLinkActive]="['active']"><a routerLink="masters/listemployee">List Employee</a></li>
+  
+       
+      </ul>
+    </li>-->
+   
+
+    <!--Start Dymnamic menus -->
+
+
+    <li class="accordion-group panel" [routerLinkActive]="['active']" *ngFor="let menu of menus; let i=index">
+      <a *ngIf="menu.murl=='#'" (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#{{'menu'+i}}-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">{{menu.mname}}</span>
+       </a>
+      <ul id="{{'menu'+i}}-collapse" class="accordion-body collapse" aria-expanded="false">
+        <div *ngFor="let menu1 of menus; let i=index">
+        <li *ngIf="menu1.parrent==menu.mname" [routerLinkActive]="['active']"><a routerLink="{{menu1.murl}}">{{menu1.mname}}</a></li> 
+        </div>
+  
+       
+      </ul>
+    </li>
+    
+   <!-- <li class="accordion-group panel" [routerLinkActive]="['active']">
+      <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#menu-collapse">
+         <i class="fa fa-pencil"></i>
+         <span class="name">Menus</span>
+       </a>
+      <ul id="menu-collapse" class="accordion-body collapse" aria-expanded="false">
+        <li [routerLinkActive]="['active']"><a routerLink="masters/subcategory">Add Menu</a></li> 
+  
+       
+      </ul>
+    </li>
+
+  <li class="accordion-group panel" [routerLinkActive]="['active']">
     <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
        data-parent="#side-nav" href="#masters-collapse">
 			 <i class="fa fa-pencil"></i>

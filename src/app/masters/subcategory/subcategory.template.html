@@ -1,8 +1,7 @@
 
 <div class="col-md-12">
   <div class="col-md-4 pull-right">
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addcategory">Add SubCategory</button>
-    <button class="btn btn-primary">Delete SubCategory</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addcategory">Add Menu</button>
   </div>
 </div>
 <div class="clearfix"></div>
@@ -11,15 +10,17 @@
   <table  class="table table-striped">
     <tr>
       <th>S.N </th>
-      <th>Category Name</th>
-      <th>SubCategory Name</th>
+      <th>Menu Name</th>
+      <th>Menu url</th>
+      <th>Parrent</th>
       <th>Description </th>
       <th>Action </th>
     </tr>
-    <tr *ngFor="let item of subcategoryitems | async; let i= index">
+    <tr *ngFor="let item of menu | async; let i= index">
         <td>{{i+1}}</td>
-      <td>{{item.cname}}</td>
-      <td>{{item.scname}}</td>
+      <td>{{item.mname}}</td>
+      <td>{{item.murl}}</td>
+      <td>{{item.parrent}}</td>
       <td>{{item.desc}}</td>
       <td><button (click)="deletecategory(item)">Delete</button> <button data-toggle="modal" data-target="#editcategory" (click)="editcategory(item)">Edit</button></td>
     </tr>
@@ -32,25 +33,31 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">       
-        <h4 class="modal-title">Add Your SubCategory</h4>
+        <h4 class="modal-title">Add Your Menu</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
           <h4 class="modal-title">{{error}}</h4>
-        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submitcategory(form.value)">
-            <div class="form-group">
-                <label class="control-label col-sm-12" for="cname">Choose Category Name</label>
-                <div class="col-sm-10">
-                  <select class="form-control" name="cname" id="cname"  ngModel>
-                    <option value="">-- Choose Your Category --</option> 
-                    <option *ngFor="let category of categoryitems | async" [ngValue]="category.cname">{{category.cname}}</option>                   
-                  </select>
-                </div>
-              </div>
+        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submitcategory(form.value); form.reset()">
           <div class="form-group">
-            <label class="control-label col-sm-12" for="scname">Category Name</label>
+            <label class="control-label col-sm-12" for="parrent">Choose Parrent Menu Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" required name="scname" id="scname" placeholder="Enter SubCategory Name"  ngModel>
+              <select class="form-control" name="parrent" id="parrent"  ngModel>
+                <option value="">-- Choose Your Parrent Menu --</option> 
+                <option *ngFor="let menu of menu | async" [ngValue]="menu.mname" >{{menu.mname}}</option>                   
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-12" for="mname">Menu Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" required name="mname" id="mname" placeholder="Enter Menu Name"  ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-12" for="murl">Menu Url</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" required name="murl" id="murl" placeholder="Enter Menu Url"  ngModel>
             </div>
           </div>
           <div class="form-group">

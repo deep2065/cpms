@@ -94,9 +94,9 @@ export class Dashboard {
   };
 
   constructor(private login :LoginService, private route : Router) {
-    /*if(!this.login.isLogin){
+    if(!this.login.isLogin){
      route.navigate(["/login"]);
-    }*/
+    }
     for (let i = 0; i < this.tableSparklineValues.length; i++) {
       this.tableSparklineValues[i] = [
         10 + this.randomValue(), 15 + this.randomValue(),

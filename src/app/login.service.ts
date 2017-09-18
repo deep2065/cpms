@@ -25,28 +25,19 @@ users : FirebaseListObservable<any>;
     return true;
   }
   loginWithEmail(email, password) {
-    var match = 0;
+    
+    var going = true;
 var users = this.db.list('/users').subscribe(keys =>keys.forEach(element => {
- if(element.email==email && element.password==password ){
- console.log(element);
- return false; 
- }else{
-  console.log("Username And Password not match");
+  if(going){
+ if(element.empemail==email && element.emppassword==password ){
+ window.sessionStorage.setItem("isLogin","true");
+ window.sessionStorage.setItem("userkey",element.$key);
+ this.isLogin=true;
+going = false;
  }
-
+  }
 }));
 
-
-/*this.users = this.db.list('/users/', {
-  query: {
-    orderByChild: 'name',
-    equalTo: email
-  }
-)};*/
-//console.log(this.users.b;
-   // this.isLogin =true;
-  //  window.sessionStorage.setItem("isLogin","true");
-   // return this.af.auth.signInWithEmailAndPassword(email,password);
   }
   public login(){
     //return this.db.list('/users').filter(email,s=>email);

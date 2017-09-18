@@ -2,6 +2,7 @@
   <section widget class="widget login-widget">
     <header class="text-center">
       <h4>Login to your account</h4>
+      <h4 *ngIf="error">{{error}}</h4>
     </header>
     <div class="widget-body">
       <form class="no-margin" #loginform='ngForm' (ngSubmit)='login(loginform.value)'>

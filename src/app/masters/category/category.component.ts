@@ -169,9 +169,11 @@ export class Category {
     public error:string="";
     public uperror:string="";
     public updata :object={};
+    public success :string;
     submitcategory(data:any){
       if(data.cname!=""){
       this.categoryitems.push(data);
+      this.success = "Trade Added Successfully.";
       }else{
       this.error="Please Fill Category Name Field";
       }
@@ -182,6 +184,7 @@ export class Category {
      var key = data.key;
      delete data.key;
      this.categoryitems.update(key,data);
+     this.success = "Trade Updated Successfully.";
       }else{
       this.uperror="Please Fill Category Name Field";
       }

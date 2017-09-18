@@ -18,10 +18,15 @@ export class Login {
       //this.route.navigate(["/dashboard"]);
     }
   }
+  public error :string;
   login(data :any){
 //console.log(data);
 this.loginservice.loginWithEmail(data.email,data.password);
-//this.route.navigate(["/app/dashboard"]);
+if(this.loginservice.isLogin){
+  this.route.navigate(["/app/dashboard"]);
+}else{
+this.error = "Username and Password Not Match";
+}
   }
 
   registeruser(){

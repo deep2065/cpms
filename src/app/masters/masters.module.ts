@@ -26,6 +26,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import {FirebaseConfig}  from './firebaseConfig';
+import {ObjectPipe}  from '../custompipes/object.pipe';
 
 declare let global: any;
 
@@ -43,9 +44,21 @@ import 'bootstrap-slider/dist/bootstrap-slider.js';
 
 
 import { Category } from './category/category.component';
+import { Listcontractor } from './listcategory/listcategory.component';
 import { Contractor } from './contractor/contractor.component';
 import { ListContractor } from './listcontractor/listcontractor.component';
 import { SubCategory } from './subcategory/subcategory.component';
+import { Unit } from './unit/unit.component';
+import { Listunit } from './listunit/listunit.component';
+
+import { Quantity } from './quantity/quantity.component';
+import { Listquantity } from './listquantity/listquantity.component';
+
+import { Item } from './item/item.component';
+import { Listitem } from './listitem/listitem.component';
+
+import { Employee } from './employee/employee.component';
+import { Listemployee } from './listemployee/listemployee.component';
 
 import {
   DatetimeTransparent
@@ -57,10 +70,19 @@ import {
 
 export const routes = [
   {path: '', redirectTo: 'category', pathMatch: 'full'},
-  {path: 'category', component: Category},  
+  {path: 'category', component: Category}, 
+  {path: 'listcategory', component: Listcontractor}, 
+  {path: 'unit', component: Unit}, 
+  {path: 'listunit', component: Listunit}, 
+  {path: 'quantity', component: Quantity}, 
+  {path: 'listquantity', component: Listquantity}, 
   {path: 'listcontractor', component: ListContractor},
   {path: 'subcategory', component: SubCategory},
   {path: 'contractor', component: Contractor},
+  {path: 'item', component: Item},
+  {path: 'listitem', component: Listitem},
+  {path: 'employee', component: Employee},
+  {path: 'listemployee', component: Listemployee},
 ];
 
 @NgModule({
@@ -70,6 +92,16 @@ export const routes = [
     SubCategory,
     Contractor,
     ListContractor,
+    Listcontractor,
+    Unit,
+    Listunit,
+    Quantity,
+    Listquantity,
+    Item,
+    ObjectPipe,
+    Listitem,
+    Employee,
+    Listemployee,
     Autosize,
     MarkdownToolbarTransparent,        
     DatetimeTransparent,

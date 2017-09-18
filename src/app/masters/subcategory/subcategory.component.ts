@@ -21,11 +21,10 @@ export class SubCategory {
    placeholder: ' '
   };
 
-  categoryitems : FirebaseListObservable<any[]>;
+  menu : FirebaseListObservable<any[]>;
   subcategoryitems : FirebaseListObservable<any[]>;
     constructor(db:AngularFireDatabase) {
-      this.categoryitems = db.list('/categorys');
-      this.subcategoryitems = db.list('/subcategorys');
+      this.menu = db.list('/menus');
     }
   
     public error:string="";
@@ -33,7 +32,7 @@ export class SubCategory {
     public updata :object={};
     submitcategory(data:any){
       if(data.cname!=""){
-      this.subcategoryitems.push(data);
+      this.menu.push(data);
       }else{
       this.error="Please Fill SubCategory Name Field";
       }
@@ -43,14 +42,14 @@ export class SubCategory {
      // this.categoryitems.push(data);
      var key = data.key;
      delete data.key;
-     this.subcategoryitems.update(key,data);
+     this.menu.update(key,data);
       }else{
       this.uperror="Please Fill SubCategory Name Field";
       }
     }
     deletecategory(data:any){
       var key = data.$key;
-      this.subcategoryitems.remove(key);
+      this.menu.remove(key);
       console.log(key);
     }
 
