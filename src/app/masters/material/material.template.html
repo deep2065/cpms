@@ -1,0 +1,33 @@
+
+    <div class="col-md-12">
+      <div class="modal-header">       
+        <h4 class="modal-title">Add Your Material</h4>
+      </div>
+      <div class="modal-body">
+          <h4 class="modal-title">{{error}}</h4>
+          <div class="col-md-12">
+            <div class="alert alert-success" *ngIf="success">
+                <strong>{{success}}</strong> 
+              </div>
+        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submititem(form.value); form.reset();">
+          <div class="form-group">
+            <label class="control-label col-sm-12" for="materialname">Material Name</label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control" required name="materialname" id="materialname" placeholder="Enter Material Name"  ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-12"  for="notes">Notes</label>
+            <div class="col-sm-12"> 
+              <textarea class="form-control"  name="notes" id="notes" ngModel ></textarea>
+            </div>
+          </div>
+          
+          <div class="form-group"> 
+            <div class="col-sm-12" style="text-align: center">
+              <button type="submit" class="btn btn-default">Add Material</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      

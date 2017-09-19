@@ -175,7 +175,7 @@ export class Category {
       this.categoryitems.push(data);
       this.success = "Trade Added Successfully.";
       }else{
-      this.error="Please Fill Category Name Field";
+      this.error="Please Fill Trade Name Field";
       }
     }
     updatecategory(data:any){

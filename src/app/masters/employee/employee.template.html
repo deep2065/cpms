@@ -49,25 +49,7 @@
     </div>
     <div class="col-md-4" style="float: left">
         <label class="control-label col-sm-12" >Choose Permission</label>
-     <!-- <div class="form-group">
-       
-        <div class="col-sm-10" *ngFor="let menu of menus | async; let i=index">
-          <div class="mainheading" *ngIf="menu.murl=='#'">
-              <input type="checkbox"    value="{{menu.mname}}" id="{{'permissionh'+i}}" (change)="chekboxchecked([$event.target.getAttribute('value')],$event.target.checked)"  ngModel>
-              <label  for="{{'permissionh'+i}}" >{{menu.mname}}</label>
-          </div>
-          <div class="child" *ngFor="let menu1 of menus | async; let j=index">
-              <div class="headingchild" *ngIf="menu1.mname==menu.mname">
-                  <input type="checkbox"    value="{{menu1.mname}}" id="{{menu.mname+j}}" (change)="chekboxchecked([$event.target.getAttribute('value')],$event.target.checked)"  ngModel>
-                  <label  for="{{menu.mname+j}}" >{{menu1.mname}}</label>
-              </div>
-          </div>
-         <input type="checkbox"   value="{{menu.mname}}" id="{{'permission'+i}}" (change)="chekboxchecked([$event.target.getAttribute('value')],$event.target.checked)"  ngModel>
-          <label  for="{{'permission'+i}}" >{{menu.mname}}</label>
-        </div>
-       
-      </div>-->
-
+     
       <ul>
           <div *ngFor="let menu of menus | async; let i=index">
           <li class="permission-block" *ngIf="menu.murl=='#'">

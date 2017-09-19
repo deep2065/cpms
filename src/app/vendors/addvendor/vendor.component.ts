@@ -29,9 +29,14 @@ export class Vendor {
 
   categoryitems : FirebaseListObservable<any[]>;
   vendors : FirebaseListObservable<any[]>;
+  public trade=[];
     constructor(db:AngularFireDatabase) {
       this.categoryitems = db.list('/categorys');
       this.vendors = db.list('/vendors');
+      db.list('/categorys').subscribe(keys=>keys.forEach(cat=>{
+        if(cat.tradetype=='vendor')
+        this.trade.push(cat);
+      }));
     }
   
     public error:string="";

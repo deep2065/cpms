@@ -9,32 +9,140 @@
             <div class="alert alert-success" *ngIf="success">
                 <strong>{{success}}</strong> 
               </div>
-        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submititem(form.value); form.reset();">
+        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submititem(form.value);">
           <div class="form-group">
             <label class="control-label col-sm-12" for="itemname">Item Name</label>
-            <div class="col-sm-10">
+            <div class="col-sm-12">
               <input type="text" class="form-control" required name="itemname" id="itemname" placeholder="Enter Item Name"  ngModel>
             </div>
           </div>
-
+<table style="width:100%;">
+  <tbody>
+    <tr>
+      <td>
           <div class="form-group">
-            <label class="control-label col-sm-12" for="itemquantity">Item Quantity</label>
-            <div class="col-sm-10">
-              <select class="form-control" name="itemquantity" id="itemquantity"  ngModel>
-                <option value="">-- Choose Your Quantity --</option> 
-                <option *ngFor="let item of quantity | async" [ngValue]="item.quantity">{{item.quantity}}</option>            
+          <label class="control-label col-sm-12" for="materialname">Material Name</label>
+          <div class="col-sm-12">
+            <select class="form-control" name="materialname_1" id="materialname"  ngModel>
+              <option value="">-- Choose Your Material --</option>  
+              <option *ngFor="let item of material | async" [ngValue]="item.materialname">{{item.materialname}}</option>            
+            </select>
+          </div>
+        </div>
+      </td>
+    <td>
+      <div class="form-group">
+      <label class="control-label col-sm-12" for="materialquantity">Material Quantity</label>
+      <div class="col-sm-12">
+        <select class="form-control" name="materialquantity_1" id="materialquantity"  ngModel>
+          <option value="">-- Choose Your Quantity --</option> 
+          <option *ngFor="let item of quantity | async" [ngValue]="item.quantity">{{item.quantity}}</option>            
+        </select>
+      </div>
+    </div>
+  </td>
+  <td>
+      <div class="form-group">
+          <label class="control-label col-sm-12" for="materialunit">Material Unit</label>
+          <div class="col-sm-12">
+            <select class="form-control" name="materialunit_1" id="materialunit" ngModel>
+              <option value="">-- Choose Your Unit --</option> 
+              <option *ngFor="let item of unit | async" [ngValue]="item.unit">{{item.unit}}</option>            
+            </select>
+          </div>
+        </div>
+  </td>
+  <td>
+    <!--<input type="button" value="Add">-->
+   
+  </td>
+  </tr>
+
+     <tr>
+        <td>
+            <div class="form-group">
+            <label class="control-label col-sm-12" for="materialname">Material Name</label>
+            <div class="col-sm-12">
+              <select class="form-control" name="materialname_2" id="materialname" ngModel>
+                <option value="">-- Choose Your Material --</option>  
+                <option *ngFor="let item of material | async" [ngValue]="item.materialname">{{item.materialname}}</option>            
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-12" for="itemunit">Item Unit</label>
-            <div class="col-sm-10">
-              <select class="form-control" name="itemunit" id="itemunit"  ngModel>
+        </td>
+      <td>
+        <div class="form-group">
+        <label class="control-label col-sm-12" for="materialquantity">Material Quantity</label>
+        <div class="col-sm-12">
+          <select class="form-control" name="materialquantity_2" id="materialquantity"  ngModel>
+            <option value="">-- Choose Your Quantity --</option> 
+            <option *ngFor="let item of quantity | async" [ngValue]="item.quantity">{{item.quantity}}</option>            
+          </select>
+        </div>
+      </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <label class="control-label col-sm-12" for="materialunit">Material Unit</label>
+            <div class="col-sm-12">
+              <select class="form-control" name="materialunit_2" id="materialunit"ngModel>
                 <option value="">-- Choose Your Unit --</option> 
                 <option *ngFor="let item of unit | async" [ngValue]="item.unit">{{item.unit}}</option>            
               </select>
             </div>
           </div>
+    </td>
+    <td>
+     <!-- <input type="button" value="Add">-->
+     
+    </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="form-group">
+            <label class="control-label col-sm-12" for="materialname">Material Name</label>
+            <div class="col-sm-12">
+              <select class="form-control" name="materialname_3" id="materialname" ngModel>
+                <option value="">-- Choose Your Material --</option>  
+                <option *ngFor="let item of material | async" [ngValue]="item.materialname">{{item.materialname}}</option>            
+              </select>
+            </div>
+          </div>
+        </td>
+      <td>
+        <div class="form-group">
+        <label class="control-label col-sm-12" for="materialquantity">Material Quantity</label>
+        <div class="col-sm-12">
+          <select class="form-control" name="materialquantity_3" id="materialquantity"  ngModel>
+            <option value="">-- Choose Your Quantity --</option> 
+            <option *ngFor="let item of quantity | async" [ngValue]="item.quantity">{{item.quantity}}</option>            
+          </select>
+        </div>
+      </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <label class="control-label col-sm-12" for="materialunit">Material Unit</label>
+            <div class="col-sm-12">
+              <select class="form-control" name="materialunit_3" id="materialunit"ngModel>
+                <option value="">-- Choose Your Unit --</option> 
+                <option *ngFor="let item of unit | async" [ngValue]="item.unit">{{item.unit}}</option>            
+              </select>
+            </div>
+          </div>
+    </td>
+    <td>
+     <!-- <input type="button" value="Add">-->
+     
+    </td>
+    </tr>
+    
+    <!--<tr *ngFor="let row1 of rows">{{row1.innerHTML | safeHtml}}</tr>-->
+  </tbody>
+</table>
+
+         <!--
           <div class="form-group">
             <label class="control-label col-sm-12" for="itemtrade">Item Trade</label>
             <div class="col-sm-10">
@@ -54,10 +162,10 @@
             </div>
           </div>
           
-         
+        -->
           <div class="form-group">
             <label class="control-label col-sm-12"  for="notes">Notes</label>
-            <div class="col-sm-10"> 
+            <div class="col-sm-12"> 
               <textarea class="form-control"  name="notes" id="notes" ngModel ></textarea>
             </div>
           </div>

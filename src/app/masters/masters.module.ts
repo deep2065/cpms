@@ -27,6 +27,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import {FirebaseConfig}  from './firebaseConfig';
 import {ObjectPipe}  from '../custompipes/object.pipe';
+import {Safehtml}  from '../custompipes/safehtml.pipe';
 
 declare let global: any;
 
@@ -59,6 +60,7 @@ import { Listitem } from './listitem/listitem.component';
 
 import { Employee } from './employee/employee.component';
 import { Listemployee } from './listemployee/listemployee.component';
+import { Material } from './material/material.component';
 
 import {
   DatetimeTransparent
@@ -83,6 +85,7 @@ export const routes = [
   {path: 'listitem', component: Listitem},
   {path: 'employee', component: Employee},
   {path: 'listemployee', component: Listemployee},
+  {path: 'material', component: Material},
 ];
 
 @NgModule({
@@ -99,7 +102,9 @@ export const routes = [
     Listquantity,
     Item,
     ObjectPipe,
+    Safehtml,
     Listitem,
+    Material,
     Employee,
     Listemployee,
     Autosize,

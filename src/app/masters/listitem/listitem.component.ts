@@ -18,8 +18,10 @@ export class Listitem {
   
   
   item : FirebaseListObservable<any[]>;
+  items : FirebaseListObservable<any[]>;
     constructor(db:AngularFireDatabase) {
       this.item = db.list('/items');
+      this.items = db.list('/items');
     }
 
   

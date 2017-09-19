@@ -26,8 +26,13 @@ export class Contractor {
   subcategoryitems : FirebaseListObservable<any[]>;
   fsubcategoryitems : object;
   contractors : FirebaseListObservable<any[]>;
+  public trade = [] ;
     constructor(db:AngularFireDatabase) {
       this.categoryitems = db.list('/categorys');
+      db.list('/categorys').subscribe(keys=>keys.forEach(cat=>{
+        if(cat.tradetype=='contractor')
+        this.trade.push(cat);
+      }));
       this.subcategoryitems = db.list('/subcategorys');
       this.contractors = db.list('/contractors');
     }

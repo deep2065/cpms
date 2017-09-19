@@ -11,6 +11,17 @@
           </div>
         <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submitcategory(form.value); form.reset();">
           <div class="form-group">
+            <label class="control-label col-sm-12" for="tradetype">Trade Type</label>
+            <div class="col-sm-10">
+              <select name="tradetype" class="form-control" ngModel>
+                <option value="">-- Select Trade Type --</option>
+                <option value="vendor">Vendor</option>
+                <option value="contractor">Contractor</option>
+              </select>
+            </div>
+          </div>
+         
+          <div class="form-group">
             <label class="control-label col-sm-12" for="cname">Trade Name</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" required name="cname" id="cname" placeholder="Enter Trade Name"  ngModel>
@@ -27,7 +38,7 @@
           <div class="col-md-12">
             <div class="form-group"> 
               <div class="col-sm-offset-6" style="text-align:center">
-                <button type="submit" class="btn btn-default">Add Vendor</button>
+                <button type="submit" class="btn btn-default">Add Trade</button>
               </div>
             </div>
          
@@ -44,12 +55,23 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">       
-          <h4 class="modal-title">Update Your Category</h4>
+          <h4 class="modal-title">Update Your Trade</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
             <h4 class="modal-title">{{error}}</h4>
           <form class="form-horizontal"  #upform="ngForm" (ngSubmit)="updatecategory(upform.value)">
+            <div class="form-group">
+              <label class="control-label col-sm-12" for="tradetype">Trade Type</label>
+              <div class="col-sm-10">
+                <select name="tradetype" class="form-control">
+                  <option value="">-- Select Trade Type --</option>
+                  <option value="vendor" [selected]='updata.tradetype=="vendor"'>Vendor</option>
+                  <option value="contractor" [selected]='updata.tradetype=="contractor"'>Contractor</option>
+                </select>
+              </div>
+            </div>
+            
             <div class="form-group">
               <label class="control-label col-sm-12" for="ecname">Category Name</label>
               <div class="col-sm-10">
