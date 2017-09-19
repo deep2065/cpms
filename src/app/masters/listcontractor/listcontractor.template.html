@@ -1,7 +1,11 @@
 
 
 <div class="col-md-12">
-    <table  class="table table-striped">
+    <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+    (editConfirm)="onSaveConfirm($event)"></ng2-smart-table>
+
+    <table  class="table table-striped" style="display:none">
       <tr>
         <th>S.N </th>
         <th>Company Name</th>

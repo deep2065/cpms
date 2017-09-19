@@ -18,9 +18,7 @@ export class Sidebar {
   constructor(private renderer: Renderer, private el: ElementRef, private db :AngularFireDatabase) {
     var key = window.sessionStorage.getItem("userkey");
      db.list('/users/'+key+'/permission').subscribe(keys=>keys.forEach(permi=>{
-      console.log(permi);
       db.list('/menus').subscribe(keys=>keys.forEach(menu=>{
-        console.log(menu);
         if(menu.mname==permi.$key){
         this.menus.push(menu);
         }

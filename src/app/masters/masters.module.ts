@@ -8,6 +8,7 @@ import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import { AlertModule, TooltipModule } from 'ngx-bootstrap';
 import { Autosize } from 'angular2-autosize';
 import { TagInputModule } from 'ng2-tag-input';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 
 import { PaginationModule, BsDropdownModule } from 'ngx-bootstrap';
@@ -123,6 +124,7 @@ export const routes = [
     WidgetModule,
     Ng2TableModule,
     JqSparklineModule,
+    Ng2SmartTableModule,
     UtilsModule,
     TagInputModule,
     RouterModule.forChild(routes),
