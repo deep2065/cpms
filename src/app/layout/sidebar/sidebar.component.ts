@@ -16,7 +16,7 @@ export class Sidebar {
   menus =[];
   user : FirebaseListObservable<any>;
   constructor(private renderer: Renderer, private el: ElementRef, private db :AngularFireDatabase) {
-    var key = window.sessionStorage.getItem("userkey");
+  /* var key = window.sessionStorage.getItem("userkey");
      db.list('/users/'+key+'/permission').subscribe(keys=>keys.forEach(permi=>{
       db.list('/menus').subscribe(keys=>keys.forEach(menu=>{
         if(menu.mname==permi.$key){
@@ -24,7 +24,7 @@ export class Sidebar {
         }
       }));
     }));
-    
+    */
   }
 
   ngAfterViewInit() {

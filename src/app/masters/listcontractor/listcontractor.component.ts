@@ -29,7 +29,7 @@ export class ListContractor {
   source: LocalDataSource;
   list = [];
     filTipo: string = 'todos';
-    settings:any;
+   // settings:any;
     dados: FirebaseListObservable<any[]>;
     public solicitacoes: any;
   categoryitems : FirebaseListObservable<any[]>;
@@ -50,9 +50,53 @@ export class ListContractor {
         {
           this.list.push({value:cat.cname,title:cat.cname});
         }
+        this.tableconfigration();
+       this.source.refresh();
+      }));
+    }
+    tableconfigration(){
+      this.settings = {
+        delete: {
+          confirmDelete: true,
           
+        },
+        
+        edit: {
+          confirmSave: true,
+        },
+       columns: {      
+        cname:{title:'Company Name', filter: false},
+        conname: {title:'Primary Name', filter: false},
+        trade: {title:'Trade', filter: false,
+        editor: {
+          type: "list",
+          config:{
+            list: this.list  // a list to populate the options
+          }} },
+        cmobile: {title:'Phone', filter: false},
+        cemail: {title:'Email', filter: false},
+    
+        },
+        actions: {
          
-    this.settings = {
+          add: false,
+          edit: true,
+          delete: true,
+          open: true,
+          position: 'right',
+          custom:[{
+            name: 'view',
+            title: 'Details',
+                  }],
+        }
+        
+        
+        
+      };
+    }
+   
+    settings = {
+      
       delete: {
         confirmDelete: true,
         
@@ -75,17 +119,21 @@ export class ListContractor {
   
       },
       actions: {
+        custom:[{
+          name: 'view',
+          title: 'View ',
+                }],
         add: false,
         edit: true,
         delete: true,
         open: true,
+        position: 'right'
       }
       
       
       
-    }
-  }));
-    }
+    };
+  
 
     onSearch(query: string = '') {
       this.source.setFilter([
@@ -132,7 +180,9 @@ export class ListContractor {
         event.confirm.reject();
       }
     }
-
+    onCustom(event){
+      console.log(event);
+    }
     public error:string="";
     public uperror:string="";
     public updata :object={};

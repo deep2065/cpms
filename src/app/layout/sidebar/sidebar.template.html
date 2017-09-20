@@ -104,7 +104,7 @@
     <!--Start Dymnamic menus -->
 
 
-    <li class="accordion-group panel" [routerLinkActive]="['active']" *ngFor="let menu of menus; let i=index">
+   <!-- <li class="accordion-group panel" [routerLinkActive]="['active']" *ngFor="let menu of menus; let i=index">
       <a *ngIf="menu.murl=='#'" (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
          data-parent="#side-nav" href="#{{'menu'+i}}-collapse">
          <i class="fa fa-pencil"></i>
@@ -117,8 +117,18 @@
   
        
       </ul>
+    </li>-->
+  
+      <li [routerLinkActive]="['active']">
+          <a routerLink="masters/listcostdata"><i class="fa fa-pencil"></i> <span class="name">Cost Data</span></a>
+        </li>
+        <li [routerLinkActive]="['active']">
+            <a routerLink="masters/listitem"><i class="fa fa-pencil"></i> <span class="name">Item Material</span></a>
+          </li>
+    <li [routerLinkActive]="['active']">
+      <a routerLink="masters/materiallist"><i class="fa fa-pencil"></i> <span class="name">Material List</span></a>
     </li>
-    
+
    <li class="accordion-group panel" [routerLinkActive]="['active']">
       <a (click)="sidebarBehavior($event)" class="accordion-toggle collapsed" data-toggle="collapse"
          data-parent="#side-nav" href="#menu-collapse">

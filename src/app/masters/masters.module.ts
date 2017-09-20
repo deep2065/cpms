@@ -29,6 +29,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import {FirebaseConfig}  from './firebaseConfig';
 import {ObjectPipe}  from '../custompipes/object.pipe';
 import {Safehtml}  from '../custompipes/safehtml.pipe';
+import {GetnameBykey}  from '../custompipes/getnamebykey.pipe';
 
 declare let global: any;
 
@@ -62,6 +63,9 @@ import { Listitem } from './listitem/listitem.component';
 import { Employee } from './employee/employee.component';
 import { Listemployee } from './listemployee/listemployee.component';
 import { Material } from './material/material.component';
+import { Listmaterial } from './listmaterial/listmaterial.component';
+import { Costdata } from './costdata/costdata.component';
+import { Listcostdata } from './listcostdata/listcostdata.component';
 
 import {
   DatetimeTransparent
@@ -87,6 +91,9 @@ export const routes = [
   {path: 'employee', component: Employee},
   {path: 'listemployee', component: Listemployee},
   {path: 'material', component: Material},
+  {path: 'materiallist', component: Listmaterial},
+  {path: 'costdata', component: Costdata},
+  {path: 'listcostdata', component: Listcostdata},
 ];
 
 @NgModule({
@@ -103,11 +110,15 @@ export const routes = [
     Listquantity,
     Item,
     ObjectPipe,
+    GetnameBykey,
     Safehtml,
     Listitem,
     Material,
+    Listmaterial,
     Employee,
     Listemployee,
+    Listcostdata,
+    Costdata,
     Autosize,
     MarkdownToolbarTransparent,        
     DatetimeTransparent,

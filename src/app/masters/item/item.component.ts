@@ -4,6 +4,9 @@ declare let jQuery: any;
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { LocalDataSource } from 'ng2-smart-table';
+import { forEach } from "@angular/router/src/utils/collection";
 
 @Component({
   selector: '[item]',
@@ -14,89 +17,170 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 export class Item {
   
   quantity : FirebaseListObservable<any[]>;
-  unit : FirebaseListObservable<any[]>;
+  unit =[];
   item : FirebaseListObservable<any[]>;
   items : FirebaseListObservable<any[]>;
-  trade : FirebaseListObservable<any[]>;
+  trade =[];
   vendors : FirebaseListObservable<any[]>;
-  material : FirebaseListObservable<any[]>;
+  material =[];
     constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
-      this.unit = db.list('/units');
       this.item = db.list('/items');
       this.items = db.list('/items');
-      console.log(this.items);
-      this.trade = db.list('/categorys');
       this.vendors = db.list('/vendors');
-      this.material = db.list('/materials');
+
+      db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
+        
+          this.material.push({value:mat.materialname,title:mat.materialname});
+        this.tableconfigration();
+      }));
+      db.list('/units').subscribe(keys=>keys.forEach(unit=>{
+          this.unit.push({value:unit.unit,title:unit.unit});
+        this.tableconfigration();
+      }));
+
+      db.list('/categorys').subscribe(keys=>keys.forEach(cat=>{
+        if(cat.tradetype=='contractor')
+        this.trade.push(cat);
+      }));
     }
-  
+    tableconfigration(){
+      this.settings = {
+        
+        delete: {
+          confirmDelete: true,
+          
+        },
+        add: {
+          confirmCreate: true,
+        },
+        edit: {
+          confirmSave: true,
+        },
+        columns: {      
+          materialname:{title:'Material Name',filter:false,
+          editor:{
+            type:'list',
+            config:{
+              list:this.material
+            }
+          }},
+          materialquantity: {title:'Material Quantity',filter:false},
+          materialunit: {title:'Material Unit',filter:false,
+          editor:{
+            type:'list',
+            config:{
+              list:this.unit
+            }
+          }},    
+          },
+          actions: {         
+            add: true,
+            edit: true,
+            delete: true,
+            open: true,
+            position: 'right',         
+          }
+      };
+    }
+    settings = {
+      
+      delete: {
+        confirmDelete: true,
+        
+      },
+      add: {
+        confirmCreate: true,
+      },
+      edit: {
+        confirmSave: true,
+      },
+      columns: {      
+        materialname:{title:'Material Name',filter:false,
+        editor:{
+          type:'list',
+          config:{
+            list:[{value:"kg",title:"KG"}]
+          }
+        }},
+        materialquantity: {title:'Material Quantity',filter:false},
+        materialunit: {title:'Material Unit',filter:false,
+        editor:{
+          type:'list',
+          config:{
+            list:[{value:"kg",title:"KG"}]
+          }
+        }},    
+        },
+        actions: {         
+          add: true,
+          edit: true,
+          delete: true,
+          open: true,
+          position: 'right',         
+        }
+    };
+
     public error:string="";
     public uperror:string="";
     public updata :object={};
     public success:string ;
     public rows = [];
     public row1 :string;
+    materialdata = [];
     submititem(data:any){
       var indatadata={};
-      if(data.itemquantity!=""){  
-        
-       
+      if(data.itemname!=""){     
         indatadata={
           itemname:data.itemname,
           notes:data.notes,
-          material:[{
-            materialname:data.materialname_1,
-            materialquantity:data.materialquantity_1,
-            materialunit:data.materialunit_1
-          },
-          {
-            materialname:data.materialname_2,
-            materialquantity:data.materialquantity_2,
-            materialunit:data.materialunit_2
-          },
-          {
-            materialname:data.materialname_3,
-            materialquantity:data.materialquantity_3,
-            materialunit:data.materialunit_3
-          }
-        ]
-          
-        }     
-//console.log(indatadata);
+          trade:data.trade,
+          material:this.materialdata          
+        }
       this.item.push(indatadata);
       this.success = "Item Added Successfully";
       }else{
       this.error="Please Fill Quantity Name Field";
       }
     }
-    updateitem(data:any){
-      if(data.itemquantity!=""){
-     var key = data.key;
-     delete data.key;
-     this.item.update(key,data);
-      }else{
-      this.uperror="Please Fill SubCategory Name Field";
+ 
+    onDeleteConfirm(event) {
+      if (window.confirm('Are you sure you want to delete?')) {
+        var rkey = event.data.key;
+        console.log(rkey);
+        var mainkey:number;
+        this.materialdata.forEach(function(value,index,arr){
+          if(value.key==rkey){
+           mainkey= index;
+          }
+        })    
+        this.materialdata.splice(mainkey,1);
+        event.confirm.resolve();
+      } else {
+        event.confirm.reject();
       }
     }
-    deleteitem(data:any){
-      var key = data.$key;
-      this.item.remove(key);
+  
+    onSaveConfirm(event) {
+      if (window.confirm('Are you sure you want to update?')) {
+        var key = event.data.$key;
+        //this.material.update(key,event.newData);
+        event.confirm.resolve(event.newData);
+      } else {
+        event.confirm.reject();
+      }
     }
 
-    edititem(data:any){
-      this.updata=data;
+    onCreateConfirm(event) {
+      if (window.confirm('Are you sure you want to create?')) {
+       // this.material.push(event.newData);
+       event.newData['key']=this.materialdata.length+1;
+       this.materialdata.push(event.newData);
+        event.confirm.resolve(event.newData);
+       // this.source.refresh();
+      } else {
+        event.confirm.reject();
+      }
     }
-    @ViewChild('rowbody') rowtablebody:ElementRef;
-
-    addrows = function(item:any){
-     this.rows.push(item);
-     this.row1=item;
-   
-     //var d1 = this.elementRef.nativeElement.querySelector('#rowbodyname');
-    // d1.nativeElement.insertAdjacentHTML('beforeend', item);
-      console.log(this.rows)
-   }
-   
 
 }
