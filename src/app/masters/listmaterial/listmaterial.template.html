@@ -1,8 +1,11 @@
 
 <div class="col-md-12">
 
-    <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
-    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+    <div class="modal-header">       
+        <h4 class="modal-title">Material List</h4>
+        <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
+</div>
+ <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
     (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
 
 

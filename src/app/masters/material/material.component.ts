@@ -14,7 +14,7 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 export class Material {
   
   material : FirebaseListObservable<any[]>;
- 
+ listmaterial =false;
     constructor(db:AngularFireDatabase) {
       this.material = db.list('/materials');
     }
@@ -27,6 +27,7 @@ export class Material {
       if(data.materialname!=""){
       this.material.push(data);
       this.success = "Material Added Successfully";
+      this.listmaterial=true;
       }else{
       this.error="Please Fill Material Name Field";
       }

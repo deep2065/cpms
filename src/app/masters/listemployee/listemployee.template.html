@@ -1,137 +1,21 @@
 
 
 <div class="col-md-12">
-  <table  class="table table-striped">
-    <tr>
-      <th>S.N </th>
-      <th>Employee Code</th>
-      <th>Employee Name</th>
-      <th>Email </th>
-      <th>Mobile </th>
-      <th>Permission </th>
-      <th>Action </th>
-    </tr>
-    <tr *ngFor="let item of employee | async; let i= index;">
-        <td>{{i+1}}</td>
-      <td>{{item.empcode}}</td>
-      <td>{{item.empname}}</td>
-      <td>{{item.empemail}}</td>
-      <td>{{item.empmobile}}</td>
-    <td style="width:300px"> <p class="permission" *ngFor="let permi of item.permission |  object">{{permi}}</p> </td>
-      <td><button class="button" (click)="deleteemployee(item)" title="Delete Vendor"><i class="fa fa-trash" aria-hidden="true"></i></button> 
-        <button class="button" data-toggle="modal" data-target="#editemployee" title="Edit Employee" (click)="editemployee(item)"> <i class="fa fa-pencil" aria-hidden="true"></i></button></td>
-    </tr>
-  </table>
+    <div class="modal-header">       
+        <h4 class="modal-title">Employee List</h4>
+        <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
 </div>
+ <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+    (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)" (custom)="onCustom($event)"></ng2-smart-table>
+
+
+</div>
+
 <div class="col-md-12">
     <div class="form-group"> 
         <div class="col-sm-offset-6" style="text-align:center">
-          <button [routerLinkActive]="['active']" type="button" class="btn btn-default"><a routerLink="/app/vendors/vendor">Add Vendor</a></button>
+          <button [routerLinkActive]="['active']" type="button" class="btn btn-default"><a routerLink="/app/masters/employee">Add Employee</a></button>
           
         </div>
       </div>
 </div>
-
-
-
-<div id="editemployee" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">       
-          <h4 class="modal-title">Update Your Employee</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-            <h4 class="modal-title">{{error}}</h4>
-            <form class="form-horizontal"  #form="ngForm" (ngSubmit)="updateemployee(form.value); " enctype="multipart/form-data">
-              <div class="col-md-12">
-                  <div class="alert alert-success" *ngIf="success">
-                      <strong>{{success}}</strong> 
-                    </div>
-          <div class="col-md-6" style="float: left">
-              <h4 class="modal-title">{{error}}</h4>
-              <div class="form-group">
-                <label class="control-label col-sm-12" for="ecode">Employee Code</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control"  (keypress)="isChar($event.keyCode)" required name="ecode" id="ecode" placeholder="Enter Employee Code (ABC123)"  ngModel>
-                </div>
-               
-              </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-12" for="ename">Employee Name</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control"  (keypress)="isChar($event.keyCode)" required name="ename" id="ename" placeholder="Enter Employee Name"  ngModel>
-                    </div>
-                   
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-12" for="mobile">Phone Number</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" (keypress)="isNumber($event.keyCode)" required name="mobile" id="mobile" placeholder="Enter Mobile Number"  ngModel>
-                    </div>
-                  </div> 
-      
-                  <div class="form-group">
-                      <label class="control-label col-sm-12" for="email"> Email</label>
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" required name="email" id="email" placeholder="Enter Email"  ngModel>
-                      </div>
-                    </div>             
-                      <div class="form-group">
-                        <label class="control-label col-sm-12" for="password">Password</label>
-                        <div class="col-sm-10">
-                          <input type="password" class="form-control" (keypress)="isNumber($event.keyCode)" required name="password" id="password" placeholder="********"  ngModel>
-                        </div>
-                      </div>             
-              
-             
-          </div>
-          <div class="col-md-4" style="float: left">
-              <label class="control-label col-sm-12" >Choose Permission</label>
-           
-            <ul>
-                <div *ngFor="let menu of menus | async; let i=index">
-                <li class="permission-block" *ngIf="menu.murl=='#'">
-                  <span  class="name">
-                      <input type="checkbox"    value="{{menu.mname}}" id="{{'permissionh'+i}}" (change)="chekboxchecked([$event.target.getAttribute('value')],$event.target.checked)"  >
-                      <label  for="{{'permissionh'+i}}" >{{menu.mname}}</label>
-                  </span>
-                    <ul>
-                      <div *ngFor="let menu1 of menus | async; let j=index">
-                      <li *ngIf="menu1.parrent==menu.mname">
-                          <input type="checkbox" class="{{menu.mname}}"    value="{{menu1.mname}}" id="per{{j}}" (change)="chekboxchecked([$event.target.getAttribute('value')],$event.target.checked)"  >
-                          <label  for="per{{j}}" >{{menu1.mname}}</label></li> 
-                      </div>
-                
-                     
-                    </ul>
-                  </li>
-                </div>
-            </ul>
-          </div>
-          <div class="col-md-4" style="float: left">
-              
-          </div><!-- upload file end -->
-              </div>
-              <div class="clearfix"></div>
-          <div class="col-md-12">
-            <div class="form-group"> 
-              <div class="col-sm-offset-6" style="text-align:center">
-                <button type="submit" class="btn btn-default">Update Employee</button>
-              </div>
-            </div>
-         
-          </div>
-        
-      
-        </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-  
-    </div>
-  </div>

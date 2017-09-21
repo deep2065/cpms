@@ -1,0 +1,65 @@
+
+<div class="col-md-12">
+ 
+    <div class="modal-header">       
+      <h4 class="modal-title">Vendor Details</h4>
+      <h4 class="modal-title pull-right" ><button class="button" (click)="goback()"><<Back</button></h4>
+    </div>
+    <form class="form-horizontal" *ngIf='vendor.length>0' style='margin-top:20px'>
+        <div class="col-md-12">
+            
+    <div class="col-md-4" style="float: left">
+          <div class="form-group">
+              <label class="control-label col-sm-6 floatleftclass" for="cname">Employee Code</label>
+              
+                  <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].empcode}}</label>
+             
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 floatleftclass" for="conname"> Employee Name</label>
+              
+                <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].empname}}</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 floatleftclass" for="cadd"> Email</label>
+              
+                  <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].empemail}}</label> 
+                </div>
+            <div class="form-group">
+                <label class="control-label col-sm-6 floatleftclass" for="cemail"> Mobile</label>
+                
+                    <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].empmobile}}</label>
+                  </div>       
+                            
+        
+       
+    </div>
+    <div class="col-md-4" style="float: left">
+      <div class="form-group">
+        <label class="control-label col-sm-6 floatleftclass" for="trade">Permission</label>
+       
+           <!-- <p class="permission" *ngFor="let permi of vemdor[0].permission">{{permi}}</p>-->
+           <p class="permission" *ngFor="let permi of vendor[0].permission |  object">{{permi}}</p>
+
+        
+      </div>
+     
+    </div>
+    <div class="col-md-4" style="float: left">
+        
+    </div><!-- upload file end -->
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+            <div class="form-group"> 
+                <div class="col-sm-offset-6" style="text-align:center">
+                  <button [routerLinkActive]="['active']" type="button" class="btn btn-default"><a routerLink="/app/masters/employee">Add Employee</a></button>
+                  
+                </div>
+              </div>
+        </div>
+  
+
+  </form>
+    
+</div>

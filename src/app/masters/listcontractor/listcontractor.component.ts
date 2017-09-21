@@ -9,6 +9,7 @@ import { forEach } from "@angular/router/src/utils/collection";
 import {CategoryModel} from './categoryform';
 import 'rxjs/add/operator/map';
 
+import { ActivatedRoute, Router }       from '@angular/router';
 
 @Component({
   selector: '[listcontractor]',
@@ -35,7 +36,7 @@ export class ListContractor {
   categoryitems : FirebaseListObservable<any[]>;
   contractors : FirebaseListObservable<any[]>;
   
-    constructor(private db:AngularFireDatabase) {
+    constructor(private db:AngularFireDatabase, private route:Router) {
       this.categoryitems = db.list('/categorys');
       this.contractors = db.list('/contractors');      
       this.dados = this.db.list('/contractors');
@@ -181,27 +182,10 @@ export class ListContractor {
       }
     }
     onCustom(event){
-      console.log(event);
+      if(event.action=="view"){
+        this.route.navigate(["/app/masters/contractordetails/"+event.data.$key]);
+      }
     }
-    public error:string="";
-    public uperror:string="";
-    public updata :object={};
-   
     
-    isChar(key:number){
-      /*if((key>=65 || key<=90) || key==32 ){
-        return true;
-      }else{
-        return false;
-      }*/
-    }
-
-    isNumber(key:number){
-     /* if((key>=96 || key<=105) && key==32 ){
-        return true;
-      }else{
-        return false;
-      }*/
-    }
     
 }

@@ -1,0 +1,74 @@
+
+<div class="col-md-12">
+ 
+    <div class="modal-header">       
+      <h4 class="modal-title">Vendor Details</h4>
+      <h4 class="modal-title pull-right" ><button class="button" (click)="goback()"><<Back</button></h4>
+    </div>
+    <form class="form-horizontal" *ngIf='vendor.length>0' style='margin-top:20px'>
+        <div class="col-md-12">
+            
+    <div class="col-md-4" style="float: left">
+          <div class="form-group">
+              <label class="control-label col-sm-6 floatleftclass" for="cname">Company Name</label>
+              
+                  <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].cname}}</label>
+             
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 floatleftclass" for="conname"> Contact Name</label>
+              
+                <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].conname}}</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 floatleftclass" for="cadd"> Company Address</label>
+              
+                  <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].cadd}}</label> 
+                </div>
+            <div class="form-group">
+                <label class="control-label col-sm-6 floatleftclass" for="cemail"> Company Email</label>
+                
+                    <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].cemail}}</label>
+                  </div>
+
+              <div class="form-group">
+                  <label class="control-label col-sm-6 floatleftclass" for="cmobile">Company Phone Number</label>
+                
+                      <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].cmobile}}</label>
+                      </div>
+                            
+        
+       
+    </div>
+    <div class="col-md-4" style="float: left">
+      <div class="form-group">
+        <label class="control-label col-sm-6 floatleftclass" for="trade">Trade</label>
+       
+            <label class="control-label col-sm-6 editorclass" for="trade">{{vendor[0].conname}}</label>
+        
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-6 floatleftclass" for="tin">EIN/SSN/TIN</label>
+       
+            <label class="control-label col-sm-6 editorclass" for="cname">{{vendor[0].tin}}</label></div>
+                  
+
+    </div>
+    <div class="col-md-4" style="float: left">
+        
+    </div><!-- upload file end -->
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+            <div class="form-group"> 
+                <div class="col-sm-offset-6" style="text-align:center">
+                  <button [routerLinkActive]="['active']" type="button" class="btn btn-default"><a routerLink="/app/vendors/vendor">Add Vendor</a></button>
+                  
+                </div>
+              </div>
+        </div>
+  
+
+  </form>
+    
+</div>

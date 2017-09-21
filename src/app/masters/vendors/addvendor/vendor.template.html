@@ -1,0 +1,169 @@
+
+<div class="col-md-12">
+ 
+    <div class="modal-header">       
+      <h4 class="modal-title">Add Your Vendor</h4>
+    </div>
+    <form class="form-horizontal"  #form="ngForm" (ngSubmit)="addvendor(form.value); form.reset()" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="alert alert-success" *ngIf="success">
+                <strong>{{success}}</strong> 
+              </div>
+    <div class="col-md-4" style="float: left">
+        <h4 class="modal-title">{{error}}</h4>
+    
+          <div class="form-group">
+              <label class="control-label col-sm-12" for="cname">Company Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control"  (keypress)="isChar($event.keyCode)" required name="cname" id="cname" placeholder="Enter Company Name"  ngModel>
+              </div>
+             
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-12" for="conname"> Contact Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" required name="conname" id="conname" placeholder="Enter Contact Name"  ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-12" for="cadd"> Company Address</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" required name="cadd" id="cadd" placeholder="Enter Company Address"  ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-12" for="cemail"> Company Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" required name="cemail" id="cemail" placeholder="Enter Company Email"  ngModel>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <label class="control-label col-sm-12" for="cmobile">Company Phone Number</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" (keypress)="isNumber($event.keyCode)" required name="cmobile" id="cmobile" placeholder="Enter Mobile Number"  ngModel>
+                  </div>
+                </div>              
+        
+       
+    </div>
+    <div class="col-md-4" style="float: left">
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="trade">Trade</label>
+        <div class="col-sm-10">
+          <select class="form-control"  name="trade" id="trade"  ngModel>
+            <option value="">-- Trade --</option> 
+            <option *ngFor="let category of trade" [ngValue]="category.cname">{{category.cname}}</option>                   
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-12" for="tin">EIN/SSN/TIN</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control"   name="tin" id="tin" placeholder="Enter EIN/SSN/TIN"  ngModel>
+        </div>
+      </div>              
+
+    </div>
+    <div class="col-md-4" style="float: left">
+        
+    </div><!-- upload file end -->
+        </div>
+        <div class="clearfix"></div>
+    <div class="col-md-12">
+      <div class="form-group"> 
+        <div class="col-sm-offset-6" style="text-align:center">
+          <button type="submit" class="btn btn-default">Add Vendor</button>
+        </div>
+      </div>
+   
+    </div>
+  
+
+  </form>
+    
+</div>
+
+<div id="addcontractor" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    
+
+  </div>
+</div>
+
+
+<div id="editcontractor" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">       
+          <h4 class="modal-title">Update Your Contractor</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h4 class="modal-title">{{error}}</h4>
+          <form class="form-horizontal"  #upform="ngForm" (ngSubmit)="updatecontractor(upform.value)">
+              <div class="form-group">
+                  <label class="control-label col-sm-12" for="fname">Full Name</label>
+                  <div class="col-sm-10">
+                      <input type="hidden" [(ngModel)]='updata.$key' name="key">
+                    <input type="text" class="form-control" [(ngModel)]='updata.fname' required name="fname" id="fname" placeholder="Enter Full Name"  ngModel>
+                  </div>
+                 
+                  
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-12" for="email">Email</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" [(ngModel)]='updata.email'  required name="email" id="email" placeholder="Enter Email Address"  ngModel>
+                    </div>
+                  </div>
+  
+                  <div class="form-group">
+                      <label class="control-label col-sm-12" for="mobile">Mobile</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" [(ngModel)]='updata.mobile' required name="mobile" id="mobile" placeholder="Enter Mobile Number"  ngModel>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-12"  for="address">Address</label>
+                        <div class="col-sm-10"> 
+                          <textarea class="form-control"  name="address" [(ngModel)]='updata.address' id="address" ngModel  placeholder="Enter Full Address"></textarea>
+                        </div>
+                      </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-12" for="cname">Choose Category Name</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" #category name="cname" id="cname" (change)="getsubcategory(category.value)"  ngModel>
+                      <option value="">-- Choose Your Category --</option> 
+                      <option *ngFor="let category of categoryitems | async" [ngValue]="category.cname" [selected]='updata.cname==category.cname'>{{category.cname}}</option>                   
+                    </select>
+                  </div>
+                </div>
+            <div class="form-group">
+              <label class="control-label col-sm-12" for="scname">Choose SubCategory Name</label>
+              <div class="col-sm-10">
+                  <select class="form-control" name="scname" id="scname"  ngModel>
+                      <option value="">-- Choose Your Category --</option> 
+                      <option *ngFor="let subcategory of subcategoryitems | async" [ngValue]="subcategory.scname" [selected]='updata.scname==subcategory.scname'>{{subcategory.scname}}</option>                   
+                    </select> </div>
+            </div>        
+            
+            
+            <div class="form-group"> 
+              <div class="col-sm-offset-12">
+                <button type="submit" class="btn btn-default">Update</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>

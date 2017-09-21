@@ -67,6 +67,11 @@ import { Listmaterial } from './listmaterial/listmaterial.component';
 import { Costdata } from './costdata/costdata.component';
 import { Listcostdata } from './listcostdata/listcostdata.component';
 
+import { VendorList } from './listvendor/vendorlist.component';
+import { Vendordetails } from './vendordetails/vendordetails.component';
+import { Contractordetails } from './contractordetails/contractordetails.component';
+import { Employeedetails } from './employeedetails/employeedetails.component';
+
 import {
   DatetimeTransparent
 } from '../ui/datetime-transparent/datetime-transparent.directive';
@@ -94,6 +99,10 @@ export const routes = [
   {path: 'materiallist', component: Listmaterial},
   {path: 'costdata', component: Costdata},
   {path: 'listcostdata', component: Listcostdata},
+  {path: 'listvendor', component: VendorList},
+  {path: 'vendordetails/:key', component: Vendordetails},
+  {path: 'contractordetails/:key', component: Contractordetails},
+  {path: 'employeedetails/:key', component: Employeedetails},
 ];
 
 @NgModule({
@@ -118,6 +127,10 @@ export const routes = [
     Employee,
     Listemployee,
     Listcostdata,
+    VendorList,
+    Contractordetails,
+    Vendordetails,
+    Employeedetails,
     Costdata,
     Autosize,
     MarkdownToolbarTransparent,        
