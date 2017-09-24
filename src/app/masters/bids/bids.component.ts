@@ -8,6 +8,30 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalDataSource } from 'ng2-smart-table';
 import { forEach } from "@angular/router/src/utils/collection";
 
+export class projectdata {
+  projecttype:string="";
+  clientname:string="";
+  companyname:string="";
+  clientadd:string="";
+  clientemail:string="";
+  clientmobile:string="";
+  biddate:Date=new Date();
+  bidexpair:Date =new Date();
+  preparedby:string="";
+  supervisor:string="";
+  gcomments:string="";
+  housesqft:string="";
+  bedroom:string="";
+  bathroom:string="";
+  garagetype:string="";
+  carpot:string="";
+  remodeltype:string="";
+  items:object;
+  estimator:object;
+  comment:string ="";
+  totalprice:string="";
+}
+
 @Component({
   selector: '[bids]',
   templateUrl: './bids.template.html',
@@ -15,10 +39,7 @@ import { forEach } from "@angular/router/src/utils/collection";
   encapsulation: ViewEncapsulation.None,
 })
 export class Bids {
-  biddate: Date = new Date();
-  bidexpair:Date =this.biddate;
-  
-  datepickerOpts = {
+    datepickerOpts = {
       startDate: new Date(),
       autoclose: true,
       todayBtn: 'linked',
@@ -27,11 +48,7 @@ export class Bids {
       format: 'm/d/yyyy',
       icon: 'fa fa-calendar'
   }
-
-  
-
-
-
+prodata = new projectdata();
 
   quantity : FirebaseListObservable<any[]>;
   unit =[];
@@ -43,13 +60,16 @@ export class Bids {
   itemsarray = [];
   additem = [];
   estimatordata =[];
+  estimator=[];
   protype23:FirebaseListObservable<any[]>;
+  project:FirebaseListObservable<any[]>;
     constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/costdatas');
       this.items = db.list('/items');
       this.vendors = db.list('/vendors');
       this.protype23 = db.list('/protypes');
+      this.project=db.list('/projects');
 
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
         
@@ -210,7 +230,7 @@ export class Bids {
       }
     }
     datepickerexpairOpts= {
-      startDate: this.biddate,
+      startDate: this.prodata.biddate,
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
@@ -220,10 +240,10 @@ export class Bids {
   }
     handleDateFromChange(event){      
       var tomorrow = event;
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      this.bidexpair=tomorrow;
+      //tomorrow.setDate(tomorrow.getDate() + 1);
+      this.prodata.bidexpair=tomorrow;
       this.datepickerexpairOpts = {
-        startDate:  tomorrow,
+        startDate:   this.prodata.bidexpair,
         autoclose: true,
         todayBtn: 'linked',
         todayHighlight: true,
@@ -231,7 +251,6 @@ export class Bids {
         format: 'm/d/yyyy',
         icon: 'fa fa-calendar'
     }
-    
     }
 
     checkditem(event,value){
@@ -244,6 +263,15 @@ export class Bids {
     }
 
     removeitemfromarray(value){
+      var id:any;
+      if(this.estimator.length>0){
+        this.estimator.forEach(function(val,ind,arr){
+          if(val.item==value.itemname){
+            id=ind;
+          }
+        });
+        this.estimator.splice(id,1);
+      }
       this.additem.splice(this.additem.indexOf(value),1);
     }
 
@@ -253,25 +281,56 @@ export class Bids {
       });
       //this.estimatordata
     }
+   
     changecostbyqty(event,item,id){
       var qty= event.target.value;
       var price1 :any;    
       var total :any;  
+      var estimate;
       item.material.forEach(function(value2,index,arr){
         if(qty==value2.quantity){
         price1=value2.price;
         var aj:any = document.getElementById("adj_"+id);
+        aj.value=qty;
         total = (price1*aj.value);  
         document.getElementById("price_"+id).innerHTML=price1;
         document.getElementById("total_"+id).innerHTML=total;
+        var itemname =  document.getElementById("itemname_"+id).innerHTML;
+        estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total};
         }
       });
+      this.estimator[id]=estimate;
     }
 changeadj(event,id){
-  var price:any= document.getElementById("price_"+id).innerHTML;
-  var adj :any =event.target.value;
-  var total :any = (price*adj);
-  document.getElementById("total_"+id).innerHTML=total;
+  var estimate;
+  var quantyti:any= document.getElementById("quantyti_"+id);
+  var adj :any =event.target;
+ // if(adj.value<quantyti.value){
+    //adj.value=quantyti.value;
+    var price:any= document.getElementById("price_"+id).innerHTML;    
+    var total :any = (price*adj.value);
+    document.getElementById("total_"+id).innerHTML=total;
+    var itemname =  document.getElementById("itemname_"+id).innerHTML;
+    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total};
+    this.estimator[id]=estimate;
+ // }else{
+  //  alert(quantyti.value+" High value "+adj);
+ // }
+  
+}
+
+submitbid(){
+  this.prodata.items=this.additem;
+  this.prodata.estimator=this.estimator
+  var total:any=0
+  this.estimator.forEach(function(val,ind,arr){
+    total+= parseFloat(val.ltotal);
+  });
+  this.prodata.totalprice=total.toString();
+  this.project.push(this.prodata);
+  this.prodata=new projectdata();
+  this.additem=[];
+  this.estimator=[];
 }
 
 addnewprotype(event){

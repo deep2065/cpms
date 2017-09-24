@@ -9,13 +9,13 @@
             <div class="alert alert-success" *ngIf="success">
                 <strong>{{success}}</strong> 
               </div>
-        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="addnewbid(form.value);">
+        <form class="form-horizontal" id="newproform"  #form="ngForm" (ngSubmit)="addnewbid(form.value);">
           <div class="row">
             <div class="col-sm-12">
                 <div class="form-group col-sm-3">
                     <label class="control-label" for="protype" >Project Type</label>
-                  <select name="protype" class="form-control" (change)='addnewprotype($event)' >
-                    <option value="">Select Project Type</option>
+                  <select name="protype" class="form-control" (change)='addnewprotype($event)' [(ngModel)]="prodata.projecttype" >
+                    <option value="" selected >Select Project Type</option>
                     <option value="addnew">Add New Project Type</option>
                     <option *ngFor='let pro of protype23 |async' value="{{pro.protype}}">{{pro.protype}}</option>
                   </select>
@@ -29,53 +29,53 @@
           <div class="form-group">
             <label class="control-label" for="clientname">Client Name</label>
            
-              <input type="text" class="form-control" required name="clientname" id="clientname" placeholder="Enter Item Name"  ngModel>
+              <input type="text" class="form-control" required name="clientname" id="clientname" placeholder="Enter Client Name" [(ngModel)]="prodata.clientname"  ngModel>
             </div>
             <div class="form-group">
               <label class="control-label" for="companyname">Company Name</label>
              
-                <input type="text" class="form-control" required name="companyname" id="companyname" placeholder="Enter Company Name"  ngModel>
+                <input type="text" class="form-control" required name="companyname" id="companyname" placeholder="Enter Company Name" [(ngModel)]="prodata.companyname"  ngModel>
               </div>
               <div class="form-group">
                 <label class="control-label" for="clientadd">Client Address</label>
                
-                  <input type="text" class="form-control" required name="clientadd" id="clientadd" placeholder="Enter Client Address"  ngModel>
+                  <input type="text" class="form-control" required name="clientadd" id="clientadd" placeholder="Enter Client Address" [(ngModel)]="prodata.clientadd"  ngModel>
                 </div>
               
               <div class="form-group">
                 <label class="control-label" for="clientemail">Client Email</label>
                
-                  <input type="text" class="form-control" required name="clientemail" id="clientemail" placeholder="Enter Cient Email"  ngModel>
+                  <input type="text" class="form-control" required name="clientemail" id="clientemail" placeholder="Enter Cient Email" [(ngModel)]="prodata.clientemail"  ngModel>
                 </div>
               <div class="form-group">
                 <label class="control-label" for="clientmobile">Client Phone Number</label>
                
-                  <input type="text" class="form-control" required name="clientmobile" id="clientmobile" placeholder="Enter Client Phone Number"  ngModel>
+                  <input type="text" class="form-control" required name="clientmobile" id="clientmobile" placeholder="Enter Client Phone Number" [(ngModel)]="prodata.clientmobile"  ngModel>
                 </div>
               <div class="form-group">
                 <label class="control-label" for="biddate" style='display: block !important;float: left;margin-top: 3px;'>Bid Date</label>
-                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerOpts" (ngModelChange)="handleDateFromChange($event)"  [(ngModel)]="biddate" name='biddate'></datetime>
+                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerOpts" (ngModelChange)="handleDateFromChange($event)"  [(ngModel)]="prodata.biddate" name='biddate'></datetime>
                 <div class="clearfix"></div>   
                </div>
               <div class="form-group">
                 <label class="control-label" for="bidexpair" style='display: block !important;float: left;margin-top: 3px;'>Bid Expair</label>
-                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerexpairOpts"  [(ngModel)]="bidexpair" name='bidexpair'></datetime>
+                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerexpairOpts"  [(ngModel)]="prodata.bidexpair" name='bidexpair'></datetime>
               <div class="clearfix"></div>    
               </div>
               <div class="form-group">
                 <label class="control-label" for="preparedby">Prepared By</label>
                
-                  <input type="text" class="form-control" required name="preparedby" id="preparedby" placeholder="Enter Prepared By"  ngModel>
+                  <input type="text" class="form-control" required name="preparedby" id="preparedby" placeholder="Enter Prepared By" [(ngModel)]="prodata.preparedby"  ngModel>
                 </div>
               <div class="form-group">
                 <label class="control-label" for="supervisor">Supervisor</label>
                
-                  <input type="text" class="form-control" required name="supervisor" id="supervisor" placeholder="Enter Supervisor"  ngModel>
+                  <input type="text" class="form-control" required name="supervisor" id="supervisor" placeholder="Enter Supervisor"  [(ngModel)]="prodata.supervisor" ngModel>
                 </div>
               <div class="form-group">
                 <label class="control-label" for="gcomments">General Comments</label>
                
-                  <input type="text" class="form-control" required name="gcomments" id="gcomments" placeholder="Enter General Comments"  ngModel>
+                  <input type="text" class="form-control" required name="gcomments" id="gcomments" placeholder="Enter General Comments" [(ngModel)]="prodata.gcomments"  ngModel>
                 </div>
               
           </div>
@@ -87,7 +87,7 @@
                   </div>
             <div class="form-group">
               <label class="control-label" for="remodeltype">Remodel Type</label>
-            <select name="remodeltype" class="form-control" >
+            <select name="remodeltype" class="form-control" [(ngModel)]="prodata.remodeltype" >
               <option value="">Remodel Type</option>
               <option value="demo">Demo</option>
             </select>
@@ -95,28 +95,28 @@
             <div class="form-group">
                 <label class="control-label" for="housesqft">House Sqft</label>
                
-                  <input type="text" class="form-control" required name="housesqft" id="housesqft" placeholder="House Sqft"  ngModel>
+                  <input type="text" class="form-control" required name="housesqft" id="housesqft" placeholder="House Sqft" [(ngModel)]="prodata.housesqft"   ngModel>
                 </div>
             <div class="form-group">
                 <label class="control-label" for="bedroom">Number Of Bedrooms</label>
                
-                  <input type="text" class="form-control" required name="bedroom" id="bedroom" placeholder="Number Of Bedrooms"  ngModel>
+                  <input type="text" class="form-control" required name="bedroom" id="bedroom" placeholder="Number Of Bedrooms" [(ngModel)]="prodata.bedroom"   ngModel>
                 </div>
             <div class="form-group">
                 <label class="control-label" for="bathroom">Number Of Bathrooms</label>
                
-                  <input type="text" class="form-control" required name="bathroom" id="bathroom" placeholder="Number Of Bathrooms"  ngModel>
+                  <input type="text" class="form-control" required name="bathroom" id="bathroom" placeholder="Number Of Bathrooms" [(ngModel)]="prodata.bathroom"   ngModel>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="garagetype">Garage Type</label>
-                  <select name="garagetype" class="form-control" >
+                  <select name="garagetype" class="form-control" [(ngModel)]="prodata.garagetype" >
                     <option value="">Garage Type</option>
                     <option value="demo">Demo</option>
                   </select>
                   </div>
                 <div class="form-group">
                     <label class="control-label" for="carpot">Carpot</label>
-                  <select name="carpot" class="form-control" >
+                  <select name="carpot" class="form-control" [(ngModel)]="prodata.carpot" >
                     <option value="">Carpot</option>
                     <option value="demo">Demo</option>
                   </select>
@@ -159,7 +159,7 @@
             </thead>
             <tbody *ngIf='additem.length>0'>
               <tr *ngFor='let item of additem; let i=index'>
-                <td>{{item.itemname}}</td>
+                <td><span id='itemname_{{i}}'>{{item.itemname}}</span></td>
                 <td>
                   <select id='quantyti_{{i}}' (change)='changecostbyqty($event,item,i);'>
                     <option value="">Select Quantity</option>
@@ -167,7 +167,7 @@
                 </select>
               </td>
               <td><span id='price_{{i}}'></span></td>
-              <td><input (keyup)='changeadj($event,i);' type="text" id='adj_{{i}}' value="1"></td>
+              <td><input (keyup)='changeadj($event,i);' type="text" id='adj_{{i}}' value=""></td>
               <td><span id='total_{{i}}'></span></td>
               </tr>
               <tr>
@@ -184,7 +184,7 @@
             </table>
             <div class="col-sm-12" style="text-align:center;">
                 <button style="background: none;  border: none; color: #fff;">See Preview</button>
-                <button style="background: none;  border: none; color: #fff;">Complete Bid ></button>
+                <button (click)='submitbid();' style="background: none;  border: none; color: #fff;">Complete Bid ></button>
               </div>
           </div>
          
