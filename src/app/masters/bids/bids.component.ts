@@ -352,8 +352,12 @@ addprotype(data){
 closetnumber(event,number,id){
 var myNumber:any = event.target.value;
 var numbers = [];
+var pri = [];
 var estimate;
-number.forEach(num=>numbers.push(num.price));
+number.forEach(function(val,index,arr){
+  numbers.push(val.quantity)
+  pri.push(val.price)
+});
 
 var distance:any = Math.abs(numbers[0] - myNumber);
 var idx:any = 0;
@@ -364,7 +368,7 @@ for(var c:any = 1; c < numbers.length; c++){
         distance = cdistance;
     }
 }
-var theNumber:any = numbers[idx];
+var theNumber:any = pri[idx];
 var total:any = (myNumber*theNumber);
 document.getElementById("price_"+id).innerHTML=theNumber;
 document.getElementById("total_"+id).innerHTML=total;
