@@ -110,7 +110,7 @@ export class Dashboard {
     for (let i = 0; i < this.tableSparklineOptions.length; i++) {
       Object.assign(this.tableSparklineOptions[i], this.tableSparklineGeneralOptions);
     }
-  
+
   }
 
   randomValue() {
@@ -194,7 +194,7 @@ export class Dashboard {
       .showMaxMin(false)
       .tickFormat(d3.format(',f'));
 
-    this.nvd31Data = testData(['Unique', 'Visits'], 30);
+    this.nvd31Data = testData(['Recieved', 'Pending'], 30);
     this.nvd31Data[0].area = true;
   };
 }

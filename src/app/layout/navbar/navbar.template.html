@@ -5,7 +5,7 @@
         <i class="fa fa-search"></i>
       </a>
     </li>
-    <li class="nav-item dropdown">
+    <!-- <li class="nav-item dropdown">
       <a href title="Messages" id="messages"
          class="nav-link dropdown-toggle"
          data-toggle="dropdown">
@@ -53,8 +53,8 @@
           </a>
         </li>
       </ul>
-    </li>
-    <li class="nav-item dropdown">
+    </li> -->
+    <!-- <li class="nav-item dropdown">
       <a href title="8 support tickets"
          class="nav-link dropdown-toggle"
          data-toggle="dropdown">
@@ -118,7 +118,7 @@
           </a>
         </li>
       </ul>
-    </li>
+    </li> -->
     <li class="divider"></li>
     <li dropdown [isOpen]="settings.isOpen" [autoClose]="false" class="nav-item dropdown hidden-sm-down">
       <a href="#" id="settings"
@@ -188,13 +188,13 @@
       <a class="nav-link" (click)="logout()"><i class="glyphicon glyphicon-off"></i></a>
     </li>
   </ul>
-  <form id="search-form" class="navbar-form float-right" role="search">
+  <!-- <form id="search-form" class="navbar-form float-right" role="search">
     <input type="search" class="form-control search-query" placeholder="Search...">
-  </form>
+  </form> -->
   <div class="notifications float-right">
     <div class="alert float-right">
       <a href="#" class="close ml-xs" data-dismiss="alert">&times;</a>
-      <i class="fa fa-info-circle mr-xs"></i> Check out Light Blue <a (click)="settings.isOpen = !settings.isOpen" id="notification-link" href="#">settings</a> on
+      <i class="fa fa-info-circle mr-xs"></i> McSloy Construction web app passed tests! <a (click)="settings.isOpen = !settings.isOpen" id="notification-link" href="#">settings</a> on
       the right!
     </div>
   </div>
