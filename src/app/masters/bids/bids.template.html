@@ -130,7 +130,7 @@
                     </div>
                     <div *ngIf='additem.length>0'>
                     <div style='margin-bottom:5px;' *ngFor='let aitem of additem'>
-                    <p class="addeditem">{{aitem.itemname}}<span class="pull-right" (click)='removeitemfromarray(aitem);'><i class="fa fa-minus-circle"></i></span></p>  
+                    <p class="addeditem">{{aitem.itemname.itemname}}<span class="pull-right" (click)='removeitemfromarray(aitem);'><i class="fa fa-minus-circle"></i></span></p>  
                     </div>
                       </div>
               <div class="form-group">
@@ -159,15 +159,16 @@
             </thead>
             <tbody *ngIf='additem.length>0'>
               <tr *ngFor='let item of additem; let i=index'>
-                <td><span id='itemname_{{i}}'>{{item.itemname}}</span></td>
+                <td><span id='itemname_{{i}}'>{{item.itemname.itemname}}</span></td>
                 <td>
-                  <select id='quantyti_{{i}}' (change)='changecostbyqty($event,item,i);'>
+                 <!-- <select id='quantyti_{{i}}' (change)='changecostbyqty($event,item,i);'>
                     <option value="">Select Quantity</option>
                 <option *ngFor='let mat of item.material' value="{{mat.quantity}}">{{mat.quantity}}</option>  
-                </select>
+                </select>-->
+                <input (blur)='closetnumber($event,item.material,i);' type="text" id='quantyti_{{i}}' value="">
               </td>
               <td><span id='price_{{i}}'></span></td>
-              <td><input (keyup)='changeadj($event,i);' type="text" id='adj_{{i}}' value=""></td>
+              <td><input (keyup)='changeadj($event,i);' type="text" id='adj_{{i}}' value="1"></td>
               <td><span id='total_{{i}}'></span></td>
               </tr>
               <tr>
@@ -207,7 +208,7 @@
             <div class="form-group">
               <label class="control-label col-sm-12" for="secname">Choose Your Items</label>
               <div class="col-sm-10" *ngFor="let item of itemsarray; let i=index">                
-                <input type="checkbox" [checked]='additem.indexOf(item)>-1' (click)='checkditem($event,item)' >{{item.itemname}}
+                <input type="checkbox" [checked]='additem.indexOf(item)>-1' (click)='checkditem($event,item)' >{{item.itemname.itemname}}
               </div>
             </div>
            <!--

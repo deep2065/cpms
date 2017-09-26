@@ -346,5 +346,32 @@ addprotype(data){
   document.getElementById("closeaddprotypemodel").click();
   }
 }
+
+
+
+closetnumber(event,number,id){
+var myNumber:any = event.target.value;
+var numbers = [];
+var estimate;
+number.forEach(num=>numbers.push(num.price));
+
+var distance:any = Math.abs(numbers[0] - myNumber);
+var idx:any = 0;
+for(var c:any = 1; c < numbers.length; c++){
+    var cdistance:any = Math.abs(numbers[c] - myNumber);
+    if(cdistance < distance){
+        idx = c;
+        distance = cdistance;
+    }
+}
+var theNumber:any = numbers[idx];
+var total:any = (myNumber*theNumber);
+document.getElementById("price_"+id).innerHTML=theNumber;
+document.getElementById("total_"+id).innerHTML=total;
+var adj:any = document.getElementById("adj_"+id);
+var itemname =  document.getElementById("itemname_"+id).innerHTML;
+estimate={item:itemname,quantity:myNumber,price:theNumber,factor:adj.value,ltotal:total};
+this.estimator[id]=estimate;
+}
    
 }
