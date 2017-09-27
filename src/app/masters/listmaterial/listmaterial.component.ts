@@ -17,11 +17,10 @@ import { forEach } from "@angular/router/src/utils/collection";
   encapsulation: ViewEncapsulation.None,
 })
 export class Listmaterial {
- 
+  
   source: LocalDataSource;
-  list = [];
-    filTipo: string = 'todos';
-   // settings:any;
+    list = [];
+      filTipo: string = 'todos';
     dados: FirebaseListObservable<any[]>;
     public solicitacoes: any;
   

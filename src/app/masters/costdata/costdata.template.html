@@ -14,10 +14,10 @@
             <label class="control-label col-sm-12" for="itemname">Choose Item</label>
             <select class="form-control"  name="itemname" id="itemname"  ngModel>
               <option value="">-- Choose Item --</option> 
-              <option *ngFor="let category of items |async" [ngValue]="category">{{category.itemname}}</option>                   
+              <option *ngFor="let category of items1" [ngValue]="category">{{category.itemname}}</option>                   
             </select>
           </div>
-          <div class="form-group">
+         <!-- <div class="form-group">
               <label class="control-label col-sm-12" for="trade">Trade</label>
               <div class="col-sm-12">
                 <select class="form-control"  name="trade" id="trade"  ngModel>
@@ -25,7 +25,7 @@
                   <option *ngFor="let category of trade" [ngValue]="category.cname">{{category.cname}}</option>                   
                 </select>
               </div>
-            </div>
+            </div>-->
           <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
           (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
           

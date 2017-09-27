@@ -17,7 +17,7 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 export class Login {
   constructor(private loginservice : LoginService, private route :Router, private db :AngularFireDatabase) {
     if(this.loginservice.isLogin){
-      //this.route.navigate(["/dashboard"]);
+      this.route.navigate(["/app/dashboard"]);
     }
   }
   public error :string;
@@ -28,6 +28,7 @@ var users = this.db.list('/users').subscribe(keys =>keys.forEach(element => {
  if(element.empemail==data.email && element.emppassword==data.password ){
  window.sessionStorage.setItem("isLogin","true");
  window.sessionStorage.setItem("userkey",element.$key);
+ window.sessionStorage.setItem("username",element.empname);
  this.loginservice.isLogin=true;
 going = false;
 this.route.navigate(["/app/dashboard"]);

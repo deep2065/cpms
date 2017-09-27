@@ -23,11 +23,14 @@ export class Item {
   trade =[];
   vendors : FirebaseListObservable<any[]>;
   material =[];
-    constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
+  items1 = [];
+    constructor(private db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/items');
       this.items = db.list('/items');
       this.vendors = db.list('/vendors');
+
+     this.db.list('/items').subscribe(i=>i.forEach(it=>this.items1.push(it.itemname)));
 
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
         
@@ -129,6 +132,7 @@ export class Item {
     public row1 :string;
     materialdata = [];
     submititem(data:any){
+      if(this.accept){
       var indatadata={};
       if(data.itemname!=""){     
         indatadata={
@@ -142,6 +146,9 @@ export class Item {
       }else{
       this.error="Please Fill Quantity Name Field";
       }
+    }else{
+      this.error="The Item Mterial Is already Created.";
+    }
     }
  
     onDeleteConfirm(event) {
@@ -180,6 +187,19 @@ export class Item {
        // this.source.refresh();
       } else {
         event.confirm.reject();
+      }
+    }
+accept=false;
+    chkname(val:any){
+      if(this.items1.indexOf(val)> -1){
+        this.error="The Item Mterial Is already Created.";
+        document.getElementById('itemnamematerial').focus();
+        document.getElementById('itemnamematerial').className='form-control ng-untouched ng-pristine ng-valid error';
+      }else{
+        this.accept=true;
+        this.error="";
+        document.getElementById('itemnamematerial').className='form-control ng-untouched ng-pristine ng-valid';
+        
       }
     }
 

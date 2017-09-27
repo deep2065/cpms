@@ -72,10 +72,10 @@
       </div>
      
   
-      <div id="collapse{{i}}" class="collapse" [ngClass]="{'show':i==0}" role="tabpanel" data-parent="#accordion">
+      <div id="collapse{{i}}" class="collapse" [ngClass]="{'show':i==open}" role="tabpanel" data-parent="#accordion">
         <div class="card-body">
             <ng2-smart-table [settings]="settings" [source]="item1.material" (deleteConfirm)="onDeleteConfirm($event,item1.$key)"
-            (editConfirm)="onSaveConfirm($event,item1.$key)" (createConfirm)="onCreateConfirm($event,item1.$key)"></ng2-smart-table>
+            (editConfirm)="onSaveConfirm($event,item1.$key)" (createConfirm)="onCreateConfirm($event,item1.$key,i)"></ng2-smart-table>
   
          </div>
       </div>

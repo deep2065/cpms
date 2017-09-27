@@ -4,7 +4,9 @@
         <h4 class="modal-title">Add Your Items</h4>
       </div>
       <div class="modal-body">
-          <h4 class="modal-title">{{error}}</h4>
+          <div class="alert alert-danger" *ngIf="error">
+              <strong>{{error}}</strong> 
+            </div>
           <div class="col-md-12">
             <div class="alert alert-success" *ngIf="success">
                 <strong>{{success}}</strong> 
@@ -13,7 +15,7 @@
           <div class="form-group">
             <label class="control-label col-sm-12" for="itemname">Item Name</label>
             <div class="col-sm-12">
-              <input type="text" class="form-control" required name="itemname" id="itemname" placeholder="Enter Item Name"  ngModel>
+              <input type="text" id="itemnamematerial" (blur)="chkname($event.target.value);" class="form-control"  required name="itemname"  placeholder="Enter Item Name"  ngModel>
             </div>
           </div>
           <div class="form-group">

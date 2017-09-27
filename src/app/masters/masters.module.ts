@@ -82,9 +82,9 @@ import {
 
 
 export const routes = [
-  {path: '', redirectTo: 'category', pathMatch: 'full'},
-  {path: 'category', component: Category}, 
-  {path: 'listcategory', component: Listcontractor}, 
+  {path: '', redirectTo: 'trade', pathMatch: 'full'},
+  {path: 'trade', component: Category}, 
+  {path: 'tradelist', component: Listcontractor}, 
   {path: 'unit', component: Unit}, 
   {path: 'listunit', component: Listunit}, 
   {path: 'quantity', component: Quantity}, 

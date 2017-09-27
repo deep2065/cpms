@@ -18,8 +18,11 @@ export class Navbar {
   settings: any = {
     isOpen: false
   };
-
-  constructor(private renderer: Renderer, private el: ElementRef, private logins : LoginService, private route :Router) {}
+  username:string='';
+  constructor(private renderer: Renderer, private el: ElementRef, private logins : LoginService, private route :Router) {
+    this.username = window.sessionStorage.getItem("username");
+   
+  }
 
   sidebarPosition(position): void {
     this.changeSidebarPosition.emit(position);

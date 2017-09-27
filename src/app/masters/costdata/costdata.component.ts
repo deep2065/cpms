@@ -24,12 +24,23 @@ export class Costdata {
   vendors : FirebaseListObservable<any[]>;
   costdata : FirebaseListObservable<any[]>;
   material =[];
+  items1= [];
     constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/items');
       this.items = db.list('/items');
       this.vendors = db.list('/vendors');
       this.costdata = db.list('/costdatas');
+var chkitem = [];
+      db.list('/costdatas').subscribe(item=>item.forEach(val=>chkitem.push(val.itemname.itemname)));
+
+      db.list('/items').subscribe(i=>i.forEach(el=>{
+        if(chkitem.indexOf(el.itemname)== -1){
+      this.items1.push(el);
+        }
+
+      }));  
+      console.log(this.items1);
 
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
         
@@ -125,7 +136,7 @@ export class Costdata {
       if(data.itemname!=""){     
         indatadata={
           itemname:data.itemname,
-          trade:data.trade,
+          trade:data.itemname.trade,
           material:this.materialdata          
         }
       this.costdata.push(indatadata);
