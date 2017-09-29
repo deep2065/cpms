@@ -16,7 +16,7 @@ export class projectdata {
   clientemail:string="";
   clientmobile:string="";
   biddate:string = "";
-  bidexpair:string ="";
+  bidexpair:string = "";
   preparedby:string="";
   supervisor:string="";
   gcomments:string="";
@@ -33,14 +33,12 @@ export class projectdata {
 }
 
 @Component({
-  selector: '[bids]',
-  templateUrl: './bids.template.html',
-  styleUrls: [ './bids.style.scss' ],
+  selector: '[pbids]',
+  templateUrl: './pbids.template.html',
+  styleUrls: [ './pbids.style.scss' ],
   encapsulation: ViewEncapsulation.None,
 })
-export class Bids {
-  biddate:Date = new Date();
-  bidexpair:Date = new Date();
+export class Pbids {
     datepickerOpts = {
       startDate: new Date(),
       autoclose: true,
@@ -65,6 +63,8 @@ prodata = new projectdata();
   estimator=[];
   protype23:FirebaseListObservable<any[]>;
   project:FirebaseListObservable<any[]>;
+
+  bidsname = [];
     constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/costdatas');
@@ -72,7 +72,7 @@ prodata = new projectdata();
       this.vendors = db.list('/vendors');
       this.protype23 = db.list('/protypes');
       this.project=db.list('/projects');
-
+db.list('/projects').subscribe(p=>p.forEach(ele=>this.bidsname.push({key:ele.$key,name:ele.clientname})));
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
         
           this.material.push({value:mat.materialname,title:mat.materialname});
@@ -232,7 +232,7 @@ prodata = new projectdata();
       }
     }
     datepickerexpairOpts= {
-      startDate: this.biddate,
+      startDate: this.prodata.biddate,
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
@@ -243,9 +243,9 @@ prodata = new projectdata();
     handleDateFromChange(event){      
       var tomorrow = event;
       //tomorrow.setDate(tomorrow.getDate() + 1);
-      this.bidexpair=tomorrow;
+      this.prodata.bidexpair=tomorrow;
       this.datepickerexpairOpts = {
-        startDate:   this.bidexpair,
+        startDate:   this.prodata.bidexpair,
         autoclose: true,
         todayBtn: 'linked',
         todayHighlight: true,
@@ -329,8 +329,6 @@ submitbid(){
     total+= parseFloat(val.ltotal);
   });
   this.prodata.totalprice=total.toString();
-  this.prodata.biddate = this.biddate.toDateString();
-  this.prodata.bidexpair = this.bidexpair.toDateString();
   this.project.push(this.prodata);
   this.prodata=new projectdata();
   this.additem=[];
@@ -381,5 +379,43 @@ var itemname =  document.getElementById("itemname_"+id).innerHTML;
 estimate={item:itemname,quantity:myNumber,price:theNumber,factor:adj.value,ltotal:total};
 this.estimator[id]=estimate;
 }
-   
+bidid:any;
+items123=[];
+selectbids(id){
+  this.project.subscribe(p=>p.forEach(ele=>{
+    if(ele.$key==id){
+      this.bidid=ele.items;
+      this.estimator=ele.estimator;
+      this.prodata.clientname = ele.clientname;
+      this.prodata.clientadd = ele.clientadd;
+      this.prodata.clientmobile = ele.clientmobile;
+      this.prodata.remodeltype = ele.remodeltype;
+      this.prodata.bedroom = ele.bedroom;
+      this.prodata.bathroom = ele.bathroom;
+      this.prodata.garagetype = ele.garagetype;
+      this.prodata.carpot = ele.carpot;
+      this.prodata.preparedby = ele.preparedby;
+      this.prodata.supervisor = ele.supervisor;
+      this.prodata.biddate = ele.biddate;
+      this.prodata.bidexpair = ele.bidexpair;
+      this.prodata.totalprice = ele.totalprice;
+    }
+  }))
+}
+
+materiallist(){
+  this.items123=[];
+ this.bidid.forEach(ele=>{
+   this.items123.push(ele.itemname);
+   console.log(ele);
+ })
+
+  
+
+}
+
+
+
+
+
 }

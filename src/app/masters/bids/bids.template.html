@@ -54,12 +54,12 @@
                 </div>
               <div class="form-group">
                 <label class="control-label" for="biddate" style='display: block !important;float: left;margin-top: 3px;'>Bid Date</label>
-                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerOpts" (ngModelChange)="handleDateFromChange($event)"  [(ngModel)]="prodata.biddate" name='biddate'></datetime>
+                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerOpts" (ngModelChange)="handleDateFromChange($event)"  [(ngModel)]="biddate" name='biddate'></datetime>
                 <div class="clearfix"></div>   
                </div>
               <div class="form-group">
                 <label class="control-label" for="bidexpair" style='display: block !important;float: left;margin-top: 3px;'>Bid Expair</label>
-                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerexpairOpts"  [(ngModel)]="prodata.bidexpair" name='bidexpair'></datetime>
+                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerexpairOpts"  [(ngModel)]="bidexpair" name='bidexpair'></datetime>
               <div class="clearfix"></div>    
               </div>
               <div class="form-group">

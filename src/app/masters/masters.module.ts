@@ -72,6 +72,7 @@ import { Vendordetails } from './vendordetails/vendordetails.component';
 import { Contractordetails } from './contractordetails/contractordetails.component';
 import { Employeedetails } from './employeedetails/employeedetails.component';
 import { Bids } from './bids/bids.component';
+import { Pbids } from './pbids/pbids.component';
 
 import {
   DatetimeTransparent
@@ -105,6 +106,7 @@ export const routes = [
   {path: 'contractordetails/:key', component: Contractordetails},
   {path: 'employeedetails/:key', component: Employeedetails},
   {path: 'bids', component: Bids},
+  {path: 'pendingbid', component: Pbids},
 ];
 
 @NgModule({
@@ -135,6 +137,7 @@ export const routes = [
     Employeedetails,
     Costdata,
     Bids,
+    Pbids,
     Autosize,
     MarkdownToolbarTransparent,        
     DatetimeTransparent,
