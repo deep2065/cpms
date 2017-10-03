@@ -1,0 +1,47 @@
+
+    <div class="col-md-12">
+      <div class="modal-header">       
+        <h4 class="modal-title">Add Your Remodel Type</h4>
+      </div>
+      <div class="modal-body">
+          <div class="alert alert-danger" *ngIf="error">
+              <strong>{{error}}</strong> 
+            </div>
+          <div class="col-md-12">
+            <div class="alert alert-success" *ngIf="success">
+                <strong>{{success}}</strong> 
+              </div>
+        <form class="form-horizontal"  #form="ngForm" (ngSubmit)="submititem(form.value);">
+          <div class="form-group">
+            <label class="control-label col-sm-12" for="itemname">Item Name</label>
+            <div class="col-sm-12">
+              <input type="text" id="itemnamematerial" (blur)="chkname($event.target.value);" class="form-control"  required name="itemname"  placeholder="Enter Item Name"  ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+              <label class="control-label col-sm-12" for="trade">Trade</label>
+              <div class="col-sm-12">
+                <select class="form-control"  name="trade" id="trade"  ngModel>
+                  <option value="">-- Trade --</option> 
+                  <option *ngFor="let category of trade" [ngValue]="category.cname">{{category.cname}}</option>                   
+                </select>
+              </div>
+            </div>
+          <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+          (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+
+          <div class="form-group">
+            <label class="control-label col-sm-12"  for="notes">Notes</label>
+            <div class="col-sm-12"> 
+              <textarea class="form-control"  name="notes" id="notes" ngModel ></textarea>
+            </div>
+          </div>
+          
+          <div class="form-group"> 
+            <div class="col-sm-12" style="text-align: center">
+              <button type="submit" class="btn btn-default">Add Remodel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      

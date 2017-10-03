@@ -65,14 +65,20 @@ prodata = new projectdata();
   project:FirebaseListObservable<any[]>;
 
   bidsname = [];
-    constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
+    constructor( private db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/costdatas');
       this.items = db.list('/items');
       this.vendors = db.list('/vendors');
       this.protype23 = db.list('/protypes');
       this.project=db.list('/projects');
-db.list('/projects').subscribe(p=>p.forEach(ele=>this.bidsname.push({key:ele.$key,name:ele.clientname})));
+db.list('/projects').subscribe(p=>p.forEach(ele=>
+  {
+    if(ele.status=='notapproved'){
+    this.bidsname.push({key:ele.$key,name:ele.clientname});
+    }
+  }
+));
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
         
           this.material.push({value:mat.materialname,title:mat.materialname});
@@ -381,9 +387,11 @@ this.estimator[id]=estimate;
 }
 bidid:any;
 items123=[];
+bidproid = '';
 selectbids(id){
   this.project.subscribe(p=>p.forEach(ele=>{
     if(ele.$key==id){
+      this.bidproid=id;
       this.bidid=ele.items;
       this.estimator=ele.estimator;
       this.prodata.clientname = ele.clientname;
@@ -407,13 +415,24 @@ materiallist(){
   this.items123=[];
  this.bidid.forEach(ele=>{
    this.items123.push(ele.itemname);
-   console.log(ele);
- })
-
-  
+ }); 
 
 }
 
+disapprove(){
+  this.bidsname=[];
+  if(confirm("Are you sure to disapprove this bid")){
+    this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('disapprove');
+  }
+   }
+
+   approved(){
+    this.bidsname=[];
+    if(confirm("Are you sure to approve this bid")){
+      this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('approve');
+    }
+     }
+  
 
 
 

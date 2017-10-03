@@ -29,6 +29,7 @@ export class projectdata {
   items:object;
   estimator:object;
   comment:string ="";
+  status:string='notapproved'
   totalprice:string="";
 }
 

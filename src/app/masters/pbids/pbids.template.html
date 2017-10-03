@@ -37,9 +37,9 @@
              
               <div class="form-group">
                 <label class="control-label" for="clientmobile">Client Phone Number</label>
-                <h4>{{prodata.clientname}}</h4>
+                <h4>{{prodata.clientname}}
                 <br>
-                <h4>{{prodata.clientmobile}}</h4>
+                {{prodata.clientmobile}}</h4>
                   </div>          
               
           </div>
@@ -194,8 +194,8 @@
               </div>
             </div>
             <div class="col-sm-12" style="text-align:center;">
-                <button style="background: none;  border: none; color: #fff;">Approve And Send To Client</button>
-                <button  style="background: none;  border: none; color: #fff;">Disapprove ></button>
+                <button (click)='approved();' style="background: none;  border: none; color: #fff;">Approve And Send To Client</button>
+                <button (click)='disapprove();'  style="background: none;  border: none; color: #fff;">Disapprove ></button>
                 <button (click)='materiallist();' style="background: none;  border: none; color: #fff;">See Material List ></button>
               </div>
           </div>

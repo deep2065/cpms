@@ -1,0 +1,265 @@
+
+    <div class="col-md-12">
+      <div class="modal-header">       
+        <h4 class="modal-title">Add New Bid</h4>
+      </div>
+      <div class="modal-body">
+          <h4 class="modal-title">{{error}}</h4>
+          <div class="col-md-12">
+            <div class="alert alert-success" *ngIf="success">
+                <strong>{{success}}</strong> 
+              </div>
+        <form class="form-horizontal" id="newproform"  #form="ngForm" (ngSubmit)="addnewbid(form.value);">
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group col-sm-3">
+                    <label class="control-label" for="protype" >Choose Bids</label>
+                    <select name="protype" class="form-control" (change)='selectbids($event.target.value)' >
+                    <option value="" selected >Select Project Type</option>
+                    <option *ngFor='let pro of bidsname' value="{{pro.key}}">{{pro.name}}</option>
+                  </select>
+                  </div>
+            </div>
+          <div class="col-sm-4 f-left">              
+            <div class="deep">
+                <div class="header-h">       
+                    <h4 class="modal-title">Product Information</h4>
+                  </div>
+          <div class="form-group">
+            <label class="control-label" for="clientname">Client Name</label>
+           
+              <input type="text" class="form-control" required name="clientname" id="clientname" placeholder="Enter Client Name" [(ngModel)]="prodata.clientname"  ngModel>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="companyname">Company Name</label>
+             
+                <input type="text" class="form-control" required name="companyname" id="companyname" placeholder="Enter Company Name" [(ngModel)]="prodata.companyname"  ngModel>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="clientadd">Client Address</label>
+               
+                  <input type="text" class="form-control" required name="clientadd" id="clientadd" placeholder="Enter Client Address" [(ngModel)]="prodata.clientadd"  ngModel>
+                </div>
+              
+              <div class="form-group">
+                <label class="control-label" for="clientemail">Client Email</label>
+               
+                  <input type="text" class="form-control" required name="clientemail" id="clientemail" placeholder="Enter Cient Email" [(ngModel)]="prodata.clientemail"  ngModel>
+                </div>
+              <div class="form-group">
+                <label class="control-label" for="clientmobile">Client Phone Number</label>
+               
+                  <input type="text" class="form-control" required name="clientmobile" id="clientmobile" placeholder="Enter Client Phone Number" [(ngModel)]="prodata.clientmobile"  ngModel>
+                </div>
+              <div class="form-group">
+                <label class="control-label" for="biddate" style='display: block !important;float: left;margin-top: 3px;'>Bid Date</label>
+                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerOpts" (ngModelChange)="handleDateFromChange($event)"  [(ngModel)]="biddate" name='biddate'></datetime>
+                <div class="clearfix"></div>   
+               </div>
+              <div class="form-group">
+                <label class="control-label" for="bidexpair" style='display: block !important;float: left;margin-top: 3px;'>Bid Expair</label>
+                <datetime [timepicker]="false" style='float:right' [datepicker]="datepickerexpairOpts"  [(ngModel)]="bidexpair" name='bidexpair'></datetime>
+              <div class="clearfix"></div>    
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="preparedby">Prepared By</label>
+               
+                  <input type="text" class="form-control" required name="preparedby" id="preparedby" placeholder="Enter Prepared By" [(ngModel)]="prodata.preparedby"  ngModel>
+                </div>
+              <div class="form-group">
+                <label class="control-label" for="supervisor">Supervisor</label>
+               
+                  <input type="text" class="form-control" required name="supervisor" id="supervisor" placeholder="Enter Supervisor"  [(ngModel)]="prodata.supervisor" ngModel>
+                </div>
+              <div class="form-group">
+                <label class="control-label" for="gcomments">General Comments</label>
+               
+                  <input type="text" class="form-control" required name="gcomments" id="gcomments" placeholder="Enter General Comments" [(ngModel)]="prodata.gcomments"  ngModel>
+                </div>
+              
+          </div>
+        </div>
+        <div class="col-sm-4 f-left">
+            <div class="deep">
+                <div class="header-h">       
+                    <h4 class="modal-title">Enter Info</h4>
+                  </div>
+            <div class="form-group">
+              <label class="control-label" for="remodeltype">Remodel Type</label>
+            <select name="remodeltype" class="form-control" [(ngModel)]="prodata.remodeltype" >
+              <option value="">Remodel Type</option>
+              <option value="demo">Demo</option>
+            </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="housesqft">House Sqft</label>
+               
+                  <input type="text" class="form-control" required name="housesqft" id="housesqft" placeholder="House Sqft" [(ngModel)]="prodata.housesqft"   ngModel>
+                </div>
+            <div class="form-group">
+                <label class="control-label" for="bedroom">Number Of Bedrooms</label>
+               
+                  <input type="text" class="form-control" required name="bedroom" id="bedroom" placeholder="Number Of Bedrooms" [(ngModel)]="prodata.bedroom"   ngModel>
+                </div>
+            <div class="form-group">
+                <label class="control-label" for="bathroom">Number Of Bathrooms</label>
+               
+                  <input type="text" class="form-control" required name="bathroom" id="bathroom" placeholder="Number Of Bathrooms" [(ngModel)]="prodata.bathroom"   ngModel>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="garagetype">Garage Type</label>
+                  <select name="garagetype" class="form-control" [(ngModel)]="prodata.garagetype" >
+                    <option value="">Garage Type</option>
+                    <option value="demo">Demo</option>
+                  </select>
+                  </div>
+                <div class="form-group">
+                    <label class="control-label" for="carpot">Carpot</label>
+                  <select name="carpot" class="form-control" [(ngModel)]="prodata.carpot" >
+                    <option value="">Carpot</option>
+                    <option value="demo">Demo</option>
+                  </select>
+                  </div>
+            </div>
+          </div>
+          <div class="col-sm-4 f-left">
+              <div class="deep">
+                  <div class="header-h">       
+                      <h4 class="modal-title">Items</h4>
+                    </div>
+                    <div *ngIf='additem.length>0'>
+                    <div style='margin-bottom:5px;' *ngFor='let aitem of additem; let i=index'>
+                    <p *ngIf='aitem' class="addeditem">{{aitem.itemname.itemname}}<span class="pull-right" (click)='removeitemfromarray(aitem,i);'><i class="fa fa-minus-circle"></i></span></p>  
+                    </div>
+                      </div>
+              <div class="form-group">
+              <button type="button" data-toggle="modal" data-target="#additemsintobid" class="btn btn-parimary addbtn">Add Item <span class="pull-right"><i class="fa fa-plus"></i></span></button> 
+              </div>
+              </div>
+            </div>  
+          </div>       
+         
+        </form>
+      </div>
+<div class="col-sm-12">
+    <div class="deep" style="min-height: 100px;">
+        <div class="header-h">       
+            <h4 class="modal-title">Estimator Input</h4>
+          </div>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit Cost</th>
+                <th>Adjustment Factor</th>
+                <th>Line Total</th>
+              </tr>
+            </thead>
+            <tbody *ngIf='additem.length>0'>
+              <tr *ngFor='let item of additem; let i=index'>
+                <td *ngIf='item'><span id='itemname_{{i}}'>{{item.itemname.itemname}}</span></td>
+                <td *ngIf='item'>
+                 <!-- <select id='quantyti_{{i}}' (change)='changecostbyqty($event,item,i);'>
+                    <option value="">Select Quantity</option>
+                <option *ngFor='let mat of item.material' value="{{mat.quantity}}">{{mat.quantity}}</option>  
+                </select>-->
+                <input (blur)='closetnumber($event,item.material,i);' type="text" id='quantyti_{{i}}' [(ngModel)]="estimator[i].quantity">
+              </td>
+              <td *ngIf='item'><span id='price_{{i}}'>{{estimator[i].price}}</span></td>
+              <td *ngIf='item'><input  type="text" id='adj_{{i}}' [(ngModel)]="estimator[i].factor"></td>
+              <td *ngIf='item'><span id='total_{{i}}'>{{estimator[i].ltotal}}</span></td>
+              </tr>
+              <tr>
+                
+                <td colspan="3">
+                  <textarea class="form-control" name='comments' placeholder='Comments'> Comments </textarea>
+                </td>
+                <td colspan="2">
+                 Attachment's
+                </td>
+              </tr>
+            </tbody>
+
+            </table>
+            <div class="col-sm-12" style="text-align:center;">
+                <button style="background: none;  border: none; color: #fff;">See Preview</button>
+                <button (click)='submitbid();' style="background: none;  border: none; color: #fff;">Complete Bid ></button>
+              </div>
+          </div>
+         
+</div>
+</div>
+</div>
+<div id="additemsintobid" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">       
+          <h4 class="modal-title">Add New Item</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h4 class="modal-title">{{error}}</h4>
+          <form class="form-horizontal"  #additemform="ngForm" (ngSubmit)="additemtoarray(additemform.value)">
+             
+            <div class="form-group">
+              <label class="control-label col-sm-12" for="secname">Choose Your Items</label>
+              <div class="col-sm-10" *ngFor="let item of itemsarray; let i=index">                
+                <input type="checkbox" [checked]='additem.indexOf(item.itemname.itemname)> -1' (click)='checkditem($event,item)' >{{item.itemname.itemname}}
+              </div>
+            </div>
+           <!--
+            
+            <div class="form-group"> 
+              <div class="col-sm-offset-12">
+                <button type="submit" class="btn btn-default">Add Item</button>
+              </div>
+            </div>
+          -->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  <button type="button" id='openaddprotypemodel' style="display:none;" data-toggle="modal" data-target="#addprojecttype"></button> 
+  
+  <div id="addprojecttype" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">       
+          <h4 class="modal-title">Add Project Type</h4>
+          <button type="button" id="closeaddprotypemodel" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h4 class="modal-title">{{error}}</h4>
+          <form class="form-horizontal"  #addprotype1="ngForm" (ngSubmit)="addprotype(addprotype1.value)">
+             
+            <div class="form-group">
+              <label class="control-label col-sm-12" for="protype">Project Type</label>
+              <div class="col-sm-10">                
+                <input type="text" class="form-control" name="protype" id='protype' ngModel >
+              </div>
+            </div>
+            <div class="form-group"> 
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-default">Add Project Type</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+      
