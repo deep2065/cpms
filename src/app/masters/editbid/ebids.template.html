@@ -169,13 +169,14 @@
               <td *ngIf='item'><span id='price_{{i}}'>{{estimator[i].price}}</span></td>
               <td *ngIf='item'><input  type="text" id='adj_{{i}}' [(ngModel)]="estimator[i].factor"></td>
               <td *ngIf='item'><span id='total_{{i}}'>{{estimator[i].ltotal}}</span></td>
+              <td *ngIf='item'><input  type="text" id='notes_{{i}}' [(ngModel)]="estimator[i].notes"></td>
               </tr>
               <tr>
                 
                 <td colspan="3">
                   <textarea class="form-control" name='comments' placeholder='Comments'> Comments </textarea>
                 </td>
-                <td colspan="2">
+                <td colspan="3">
                  Attachment's
                 </td>
               </tr>
@@ -204,10 +205,10 @@
             <h4 class="modal-title">{{error}}</h4>
           <form class="form-horizontal"  #additemform="ngForm" (ngSubmit)="additemtoarray(additemform.value)">
              
-            <div class="form-group">
+            <div class="form-group" *ngIf='additem.length>0'>
               <label class="control-label col-sm-12" for="secname">Choose Your Items</label>
               <div class="col-sm-10" *ngFor="let item of itemsarray; let i=index">                
-                <input type="checkbox" [checked]='additem.indexOf(item.itemname.itemname)> -1' (click)='checkditem($event,item)' >{{item.itemname.itemname}}
+                <input type="checkbox"  (click)='checkditem($event,item)' >{{item.itemname.itemname}}
               </div>
             </div>
            <!--

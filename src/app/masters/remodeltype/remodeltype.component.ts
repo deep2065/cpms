@@ -159,7 +159,7 @@ console.log(data);
     onDeleteConfirm(event,data:any) {
       if (window.confirm('Are you sure you want to delete?')) {
         var key:any = event.data.key-1;
-        this.db.list('/items/'+data+'/material').$ref.ref.child(key).remove();
+        this.db.list('/remodels/'+data+'/material').$ref.ref.child(key).remove();
         event.confirm.resolve();
       } else {
         event.confirm.reject();
@@ -169,7 +169,7 @@ console.log(data);
     onSaveConfirm(event,data:any) {
       if (window.confirm('Are you sure you want to update?')) {
         var key:any = event.data.key-1;
-       this.db.list('/items/'+data+'/material').$ref.ref.child(key).set(event.newData);
+       this.db.list('/remodels/'+data+'/material').$ref.ref.child(key).set(event.newData);
         event.confirm.resolve(event.newData);
       } else {
         event.confirm.reject();
@@ -179,13 +179,13 @@ console.log(data);
     onCreateConfirm(event,data:any,id) {
       if (window.confirm('Are you sure you want to create?')) {
         var count:number=0;
-        var keyofdata = this.db.list('/items/'+data+'/material').subscribe(keys=>keys.forEach(ele=>{
+        var keyofdata = this.db.list('/remodels/'+data+'/material').subscribe(keys=>keys.forEach(ele=>{
           count++;
         }));
         var cou:any=count;
         //console.log(cou);
         event.newData['key']=count+1;
-       this.db.list('/items/'+data+'/material').$ref.ref.child(cou).set(event.newData);
+       this.db.list('/remodels/'+data+'/material').$ref.ref.child(cou).set(event.newData);
         event.confirm.resolve(event.newData);
         this.open=id;
        // this.source.refresh();

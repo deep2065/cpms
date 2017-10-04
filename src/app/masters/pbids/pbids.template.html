@@ -110,6 +110,7 @@
                 <th>Unit Cost</th>
                 <th>Adjustment Factor</th>
                 <th>Line Total</th>
+                <th>Notes</th>
               </tr>
             </thead>
             <tbody *ngIf='estimator.length>0'>
@@ -119,11 +120,13 @@
               <td><span id='price_{{i}}'>{{item.price}}</span></td>
               <td><span id='adj_{{i}}'>{{item.factor}}</span></td>
               <td><span id='total_{{i}}'>{{item.ltotal}}</span></td>
+              <td><span id='notes_{{i}}'>{{item.notes}}</span></td>
               </tr>
               <tr>
                 <td colspan="3"></td>
                 <td>Total</td>
                 <td>{{prodata.totalprice}}</td>
+                <td></td>
               </tr>
               <tr>
                 

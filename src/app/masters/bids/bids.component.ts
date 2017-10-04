@@ -299,7 +299,8 @@ prodata = new projectdata();
         document.getElementById("price_"+id).innerHTML=price1;
         document.getElementById("total_"+id).innerHTML=total;
         var itemname =  document.getElementById("itemname_"+id).innerHTML;
-        estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total};
+        var notes1:any =  document.getElementById("notes_"+id);
+        estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total,notes:notes1.value};
         }
       });
       this.estimator[id]=estimate;
@@ -311,15 +312,33 @@ changeadj(event,id){
  // if(adj.value<quantyti.value){
     //adj.value=quantyti.value;
     var price:any= document.getElementById("price_"+id).innerHTML;    
-    var total :any = (price*adj.value);
+    var total :any = (price*adj.value)*quantyti.value;
     document.getElementById("total_"+id).innerHTML=total;
+
     var itemname =  document.getElementById("itemname_"+id).innerHTML;
-    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total};
+    var notes1:any =  document.getElementById("notes_"+id);
+    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value};
     this.estimator[id]=estimate;
  // }else{
   //  alert(quantyti.value+" High value "+adj);
  // }
   
+}
+
+addnote($event,id){
+  var estimate;
+  var quantyti:any= document.getElementById("quantyti_"+id);
+  var adj :any = document.getElementById("adj_"+id);
+ // if(adj.value<quantyti.value){
+    //adj.value=quantyti.value;
+    var price:any= document.getElementById("price_"+id).innerHTML;    
+    var total :any = (price*adj.value)*quantyti.value;
+
+    var itemname =  document.getElementById("itemname_"+id).innerHTML;
+    var notes1:any =  document.getElementById("notes_"+id);
+    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value};
+    this.estimator[id]=estimate;
+
 }
 
 submitbid(){
@@ -336,6 +355,7 @@ submitbid(){
   this.prodata=new projectdata();
   this.additem=[];
   this.estimator=[];
+  //console.log(this.prodata);
 }
 
 addnewprotype(event){
