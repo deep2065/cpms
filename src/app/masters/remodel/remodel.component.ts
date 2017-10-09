@@ -24,24 +24,51 @@ export class Remodel {
   vendors : FirebaseListObservable<any[]>;
   material =[];
   items1 = [];
+  remodelitem=[];
+  cosdatas : FirebaseListObservable<any[]>;
+
+  itemsarray = [];
+  source: LocalDataSource;
+  list = [];
+    filTipo: string = 'todos';
+    open:Number=0;
+   // settings:any;
+    dados: FirebaseListObservable<any[]>;
+    additem = [];
     constructor(private db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/remodels');
       this.items = db.list('/remodels');
       this.vendors = db.list('/vendors');
+      this.db.list('/costdatas').subscribe(item=>item.forEach(items=>{
+        // this.itemsarray.push({itemkey:items.$key,item:items.itemname});
+         this.itemsarray.push(items);
+       }))
 
      this.db.list('/items').subscribe(i=>i.forEach(it=>this.items1.push(it.itemname)));
 
-      db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
+      db.list('/costdatas').subscribe(keys=>keys.forEach(mat=>{        
+          this.remodelitem.push({value:mat.$key,title:mat.itemname.itemname});
+        this.tableconfigration();
+      }));
+
+      this.dados = this.db.list('/costdatas');
+      this.source = new LocalDataSource();
+      let _self = this;
+      this.dados.forEach(element => {
+        _self.source.load(element);
+      });
+
+    /*  db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
         
           this.material.push({value:mat.materialname,title:mat.materialname});
         this.tableconfigration();
-      }));
+      }));*/
       db.list('/units').subscribe(keys=>keys.forEach(unit=>{
           this.unit.push({value:unit.unit,title:unit.unit});
         this.tableconfigration();
       }));
-
+this.cosdatas =db.list('/costdatas');
       db.list('/categorys').subscribe(keys=>keys.forEach(cat=>{
         if(cat.tradetype=='contractor')
         this.trade.push(cat);
@@ -49,6 +76,7 @@ export class Remodel {
     }
     tableconfigration(){
       this.settings = {
+        selectMode: 'multi',
         
         delete: {
           confirmDelete: true,
@@ -61,21 +89,8 @@ export class Remodel {
           confirmSave: true,
         },
         columns: {      
-          materialname:{title:'Material Name',filter:false,
-          editor:{
-            type:'list',
-            config:{
-              list:this.material
-            }
-          }},
-          materialquantity: {title:'Material Quantity',filter:false},
-          materialunit: {title:'Material Unit',filter:false,
-          editor:{
-            type:'list',
-            config:{
-              list:this.unit
-            }
-          }},    
+          name:{title:'Remodel Item Name',filter:true,
+        },             
           },
           actions: {         
             add: true,
@@ -87,6 +102,7 @@ export class Remodel {
       };
     }
     settings = {
+      selectMode: 'multi',
       
       delete: {
         confirmDelete: true,
@@ -99,21 +115,8 @@ export class Remodel {
         confirmSave: true,
       },
       columns: {      
-        materialname:{title:'Material Name',filter:false,
-        editor:{
-          type:'list',
-          config:{
-            list:[{value:"kg",title:"KG"}]
-          }
-        }},
-        materialquantity: {title:'Material Quantity',filter:false},
-        materialunit: {title:'Material Unit',filter:false,
-        editor:{
-          type:'list',
-          config:{
-            list:[{value:"kg",title:"KG"}]
-          }
-        }},    
+        name:{title:'Remodel Item Name',filter:true,
+      },             
         },
         actions: {         
           add: true,
@@ -136,10 +139,10 @@ export class Remodel {
       var indatadata={};
       if(data.itemname!=""){     
         indatadata={
-          itemname:data.itemname,
+          remodelname:data.itemname,
           notes:data.notes,
-          trade:data.trade,
-          material:this.materialdata          
+          //trade:data.trade,
+          items:this.additem          
         }
       this.item.push(indatadata);
       this.success = "Item Added Successfully";
@@ -202,5 +205,21 @@ accept=false;
         
       }
     }
+
+
+    checkditem(event,value){
+      if(event.target.checked){
+        this.additem.push(value);
+      }else{
+        this.additem.splice(this.additem.indexOf(value),1);
+      }
+      console.log(this.additem);
+    }
+
+    removeitemfromarray(value){
+      var id:any;
+      this.additem.splice(this.additem.indexOf(value),1);
+    }
+
 
 }

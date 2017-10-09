@@ -1,7 +1,7 @@
 
     <div class="col-md-12">
       <div class="modal-header">       
-        <h4 class="modal-title">Add New Bid</h4>
+        <h4 class="modal-title">Edit Bid</h4>
       </div>
       <div class="modal-body">
           <h4 class="modal-title">{{error}}</h4>
@@ -86,9 +86,13 @@
                   </div>
             <div class="form-group">
               <label class="control-label" for="remodeltype">Remodel Type</label>
-            <select name="remodeltype" class="form-control" [(ngModel)]="prodata.remodeltype" >
+            <!--<select name="remodeltype" class="form-control" [(ngModel)]="prodata.remodeltype" >
               <option value="">Remodel Type</option>
               <option value="demo">Demo</option>
+            </select>-->
+            <select name="remodeltype" class="form-control" (change)='loaditems($event.target.value)' [(ngModel)]="prodata.remodeltype" >
+              <option value="">Remodel Type</option>
+              <option  *ngFor='let remo of remodel' value="{{remo.$key}}" >{{remo.remodelname}}</option>
             </select>
             </div>
             <div class="form-group">
@@ -185,7 +189,7 @@
             </table>
             <div class="col-sm-12" style="text-align:center;">
                 <button style="background: none;  border: none; color: #fff;">See Preview</button>
-                <button (click)='submitbid();' style="background: none;  border: none; color: #fff;">Complete Bid ></button>
+                <button (click)='submitbid();' style="background: none;  border: none; color: #fff;">Complete Edit Bid ></button>
               </div>
           </div>
          

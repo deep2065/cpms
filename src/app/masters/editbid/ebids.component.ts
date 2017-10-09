@@ -9,6 +9,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { forEach } from "@angular/router/src/utils/collection";
 
 export class projectdata {
+  bidkey:string="";
   projecttype:string="";
   clientname:string="";
   companyname:string="";
@@ -67,7 +68,7 @@ prodata = new projectdata();
   protype23:FirebaseListObservable<any[]>;
   project:FirebaseListObservable<any[]>;
   bidsname = [];
-
+  remodel= [];
     constructor( private db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/costdatas');
@@ -82,6 +83,10 @@ prodata = new projectdata();
           }
         }
       ));
+
+      db.list('/remodels').subscribe(keys=>keys.forEach(mat=>{        
+        this.remodel.push(mat);
+    }));
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
         
           this.material.push({value:mat.materialname,title:mat.materialname});
@@ -353,10 +358,11 @@ submitbid(){
   this.prodata.totalprice=total.toString();
   this.prodata.biddate = this.biddate.toDateString();
   this.prodata.bidexpair = this.bidexpair.toDateString();
-  //this.project.push(this.prodata);
-//  this.prodata=new projectdata();
- // this.additem=[];
- // this.estimator=[];
+  this.prodata.bidkey=this.bidproid;
+  this.project.update(this.bidproid,this.prodata);
+  this.prodata=new projectdata();
+  this.additem=[];
+  this.estimator=[];
 
  console.log(this.prodata);
 }
@@ -439,7 +445,7 @@ selectbids(id){
     }
   }))
 
-  console.log(this.additem);
+  console.log(this.bidproid);
 }
 
    

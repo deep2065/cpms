@@ -5,6 +5,7 @@ declare let jQuery: any;
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalDataSource } from 'ng2-smart-table';
 import { forEach } from "@angular/router/src/utils/collection";
@@ -58,6 +59,12 @@ export class Remodeltype {
           this.material.push({value:mat.materialname,title:mat.materialname});
         this.tableconfigration();
       }));
+
+      db.list('/items').subscribe(keys=>keys.forEach(mat=>{
+        
+          this.material.push({value:mat.materialname,title:mat.materialname});
+        this.tableconfigration();
+      }));
       db.list('/units').subscribe(keys=>keys.forEach(unit=>{
           this.unit.push({value:unit.unit,title:unit.unit});
         this.tableconfigration();
@@ -91,7 +98,7 @@ console.log(data);
           confirmSave: true,
         },
         columns: {      
-          materialname:{title:'Material Name',filter:false,
+         /* materialname:{title:'Material Name',filter:false,
           editor:{
             type:'list',
             config:{
@@ -105,10 +112,17 @@ console.log(data);
             config:{
               list:this.unit
             }
-          }},    
+          }},    */
+          name:{title:'Item Name',filter:false,
+          editor:{
+            type:'list',
+            config:{
+              list:this.material
+            }
+          }},
           },
           actions: {         
-            add: true,
+            add: false,
             edit: true,
             delete: true,
             open: true,
@@ -129,7 +143,7 @@ console.log(data);
         confirmSave: true,
       },
       columns: {      
-        materialname:{title:'Material Name',filter:false,
+       /* materialname:{title:'Material Name',filter:false,
         editor:{
           type:'list',
           config:{
@@ -143,10 +157,17 @@ console.log(data);
           config:{
             list:[{value:"kg",title:"KG"}]
           }
-        }},    
+        }},    */
+        name:{title:'Item Name',filter:false,
+        editor:{
+          type:'list',
+          config:{
+            list:this.material
+          }
+        }},
         },
         actions: {         
-          add: true,
+          add: false,
           edit: true,
           delete: true,
           open: true,

@@ -8,7 +8,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalDataSource } from 'ng2-smart-table';
 import { forEach } from "@angular/router/src/utils/collection";
 
+
 export class projectdata {
+  bidkey:string="";
   projecttype:string="";
   clientname:string="";
   companyname:string="";
@@ -16,7 +18,7 @@ export class projectdata {
   clientemail:string="";
   clientmobile:string="";
   biddate:string = "";
-  bidexpair:string = "";
+  bidexpair:string ="";
   preparedby:string="";
   supervisor:string="";
   gcomments:string="";
@@ -29,6 +31,7 @@ export class projectdata {
   items:object;
   estimator:object;
   comment:string ="";
+  status:string='notapproved'
   totalprice:string="";
 }
 
@@ -74,9 +77,9 @@ prodata = new projectdata();
       this.project=db.list('/projects');
 db.list('/projects').subscribe(p=>p.forEach(ele=>
   {
-    if(ele.status=='notapproved'){
+   // if(ele.status=='notapproved'){
     this.bidsname.push({key:ele.$key,name:ele.clientname});
-    }
+   // }
   }
 ));
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
@@ -397,7 +400,11 @@ selectbids(id){
       this.prodata.clientname = ele.clientname;
       this.prodata.clientadd = ele.clientadd;
       this.prodata.clientmobile = ele.clientmobile;
-      this.prodata.remodeltype = ele.remodeltype;
+      this.db.list('/remodels').subscribe(r=>r.forEach(re=>{
+        if(re.$key==ele.remodeltype){
+          this.prodata.remodeltype = re.remodelname;
+        }
+      }));     
       this.prodata.bedroom = ele.bedroom;
       this.prodata.bathroom = ele.bathroom;
       this.prodata.garagetype = ele.garagetype;
@@ -407,6 +414,16 @@ selectbids(id){
       this.prodata.biddate = ele.biddate;
       this.prodata.bidexpair = ele.bidexpair;
       this.prodata.totalprice = ele.totalprice;
+      this.prodata.bidkey=ele.$key;
+      this.prodata.estimator=ele.estimator;
+      this.prodata.projecttype=ele.projecttype;
+      this.prodata.companyname=ele.companyname;
+      this.prodata.clientemail=ele.clientemail;
+      this.prodata.gcomments=ele.gcomments;
+      this.prodata.housesqft=ele.housesqft;
+      this.prodata.items=ele.items;
+      this.prodata.comment=ele.comment;
+      this.prodata.status='disapprove';
     }
   }))
 }
@@ -422,19 +439,22 @@ materiallist(){
 disapprove(){
   this.bidsname=[];
   if(confirm("Are you sure to disapprove this bid")){
+    this.db.list("/oldproject").push(this.prodata);
     this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('disapprove');
   }
    }
 
    approved(){
     this.bidsname=[];
-    if(confirm("Are you sure to approve this bid")){
+    if(confirm("Are you sure to approve this bid")){      
       this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('approve');
     }
      }
   
 
-
+makepdf(){
+  
+}
 
 
 }

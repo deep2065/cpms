@@ -52,7 +52,7 @@
           <a data-toggle="collapse" href="#collapse{{i}}" aria-expanded="false" (click)='loadtable(item1.material)'>
         <h5 class="mb-0">
          
-           {{item1.itemname}}
+           {{item1.remodelname}}
           
         </h5>
       </a>
@@ -61,7 +61,7 @@
       <div class="my-col2">
           <div class="form-group form-inline " style="float:right">
               <label class="control-label" for="trade">Trade</label>
-              <label class="control-label" for="trade">{{item1.trade}}</label>
+              <label class="control-label" for="trade">{{item1.items[i].trade}}</label>
               <!--<select class=""  name="trade" id="trade"  ngModel>
                 <option value="">-- Trade --</option> 
                 <option *ngFor="let category of trade" [ngValue]="category.cname" [selected]="category.cname == item1.cname">{{category.cname}}</option>                   
@@ -74,9 +74,12 @@
   
       <div id="collapse{{i}}" class="collapse" [ngClass]="{'show':i==open}" role="tabpanel" data-parent="#accordion">
         <div class="card-body">
-            <ng2-smart-table [settings]="settings" [source]="item1.material" (deleteConfirm)="onDeleteConfirm($event,item1.$key)"
+            <!--<ng2-smart-table [settings]="settings" [source]="item1.items[i].itemname.material" (deleteConfirm)="onDeleteConfirm($event,item1.$key)"
             (editConfirm)="onSaveConfirm($event,item1.$key)" (createConfirm)="onCreateConfirm($event,item1.$key,i)"></ng2-smart-table>
-  
+            -->
+            <ng2-smart-table [settings]="settings" [source]="item1.items" (deleteConfirm)="onDeleteConfirm($event,item1.$key)"
+            (editConfirm)="onSaveConfirm($event,item1.$key)" (createConfirm)="onCreateConfirm($event,item1.$key,i)"></ng2-smart-table>
+            
          </div>
       </div>
     </div>

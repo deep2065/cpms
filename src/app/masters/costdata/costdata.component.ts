@@ -137,7 +137,8 @@ var chkitem = [];
         indatadata={
           itemname:data.itemname,
           trade:data.itemname.trade,
-          material:this.materialdata          
+          material:this.materialdata,
+          name:data.itemname.itemname       
         }
       this.costdata.push(indatadata);
       this.success = "Costdata Added Successfully";

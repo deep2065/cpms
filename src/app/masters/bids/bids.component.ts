@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation,ElementRef,ViewChild,Injectable } from '@angular/core';
 declare let jQuery: any;
+declare let jsPDF;
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
@@ -66,6 +67,7 @@ prodata = new projectdata();
   estimator=[];
   protype23:FirebaseListObservable<any[]>;
   project:FirebaseListObservable<any[]>;
+  remodel = [];
     constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/costdatas');
@@ -78,6 +80,10 @@ prodata = new projectdata();
         
           this.material.push({value:mat.materialname,title:mat.materialname});
         this.tableconfigration();
+      }));
+
+      db.list('/remodels').subscribe(keys=>keys.forEach(mat=>{        
+          this.remodel.push(mat);
       }));
       db.list('/units').subscribe(keys=>keys.forEach(unit=>{
           this.unit.push({value:unit.unit,title:unit.unit});
@@ -340,8 +346,15 @@ addnote($event,id){
     this.estimator[id]=estimate;
 
 }
-
+accept=true;
 submitbid(){
+  if(this.prodata.projecttype==''){
+    this.accept=false;
+    document.getElementById("projecttypemsg").innerHTML='Please Select Project Type';
+    
+    return false;
+  }
+  if(this.accept){
   this.prodata.items=this.additem;
   this.prodata.estimator=this.estimator
   var total:any=0
@@ -356,6 +369,11 @@ submitbid(){
   this.additem=[];
   this.estimator=[];
   //console.log(this.prodata);
+}
+}
+
+validate(event){
+console.log(event);
 }
 
 addnewprotype(event){
@@ -402,5 +420,78 @@ var itemname =  document.getElementById("itemname_"+id).innerHTML;
 estimate={item:itemname,quantity:myNumber,price:theNumber,factor:adj.value,ltotal:total};
 this.estimator[id]=estimate;
 }
+
+loaditems(data){
+  this.remodel.forEach(re=>{
+    if(re.$key==data){
+      this.additem=re.items;
+    }
+  })
+  console.log(this.additem)
+}
    
+convert(){
+ /* var item = {
+    "Name" : "XYZ",
+    "Age" : "22",
+    "Gender" : "Male"
+  };
+  var doc = new jsPDF();
+  var col = ["Item","Value"];
+  var rows = [];
+
+  for(var key in this.estimator){
+      var temp = [key, this.estimator[key]];
+      rows.push(temp);
+  }
+*/
+/*var doc = new jsPDF();
+doc.rect(20, 20, 50, 50);
+doc.setFontSize(12);
+doc.text(22, 10, 'Client Info');
+//doc.line(20, 12, 80, 60)
+doc.text(55, 10, this.prodata.projecttype);
+doc.text(22, 30, this.prodata.clientname);
+doc.text(22, 40, this.prodata.clientadd);
+doc.text(22, 50, this.prodata.clientname);
+doc.text(22, 55, this.prodata.clientmobile);
+
+//Bid info
+
+doc.rect(75, 20, 50, 50);
+doc.text(77, 30, 'Remodel Type');
+doc.text(77, 35, this.prodata.remodeltype);
+doc.text(77, 40, '#Bed Rooms :- ');
+doc.text(107, 40, this.prodata.bedroom);
+doc.text(77, 45, '#Bath Rooms :- ');
+doc.text(107, 45, this.prodata.bathroom);
+doc.text(77, 50, 'Garage :- ');
+doc.text(107, 50, this.prodata.garagetype);
+doc.text(77, 55, 'Carpot :- ');
+doc.text(107, 55, this.prodata.carpot);
+
+//ganeral info
+
+doc.rect(130, 20, 50, 50);
+doc.text(132, 30, 'Bid Date :- ');
+doc.text(132, 35, this.biddate.toDateString());
+doc.text(132, 40, 'Bid Expiry :- ');
+doc.text(132, 45, this.bidexpair.toDateString());
+doc.text(132, 50, 'Prepared By');
+doc.text(132, 55, this.prodata.preparedby);
+
+doc.text(132, 60, 'Supervisor');
+doc.text(132, 65, this.prodata.supervisor);
+
+var col = ["Items", "Quantity","Unit Cost", "Adjustment Factor", "Line Total","Notes"];
+var rows = [];
+
+this.estimator.forEach(function(val,key,arr){ 
+  var temp = [val.item,val.quantity,val.price,val.factor,val.ltotal, val.notes];
+  rows.push(temp);
+});
+doc.autoTable(col, rows);
+  doc.save('Test.pdf');*/
+  alert("This Functionality is Devlping Mode");
+}
 }
