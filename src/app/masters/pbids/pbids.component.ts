@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation,ElementRef,ViewChild,Injectable } from '@angular/core';
 declare let jQuery: any;
+declare let jsPDF;
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
@@ -77,9 +78,9 @@ prodata = new projectdata();
       this.project=db.list('/projects');
 db.list('/projects').subscribe(p=>p.forEach(ele=>
   {
-   // if(ele.status=='notapproved'){
+    if(ele.status=='notapproved'){
     this.bidsname.push({key:ele.$key,name:ele.clientname});
-   // }
+    }
   }
 ));
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
@@ -391,9 +392,11 @@ this.estimator[id]=estimate;
 bidid:any;
 items123=[];
 bidproid = '';
+bidtrade=[];
 selectbids(id){
   this.project.subscribe(p=>p.forEach(ele=>{
     if(ele.$key==id){
+      var itrade = [];
       this.bidproid=id;
       this.bidid=ele.items;
       this.estimator=ele.estimator;
@@ -404,7 +407,12 @@ selectbids(id){
         if(re.$key==ele.remodeltype){
           this.prodata.remodeltype = re.remodelname;
         }
-      }));     
+      }));    
+      ele.estimator.forEach(function(val,key,arr){  
+       if(itrade.indexOf(val.trade)== -1){     
+       itrade.push(val.trade);
+        }
+        });  
       this.prodata.bedroom = ele.bedroom;
       this.prodata.bathroom = ele.bathroom;
       this.prodata.garagetype = ele.garagetype;
@@ -424,8 +432,10 @@ selectbids(id){
       this.prodata.items=ele.items;
       this.prodata.comment=ele.comment;
       this.prodata.status='disapprove';
+      this.bidtrade=itrade;
     }
-  }))
+  }));
+
 }
 
 materiallist(){
@@ -446,15 +456,165 @@ disapprove(){
 
    approved(){
     this.bidsname=[];
-    if(confirm("Are you sure to approve this bid")){      
+    if(confirm("Are you sure to approve this bid")){ 
+      for(var i=0;i<this.bidtrade.length;i++ ){
+        this.makepdf(this.bidtrade[i]);
+      }   
+      this.pdfforclient();   
+   // console.log(this.bidtrade);             
       this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('approve');
     }
      }
   
 
-makepdf(){
+makepdf(tval){
+  
+  var doc = new jsPDF('p','pt', 'a4', true);
+ // doc.rect(40, 35, 157, 165);
+  doc.setFontSize(12);
+  doc.text(45, 25, this.prodata.companyname);
+  //doc.text(45, 40, "PDF For Vendor");
+ /* doc.text(45, 45, 'Client Info');
+  //doc.line(50, 50, 80, 80);
+  doc.text(45, 60, this.prodata.projecttype);
+  doc.text(45, 75, this.prodata.clientname);
+  doc.text(45, 90, this.prodata.clientadd);
+  doc.text(45, 120, this.prodata.clientname);
+  doc.text(45, 135, this.prodata.clientmobile);*/
+  
+  //Bid info
+  
+  doc.rect(220, 35, 157, 165);
+  doc.text(225, 45, 'Bid Info');
+  doc.text(225, 60, 'Remodel Type');
+  doc.text(225, 75, this.prodata.remodeltype);
+  
+  doc.text(225, 90, '#Bed Rooms :- ');
+  doc.text(320, 90, this.prodata.bedroom);
+  
+  doc.text(225, 120, '#Bath Rooms :- ');
+  doc.text(320, 120, this.prodata.bathroom);
+  
+  doc.text(225, 150, 'Garage :- ');
+  doc.text(320, 150, this.prodata.garagetype);
+  
+  doc.text(225, 180, 'Carpot :- ');
+  doc.text(320, 180, this.prodata.carpot);
+  
+  //ganeral info
+  
+  doc.rect(400, 35, 155,165);
+  doc.text(405, 45, 'General Info');
+  doc.text(405, 60, 'Bid Date :- ');
+  doc.text(405, 75, this.prodata.biddate);
+  
+  doc.text(405, 90, 'Bid Expiry :- ');
+  doc.text(405, 105, this.prodata.bidexpair);
+  
+  doc.text(405, 120, 'Prepared By');
+  doc.text(405, 135, this.prodata.preparedby);
+  
+  doc.text(405, 150, 'Supervisor');
+  doc.text(405, 165, this.prodata.supervisor);
+  
+  //var col = ["Items", "Quantity","Unit Cost", "Adjustment Factor", "Line Total","Notes"];
+  var col = ["Items", "Quantity","Notes"];
+  //var col = ["Items", "Quantity","Unit Cost"];
+  var rows = [];
+  var total:any=0;
+
+  this.estimator.forEach(function(val,key,arr){ 
+    if(val.trade==tval){
+   // var temp = [val.item,val.quantity,val.price,val.factor,val.ltotal, val.notes];
+    var temp = [val.item,val.quantity, val.notes];
+   // var temp = [val.item,val.quantity,val.price];
+    rows.push(temp);
+    //total+=val.ltotal;
+    }
+  });
+  //rows.push(['','','','Total',total,'']);
+  doc.autoTable(col, rows,{margin: {top: 220}});
+    doc.save('vendor.pdf');
+    //var pdf =btoa(doc.output('datauristring'));
+    //window.open(atob(pdf));
+    //doc.output("dataurlnewwindow");
+   // window.open(URL.createObjectURL(blob));
+    //alert("This Functionality is Devlping Mode");
   
 }
 
+pdfforclient(){
+  
+  var doc = new jsPDF('p','pt', 'a4', true);
+   doc.rect(40, 35, 157, 165);
+   doc.setFontSize(12);
+   doc.text(45, 25, this.prodata.companyname);
+   //doc.text(45, 40, "PDF For Vendor");
+   doc.text(45, 45, 'Client Info');
+   //doc.line(50, 50, 80, 80);
+   doc.text(45, 60, this.prodata.projecttype);
+   doc.text(45, 75, this.prodata.clientname);
+   doc.text(45, 90, this.prodata.clientadd);
+   doc.text(45, 120, this.prodata.clientname);
+   doc.text(45, 135, this.prodata.clientmobile);
+   
+   //Bid info
+   
+   doc.rect(220, 35, 157, 165);
+   doc.text(225, 45, 'Bid Info');
+   doc.text(225, 60, 'Remodel Type');
+   doc.text(225, 75, this.prodata.remodeltype);
+   
+   doc.text(225, 90, '#Bed Rooms :- ');
+   doc.text(320, 90, this.prodata.bedroom);
+   
+   doc.text(225, 120, '#Bath Rooms :- ');
+   doc.text(320, 120, this.prodata.bathroom);
+   
+   doc.text(225, 150, 'Garage :- ');
+   doc.text(320, 150, this.prodata.garagetype);
+   
+   doc.text(225, 180, 'Carpot :- ');
+   doc.text(320, 180, this.prodata.carpot);
+   
+   //ganeral info
+   
+   doc.rect(400, 35, 155,165);
+   doc.text(405, 45, 'General Info');
+   doc.text(405, 60, 'Bid Date :- ');
+   doc.text(405, 75, this.prodata.biddate);
+   
+   doc.text(405, 90, 'Bid Expiry :- ');
+   doc.text(405, 105, this.prodata.bidexpair);
+   
+   doc.text(405, 120, 'Prepared By');
+   doc.text(405, 135, this.prodata.preparedby);
+   
+   doc.text(405, 150, 'Supervisor');
+   doc.text(405, 165, this.prodata.supervisor);
+   
+   //var col = ["Items", "Quantity","Unit Cost", "Adjustment Factor", "Line Total","Notes"];
+   var col = ["Items", "Quantity","Line Total","Notes"];
+   //var col = ["Items", "Quantity","Unit Cost"];
+   var rows = [];
+   var total:any=0;
+ 
+   this.estimator.forEach(function(val,key,arr){     
+    // var temp = [val.item,val.quantity,val.price,val.factor,val.ltotal, val.notes];
+     var temp = [val.item,val.quantity,val.ltotal, val.notes];
+    // var temp = [val.item,val.quantity,val.price];
+     rows.push(temp);
+     total+=val.ltotal;
+   });
+   rows.push(['','Total',total,'']);
+   doc.autoTable(col, rows,{margin: {top: 220}});
+     doc.save('Client.pdf');
+     //var pdf =btoa(doc.output('datauristring'));
+     //window.open(atob(pdf));
+     //doc.output("dataurlnewwindow");
+    // window.open(URL.createObjectURL(blob));
+     //alert("This Functionality is Devlping Mode");
+   
+}
 
 }

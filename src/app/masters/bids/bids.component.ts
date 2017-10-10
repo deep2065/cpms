@@ -306,7 +306,10 @@ prodata = new projectdata();
         document.getElementById("total_"+id).innerHTML=total;
         var itemname =  document.getElementById("itemname_"+id).innerHTML;
         var notes1:any =  document.getElementById("notes_"+id);
-        estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total,notes:notes1.value};
+        var trade1:any = document.getElementById("trade_"+id);
+        estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total,notes:notes1.value,trade:trade1.value};
+        
+       // estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total,notes:notes1.value};
         }
       });
       this.estimator[id]=estimate;
@@ -323,7 +326,10 @@ changeadj(event,id){
 
     var itemname =  document.getElementById("itemname_"+id).innerHTML;
     var notes1:any =  document.getElementById("notes_"+id);
-    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value};
+    var trade1:any = document.getElementById("trade_"+id);
+    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value,trade:trade1.value};
+    
+   // estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value};
     this.estimator[id]=estimate;
  // }else{
   //  alert(quantyti.value+" High value "+adj);
@@ -342,7 +348,10 @@ addnote($event,id){
 
     var itemname =  document.getElementById("itemname_"+id).innerHTML;
     var notes1:any =  document.getElementById("notes_"+id);
-    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value};
+    //estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value};
+    var trade1:any = document.getElementById("trade_"+id);
+    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value,trade:trade1.value};
+    
     this.estimator[id]=estimate;
 
 }
@@ -417,7 +426,8 @@ document.getElementById("price_"+id).innerHTML=theNumber;
 document.getElementById("total_"+id).innerHTML=total;
 var adj:any = document.getElementById("adj_"+id);
 var itemname =  document.getElementById("itemname_"+id).innerHTML;
-estimate={item:itemname,quantity:myNumber,price:theNumber,factor:adj.value,ltotal:total};
+var trade1:any = document.getElementById("trade_"+id);
+estimate={item:itemname,quantity:myNumber,price:theNumber,factor:adj.value,ltotal:total,trade:trade1.value};
 this.estimator[id]=estimate;
 }
 
@@ -445,53 +455,70 @@ convert(){
       rows.push(temp);
   }
 */
-/*var doc = new jsPDF();
-doc.rect(20, 20, 50, 50);
+var doc = new jsPDF('p','pt', 'a4', true);
+doc.rect(40, 35, 157, 165);
 doc.setFontSize(12);
-doc.text(22, 10, 'Client Info');
-//doc.line(20, 12, 80, 60)
-doc.text(55, 10, this.prodata.projecttype);
-doc.text(22, 30, this.prodata.clientname);
-doc.text(22, 40, this.prodata.clientadd);
-doc.text(22, 50, this.prodata.clientname);
-doc.text(22, 55, this.prodata.clientmobile);
+doc.text(45, 25, this.prodata.companyname);
+doc.text(45, 45, 'Client Info');
+//doc.line(50, 50, 80, 80);
+doc.text(45, 60, this.prodata.projecttype);
+doc.text(45, 75, this.prodata.clientname);
+doc.text(45, 90, this.prodata.clientadd);
+doc.text(45, 120, this.prodata.clientname);
+doc.text(45, 135, this.prodata.clientmobile);
 
 //Bid info
 
-doc.rect(75, 20, 50, 50);
-doc.text(77, 30, 'Remodel Type');
-doc.text(77, 35, this.prodata.remodeltype);
-doc.text(77, 40, '#Bed Rooms :- ');
-doc.text(107, 40, this.prodata.bedroom);
-doc.text(77, 45, '#Bath Rooms :- ');
-doc.text(107, 45, this.prodata.bathroom);
-doc.text(77, 50, 'Garage :- ');
-doc.text(107, 50, this.prodata.garagetype);
-doc.text(77, 55, 'Carpot :- ');
-doc.text(107, 55, this.prodata.carpot);
+doc.rect(220, 35, 157, 165);
+doc.text(225, 45, 'Bid Info');
+doc.text(225, 60, 'Remodel Type');
+doc.text(225, 75, this.prodata.remodeltype);
+
+doc.text(225, 90, '#Bed Rooms :- ');
+doc.text(320, 90, this.prodata.bedroom);
+
+doc.text(225, 120, '#Bath Rooms :- ');
+doc.text(320, 120, this.prodata.bathroom);
+
+doc.text(225, 150, 'Garage :- ');
+doc.text(320, 150, this.prodata.garagetype);
+
+doc.text(225, 180, 'Carpot :- ');
+doc.text(320, 180, this.prodata.carpot);
 
 //ganeral info
 
-doc.rect(130, 20, 50, 50);
-doc.text(132, 30, 'Bid Date :- ');
-doc.text(132, 35, this.biddate.toDateString());
-doc.text(132, 40, 'Bid Expiry :- ');
-doc.text(132, 45, this.bidexpair.toDateString());
-doc.text(132, 50, 'Prepared By');
-doc.text(132, 55, this.prodata.preparedby);
+doc.rect(400, 35, 155,165);
+doc.text(405, 45, 'General Info');
+doc.text(405, 60, 'Bid Date :- ');
+doc.text(405, 75, this.biddate.toDateString());
 
-doc.text(132, 60, 'Supervisor');
-doc.text(132, 65, this.prodata.supervisor);
+doc.text(405, 90, 'Bid Expiry :- ');
+doc.text(405, 105, this.bidexpair.toDateString());
+
+doc.text(405, 120, 'Prepared By');
+doc.text(405, 135, this.prodata.preparedby);
+
+doc.text(405, 150, 'Supervisor');
+doc.text(405, 165, this.prodata.supervisor);
 
 var col = ["Items", "Quantity","Unit Cost", "Adjustment Factor", "Line Total","Notes"];
+//var col = ["Items", "Quantity","Unit Cost"];
 var rows = [];
-
+var total:any=0;
 this.estimator.forEach(function(val,key,arr){ 
   var temp = [val.item,val.quantity,val.price,val.factor,val.ltotal, val.notes];
+ // var temp = [val.item,val.quantity,val.price];
   rows.push(temp);
+  total+=val.ltotal;
 });
-doc.autoTable(col, rows);
-  doc.save('Test.pdf');*/
-  alert("This Functionality is Devlping Mode");
+rows.push(['','','','Total',total,'']);
+doc.autoTable(col, rows,{margin: {top: 220}});
+  //doc.save('Test.pdf');
+  //var pdf =btoa(doc.output('datauristring'));
+  //window.open(atob(pdf));
+  doc.output("dataurlnewwindow");
+ // window.open(URL.createObjectURL(blob));
+  //alert("This Functionality is Devlping Mode");
 }
 }

@@ -166,6 +166,7 @@
             </thead>
             <tbody *ngIf='additem.length>0'>
               <tr *ngFor='let item of additem; let i=index'>
+                <input type="hidden" id='trade_{{i}}'  [(ngModel)]="item.trade">
                 <td><span id='itemname_{{i}}'>{{item.itemname.itemname}}</span></td>
                 <td>
                  <!-- <select id='quantyti_{{i}}' (change)='changecostbyqty($event,item,i);'>
