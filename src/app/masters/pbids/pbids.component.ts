@@ -1,4 +1,6 @@
 import { Component, ViewEncapsulation,ElementRef,ViewChild,Injectable } from '@angular/core';
+
+import {HttpClient} from '@angular/common/http';
 declare let jQuery: any;
 declare let jsPDF;
 
@@ -8,6 +10,8 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalDataSource } from 'ng2-smart-table';
 import { forEach } from "@angular/router/src/utils/collection";
+
+import{EmailService} from '../../sendemail/email.service';
 
 
 export class projectdata {
@@ -41,6 +45,7 @@ export class projectdata {
   templateUrl: './pbids.template.html',
   styleUrls: [ './pbids.style.scss' ],
   encapsulation: ViewEncapsulation.None,
+  providers: [EmailService]
 })
 export class Pbids {
     datepickerOpts = {
@@ -69,7 +74,7 @@ prodata = new projectdata();
   project:FirebaseListObservable<any[]>;
 
   bidsname = [];
-    constructor( private db:AngularFireDatabase,private elementRef:ElementRef) {
+    constructor( private db:AngularFireDatabase,private elementRef:ElementRef, private sendemail:EmailService) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/costdatas');
       this.items = db.list('/items');
@@ -78,9 +83,9 @@ prodata = new projectdata();
       this.project=db.list('/projects');
 db.list('/projects').subscribe(p=>p.forEach(ele=>
   {
-    if(ele.status=='notapproved'){
+   // if(ele.status=='notapproved'){
     this.bidsname.push({key:ele.$key,name:ele.clientname});
-    }
+   // }
   }
 ));
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
@@ -460,6 +465,10 @@ disapprove(){
       for(var i=0;i<this.bidtrade.length;i++ ){
         this.makepdf(this.bidtrade[i]);
       }   
+    /*  this.sendemail.sendemail("dkk152207@gmail.com","This is test email","Hi this is test email",function(data){
+        
+          console.log(data);
+      })*/
       this.pdfforclient();   
    // console.log(this.bidtrade);             
       this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('approve');

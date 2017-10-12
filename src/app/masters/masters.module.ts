@@ -10,6 +10,8 @@ import { Autosize } from 'angular2-autosize';
 import { TagInputModule } from 'ng2-tag-input';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
+import {HttpClientModule} from '@angular/common/http';
+
 
 import { PaginationModule, BsDropdownModule } from 'ngx-bootstrap';
 import { DataTableModule } from 'angular2-datatable';
@@ -30,7 +32,6 @@ import {FirebaseConfig}  from './firebaseConfig';
 import {ObjectPipe}  from '../custompipes/object.pipe';
 import {Safehtml}  from '../custompipes/safehtml.pipe';
 import {GetnameBykey}  from '../custompipes/getnamebykey.pipe';
-
 declare let global: any;
 
 let markdown = require('markdown').markdown;
@@ -77,6 +78,10 @@ import { Ebids } from './editbid/ebids.component';
 import { Remodel } from './remodel/remodel.component';
 import { Remodeltype } from './remodeltype/remodeltype.component';
 
+import {Approvebid}  from './approvebid/approvebid.component';
+import {Awarditem}  from './awarditem/awarditem.component';
+
+
 import {
   DatetimeTransparent
 } from '../ui/datetime-transparent/datetime-transparent.directive';
@@ -113,6 +118,8 @@ export const routes = [
   {path: 'bidedit', component: Ebids},
   {path: 'remodeltype', component: Remodeltype},
   {path: 'remodel', component: Remodel},
+  {path: 'approvebid', component: Approvebid},
+  {path: 'awarditem/:key', component: Awarditem},
 ];
 
 @NgModule({
@@ -150,6 +157,8 @@ export const routes = [
     Autosize,
     MarkdownToolbarTransparent,        
     DatetimeTransparent,
+    Approvebid,
+    Awarditem,
   ],
   imports: [
     CommonModule,
@@ -170,6 +179,7 @@ export const routes = [
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireDatabaseModule,  
     AngularFireAuthModule,
+    HttpClientModule
   ]
 })
 export class MastersModule {
