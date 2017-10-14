@@ -83,9 +83,9 @@ prodata = new projectdata();
       this.project=db.list('/projects');
 db.list('/projects').subscribe(p=>p.forEach(ele=>
   {
-   // if(ele.status=='notapproved'){
+    if(ele.status=='notapproved'){
     this.bidsname.push({key:ele.$key,name:ele.clientname});
-   // }
+    }
   }
 ));
       db.list('/materials').subscribe(keys=>keys.forEach(mat=>{
@@ -463,7 +463,11 @@ disapprove(){
     this.bidsname=[];
     if(confirm("Are you sure to approve this bid")){ 
       for(var i=0;i<this.bidtrade.length;i++ ){
-        this.makepdf(this.bidtrade[i]);
+        this.db.list('/contractors').subscribe(c=>c.forEach(co=>{
+          if(co.trade==this.bidtrade[i]){            
+        this.makepdf(this.bidtrade[i],co.cemail,co.conname);
+          }
+        }));
       }   
     /*  this.sendemail.sendemail("dkk152207@gmail.com","This is test email","Hi this is test email",function(data){
         
@@ -476,7 +480,7 @@ disapprove(){
      }
   
 
-makepdf(tval){
+makepdf(tval,email,vname){
   
   var doc = new jsPDF('p','pt', 'a4', true);
  // doc.rect(40, 35, 157, 165);
@@ -543,19 +547,89 @@ makepdf(tval){
   });
   //rows.push(['','','','Total',total,'']);
   doc.autoTable(col, rows,{margin: {top: 220}});
-    doc.save('vendor.pdf');
+   // doc.save('vendor.pdf');
     //var pdf =btoa(doc.output('datauristring'));
     //window.open(atob(pdf));
     //doc.output("dataurlnewwindow");
-   // window.open(URL.createObjectURL(blob));
-    //alert("This Functionality is Devlping Mode");
+    var pdf =doc.output('datauristring');
+    var msg = 'Dear '+vname+'<br>';
+    msg+='You have new bid request. Please find the attachment.';
+     this.sendemail.sendemail(email,"Congratulation you have new bid request !",msg,pdf,function(data){    
+      console.log(data);
+  })
   
 }
 
 pdfforclient(){
   
   var doc = new jsPDF('p','pt', 'a4', true);
-   doc.rect(40, 35, 157, 165);
+
+  doc.setFontSize(17);
+  doc.text(40,50,'Mc Sloy Construction');
+  //doc.setFontSize(14);
+  //doc.text(40,65,'Construction');
+
+  doc.setFontSize(28);
+  doc.text(450,50,'Quotation');
+
+  doc.setFontSize(12);
+  doc.text(40,120,'111 Malone St.');
+  doc.text(40,135,'Houston, TX 77007');
+  doc.text(40,150,'(281) 450-6991');
+
+  doc.text(400,120,'Date :'+new Date().toDateString());
+  doc.text(400,135,'Contact Name : '+this.prodata.clientname);
+  doc.text(400,150,'Project : '+this.prodata.clientadd);
+
+  //quote for
+  doc.setFontType("bold");
+  doc.text(40,180,'Quote For');
+  doc.setFontType("normal")
+  doc.text(40,195,this.prodata.clientname);
+  doc.text(40,210,this.prodata.clientadd);
+  //doc.text(40,225,'Houston, TX 77007');
+  doc.text(40,225,this.prodata.clientmobile);
+
+
+  doc.text(400,180,'Quotation valid until : '+this.prodata.bidexpair);
+  doc.text(400,195,'Prepared by : ' + this.prodata.preparedby);
+
+
+
+  doc.text(40,270,'Comments or special instructions:');
+
+//item table
+  var col = ["Description", "Quantity","Cost"];
+  var rows = [];
+  var total:any=0;
+  var notes:string='';
+  var top1:any=0;
+  this.estimator.forEach(function(val,key,arr){ 
+    var temp = [val.item,val.quantity,"$ "+val.ltotal];
+    rows.push(temp);
+    total+=val.ltotal;
+    notes+=val.notes+"\n";
+    top1=top1+40;
+  });
+  rows.push(['','Total',"$ "+total,'']);
+  doc.autoTable(col, rows,{margin: {top: 300}});
+  //var finalY:any = doc.autoTable.previous.finalY; // The y position on the page
+  console.log(doc.autoTable.previous);
+  doc.text(40, 300+top1, notes);
+  //doc.text(40,,'Prepared by : ');
+ // doc.output("dataurlnewwindow");
+
+ var pdf =doc.output('datauristring');
+ var msg = 'Dear '+this.prodata.clientname+'<br>';
+ msg+='Your Bid has been created. Please find the attachment.';
+  this.sendemail.sendemail(this.prodata.clientemail,"Your Bid Details",msg,pdf,function(data){    
+   console.log(data);
+})
+
+
+
+  ///old pdf code
+   /*doc.rect(40, 35, 157, 165);
    doc.setFontSize(12);
    doc.text(45, 25, this.prodata.companyname);
    //doc.text(45, 40, "PDF For Vendor");
@@ -617,13 +691,20 @@ pdfforclient(){
    });
    rows.push(['','Total',total,'']);
    doc.autoTable(col, rows,{margin: {top: 220}});
-     doc.save('Client.pdf');
-     //var pdf =btoa(doc.output('datauristring'));
+    // doc.save('Client.pdf');
+     var pdf =doc.output('datauristring');
+    /* this.sendemail.sendemail("dkk152207@gmail.com","This is test email","Hi this is test email",pdf,function(data){    
+      console.log(data);
+  })
      //window.open(atob(pdf));
-     //doc.output("dataurlnewwindow");
+     doc.output("dataurlnewwindow");
     // window.open(URL.createObjectURL(blob));
      //alert("This Functionality is Devlping Mode");
-   
+   */
 }
-
+mail(){
+  this.sendemail.sendemail("dkk152207@gmail.com","This is test email","Hi this is test email",null,function(data){    
+      console.log(data);
+  })
+}
 }

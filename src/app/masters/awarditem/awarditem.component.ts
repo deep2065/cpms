@@ -115,9 +115,9 @@ db.list('/projects').subscribe(p=>p.forEach(ele=>
       var key:any;
       var trade=[];
       this.aroute.params.subscribe(params => {
-        key = params['key']; // (+) converts string 'id' to a number
+        key = params['key']; // (+) converts string 'id' to a number       
      });
-     
+     this.bidkey=key;
      db.list('/projects').subscribe(keys=>keys.forEach(ele=>{
       if(ele.$key==key){
         this.estimator=ele.estimator;
@@ -685,14 +685,17 @@ addvendorcost(data,id){
   var estimate;
   var item = document.getElementById('aitemname_'+id).innerHTML;
   var quantity =document.getElementById('aquantyti_'+id).innerHTML;
-  estimate={item:item,quantity:quantity,vcost:data};  
+  estimate={item:item,quantity:quantity,vcost:data,id:id};  
   this.vendorcost[id]=estimate;
-  console.log(this.vendorcost);
 }
 
 vendorcontrct(){
-  alert("This Process is under development");
-}
+  this.vendorcost.forEach(p=>{    
+  //  this.db.list('/projects/'+this.bidkey+'/estimator').$ref.ref.child(p.id).child('award').set(1);
+    this.db.list('/projects/'+this.bidkey+'/estimator').$ref.ref.child(p.id).update({award:1,cost:p.vcost});
+  })
+ // alert("This Process is under development");
+} 
 
 priview(){
   var doc = new jsPDF('p','pt', 'a4', true);

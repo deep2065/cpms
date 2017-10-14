@@ -111,6 +111,7 @@
                 <th>Adjustment Factor</th>
                 <th>Line Total</th>
                 <th>Notes</th>
+                <th>Award</th>
               </tr>
             </thead>
             <tbody *ngIf='estimator.length>0'>
@@ -121,12 +122,12 @@
               <td><span id='adj_{{i}}'>{{item.factor}}</span></td>
               <td><span id='total_{{i}}'>{{item.ltotal}}</span></td>
               <td><span id='notes_{{i}}'>{{item.notes}}</span></td>
+              <td><span *ngIf='item.award'>&#10004;</span> <span *ngIf='!item.award'>&#10006;</span></td>
               </tr>
               <tr>
                 <td colspan="3"></td>
                 <td>Total</td>
-                <td>{{prodata.totalprice}}</td>
-                <td></td>
+                <td colspan="3">{{prodata.totalprice}}</td>
               </tr>
               <tr>
                 
