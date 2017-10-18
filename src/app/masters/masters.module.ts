@@ -11,6 +11,7 @@ import { TagInputModule } from 'ng2-tag-input';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import {HttpClientModule} from '@angular/common/http';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 
 import { PaginationModule, BsDropdownModule } from 'ngx-bootstrap';
@@ -80,6 +81,7 @@ import { Remodeltype } from './remodeltype/remodeltype.component';
 
 import {Approvebid}  from './approvebid/approvebid.component';
 import {Awarditem}  from './awarditem/awarditem.component';
+import {Signature}  from './signature/signature.component';
 
 
 import {
@@ -120,6 +122,7 @@ export const routes = [
   {path: 'remodel', component: Remodel},
   {path: 'approvebid', component: Approvebid},
   {path: 'awarditem/:key', component: Awarditem},
+  {path: 'signature/:key', component: Signature}, 
 ];
 
 @NgModule({
@@ -159,6 +162,7 @@ export const routes = [
     DatetimeTransparent,
     Approvebid,
     Awarditem,
+    Signature,
   ],
   imports: [
     CommonModule,
@@ -179,7 +183,8 @@ export const routes = [
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireDatabaseModule,  
     AngularFireAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    SignaturePadModule
   ]
 })
 export class MastersModule {
