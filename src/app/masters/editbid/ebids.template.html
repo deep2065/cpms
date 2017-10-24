@@ -171,7 +171,7 @@
                 <input (blur)='closetnumber($event,item.material,i);' type="text" id='quantyti_{{i}}' [(ngModel)]="estimator[i].quantity">
               </td>
               <td *ngIf='item'><span id='price_{{i}}'>{{estimator[i].price}}</span></td>
-              <td *ngIf='item'><input  type="text" id='adj_{{i}}' [(ngModel)]="estimator[i].factor"></td>
+              <td *ngIf='item'><input  type="text" (keyup)='changeadj($event,i)' id='adj_{{i}}' [(ngModel)]="estimator[i].factor"></td>
               <td *ngIf='item'><span id='total_{{i}}'>{{estimator[i].ltotal}}</span></td>
               <td *ngIf='item'><input  type="text" id='notes_{{i}}' [(ngModel)]="estimator[i].notes"></td>
               </tr>

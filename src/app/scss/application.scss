@@ -51,6 +51,9 @@
   :host /deep/ ng2-smart-table [_nghost-c3] a { 
     color: #fff !important; 
   }
+  :host /deep/ ng2-smart-table [_nghost-c4] a { 
+    color: #fff !important; 
+  }
 
   [_nghost-c3] a {
     color: #fff !important;
@@ -61,6 +64,11 @@
     color: #fff !important;
       text-decoration: none;
   }
+
+  [_nghost-c4] a {
+    color:  #fff !important;
+    text-decoration: none;
+}
   
   /*.ng2-smart-filters {
   display: none !important;
@@ -90,3 +98,10 @@
   .error{
     border: 1px red solid;
   }
+
+  [_nghost-c10] input[_ngcontent-c10], [_nghost-c10] textarea[_ngcontent-c10] {
+    width: 100%;
+    line-height: normal;
+    padding: .375em .75em;
+    color: #000;
+}

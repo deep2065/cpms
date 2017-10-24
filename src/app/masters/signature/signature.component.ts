@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation,ElementRef,ViewChild,Injectable } from '@angular/core';
+import * as FileSaver from 'file-saver';
 
 import {HttpClient} from '@angular/common/http';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
@@ -41,6 +42,7 @@ export class projectdata {
   comment:string ="";
   status:string='notapproved'
   totalprice:string="";
+  sign:string='';
 }
 
 @Component({
@@ -469,7 +471,7 @@ selectbids(id){
       this.prodata.items=ele.items;
       this.prodata.comment=ele.comment;
       this.prodata.status='disapprove';
-      this.bidtrade=itrade;
+      this.bidtrade=itrade;      
       this.pdfforclient();
     }
   }));
@@ -643,12 +645,45 @@ pdfforclient(){
    doc.autoTable(col, rows,{margin: {top: 220}});
     // doc.save('Client.pdf');
     // this.pdfdata =doc.output('datauristring').split('base64')[1];
-     this.pdfdata =doc.output('datauristring');
+     var pdfdata =doc.output('datauristring');
+var b64 = pdfdata.split(';base64,');
+var b64data = b64[1];
+//var content = b64[0].split(":")[1];
+var content = 'image/png';
+
+    var blob = this.b64toBlob(b64data,content,'');
+    this.pdfdata = URL.createObjectURL(blob);
+//FileSaver.saveAs(blob, "client.pdf"); 
      //window.open(atob(pdf));
      //doc.output("dataurlnewwindow");
     // window.open(URL.createObjectURL(blob));
      //alert("This Functionality is Devlping Mode");
    
+}
+
+
+b64toBlob(b64Data, contentType, sliceSize) {
+  contentType = contentType || '';
+  sliceSize = sliceSize || 512;
+
+  var byteCharacters = atob(b64Data);
+  var byteArrays = [];
+
+  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+    var byteNumbers = new Array(slice.length);
+    for (var i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+
+    var byteArray = new Uint8Array(byteNumbers);
+
+    byteArrays.push(byteArray);
+  }
+    
+  var blob = new Blob(byteArrays, {type: contentType});
+  return blob;
 }
 
 movetoproject(){
@@ -741,15 +776,19 @@ priview(){
    this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
  }
 
- drawComplete() {
-   // will be notified of szimek/signature_pad's onEnd event
-   console.log(this.signaturePad.toDataURL());
- }
+ sign:string='';
 
- drawStart() {
-   // will be notified of szimek/signature_pad's onBegin event
-   console.log('begin drawing');
+ drawComplete() {
+   this.sign = this.signaturePad.toDataURL();
  }
+ 
+
+
+awardbid(){
+  var data = {sign:this.sign};
+  this.db.list('/projects/'+this.bidkey).$ref.ref.child("sign").set(this.sign);
+    
+}
 
 
 }

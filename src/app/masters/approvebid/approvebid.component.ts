@@ -40,6 +40,7 @@ export class projectdata {
   comment:string ="";
   status:string='notapproved'
   totalprice:string="";
+  sign:string='';
 }
 
 @Component({
@@ -50,6 +51,8 @@ export class projectdata {
   providers: [EmailService]
 })
 export class Approvebid {
+  projectstartdate:Date = new Date();
+  projectenddate:Date = new Date();
     datepickerOpts = {
       startDate: new Date(),
       autoclose: true,
@@ -249,7 +252,7 @@ db.list('/projects').subscribe(p=>p.forEach(ele=>
       }
     }
     datepickerexpairOpts= {
-      startDate: this.prodata.biddate,
+      startDate: new Date(),
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
@@ -257,12 +260,10 @@ db.list('/projects').subscribe(p=>p.forEach(ele=>
       format: 'm/d/yyyy',
       icon: 'fa fa-calendar'
   }
-    handleDateFromChange(event){      
-      var tomorrow = event;
-      //tomorrow.setDate(tomorrow.getDate() + 1);
-      this.prodata.bidexpair=tomorrow;
+    handleDateFromChange(event){
+      this.projectenddate=event;
       this.datepickerexpairOpts = {
-        startDate:   this.prodata.bidexpair,
+        startDate:   event,
         autoclose: true,
         todayBtn: 'linked',
         todayHighlight: true,
@@ -440,6 +441,7 @@ selectbids(id){
       this.prodata.comment=ele.comment;
       this.prodata.status='disapprove';
       this.bidtrade=itrade;
+      this.prodata.sign=ele.sign;
     }
   }));
 
@@ -620,9 +622,60 @@ pdfforclient(){
 }
 
 movetoproject(){
-  alert("This Process is under development");
+  //console.log(this.prodata.sign);
+  if(!this.prodata.sign){
+    alert("Wait For Client Confirmation");
+  }else{
+  var totalitem = this.estimator.length;
+  var i=0;
+  this.estimator.forEach(e=>{
+    if(e.award){
+i++;
+    }
+  })
+ 
+  if(totalitem!=i){
+    alert("Please Award All Item");
+  }else{
+    document.getElementById('openprojectdates').click();    
+  }
+}
 }
 
+motoprojectalldata(){
+  var procost:any=0;
+  this.estimator.forEach(e=>{
+    procost+=parseFloat(e.cost);
+  })
+  var data = {
+    projectname:this.prodata.clientname,
+    projecttotal:this.prodata.totalprice,      
+    projectcost:procost,
+    netprofit:(parseFloat(this.prodata.totalprice)-procost),
+    projectdetail:this.prodata,
+    projectstartdate:this.projectstartdate.toDateString(),
+    projectenddate:this.projectenddate.toDateString(),
+    projectduration:this.caculateday(this.projectstartdate,this.projectenddate)+1,
+   // project
+  }
+this.db.list('/mainproject').push(data);
+this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('movedtoproject');
+}
+
+caculateday( date1, date2 ) {
+  //Get 1 day in milliseconds
+  var one_day=1000*60*60*24;
+
+  // Convert both dates to milliseconds
+  var date1_ms = date1.getTime();
+  var date2_ms = date2.getTime();
+
+  // Calculate the difference in milliseconds
+  var difference_ms = date2_ms - date1_ms;
+    
+  // Convert back to days and return
+  return Math.round(difference_ms/one_day); 
+}
 awarditem(){
   var key = this.bidproid;
   this.route.navigate(["/app/masters/awarditem/"+key]);

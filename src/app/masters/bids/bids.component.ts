@@ -359,8 +359,7 @@ accept=true;
 submitbid(){
   if(this.prodata.projecttype==''){
     this.accept=false;
-    document.getElementById("projecttypemsg").innerHTML='Please Select Project Type';
-    
+    document.getElementById("projecttypemsg").innerHTML='Please Select Project Type';    
     return false;
   }
   if(this.accept){

@@ -32,6 +32,17 @@ export class Material {
       this.error="Please Fill Material Name Field";
       }
     }
+
+
+    onlynumber(e){
+      var code = e.keyCode;
+     // console.log();
+      if(code>=96 && code<=105 || code==8){
+        return true;
+      }else{
+        return false;
+      }
+    }
    
 
 }

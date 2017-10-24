@@ -330,23 +330,28 @@ prodata = new projectdata();
       });
       this.estimator[id]=estimate;
     }
-changeadj(event,id){
-  var estimate;
-  var quantyti:any= document.getElementById("quantyti_"+id);
-  var adj :any =event.target;
- // if(adj.value<quantyti.value){
-    //adj.value=quantyti.value;
-    var price:any= document.getElementById("price_"+id).innerHTML;    
-    var total :any = (price*adj.value);
-    document.getElementById("total_"+id).innerHTML=total;
-    var itemname =  document.getElementById("itemname_"+id).innerHTML;
-    estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total};
-    this.estimator[id]=estimate;
- // }else{
-  //  alert(quantyti.value+" High value "+adj);
- // }
-  
-}
+    changeadj(event,id){
+      var estimate;
+      var quantyti:any= document.getElementById("quantyti_"+id);
+      var adj :any =event.target;
+     // if(adj.value<quantyti.value){
+        //adj.value=quantyti.value;
+        var price:any= document.getElementById("price_"+id).innerHTML;    
+        var total :any = (price*adj.value)*quantyti.value;
+        document.getElementById("total_"+id).innerHTML=total;
+    
+        var itemname =  document.getElementById("itemname_"+id).innerHTML;
+        var notes1:any =  document.getElementById("notes_"+id);
+        var trade1:any = document.getElementById("trade_"+id);
+        estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value,trade:trade1.value};
+        
+       // estimate={item:itemname,quantity:quantyti.value,price:price,factor:adj.value,ltotal:total,notes:notes1.value};
+        this.estimator[id]=estimate;
+     // }else{
+      //  alert(quantyti.value+" High value "+adj);
+     // }
+      
+    }
 
 submitbid(){
   this.prodata.items=this.additem;
@@ -447,6 +452,9 @@ selectbids(id){
 
   console.log(this.bidproid);
 }
+
+
+
 
    
 }
