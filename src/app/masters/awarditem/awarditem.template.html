@@ -16,7 +16,7 @@
                     <label class="control-label" for="protype" >Choose Vendor</label>
                   <select name="protype" class="form-control" (change)='selectitems($event.target.value)' >
                     <option value="" selected >Select Your Vendor</option>
-                    <option *ngFor='let ven of vendor' value="{{ven.trade}}">{{ven.conname}}</option>
+                    <option *ngFor='let ven of vendor' value="{{ven.$key}}" >{{ven.conname}}</option>
                   </select>
                   </div>
             </div>
@@ -222,6 +222,327 @@
          
 </div>
 </div>
+<style>
+  .text-info2 ul{
+    list-style-type: circle !important;
+  }
+
+  .text-info2 ol  {
+    list-style-type: decimal !important;
+  }
+  .pd-left {
+    text-align: justify;
+    padding-left: 20px;
+  }
+</style>
+<div id="editor"></div>
+<div class="col-md-12 text-info2" id='htmltopdf' style="display:none">
+    <p><strong>&nbsp;</strong></p>
+    <h4 style="text-align:center">INDEPENDENT BASE CONTRACT AGREEMENT</h4>
+   <br>
+    <p>This Base Agreement (Agreement) is made by and between, McSloy Construction, L.L.C., (hereinafter referred to as &ldquo;McSC&rdquo;) and ________ (hereinafter referred to as &ldquo;Contractor&rdquo;). The term &ldquo;Contractor&rdquo; is acknowledged and intended to mean both contractor and its employee&rsquo;s and subcontractors where applicable. Both parties agree and acknowledge that they are entering into this Agreement subject to and in exchange for the terms and conditions set forth herein.&nbsp; This Agreement shall have an effective date of ______ day of ______________, 2016___.</p>
+    <p><strong><u>RELATIONSHIP OF THE PARTIES TO THIS AGREEMENT</u></strong></p>
+    <div class="pd-left">
+    <ol>
+   <li>Contractor hereby certifies that neither Contractor nor Contractor&rsquo;s employees, agents, subcontractors or assigns are not employees of McSC and that Contractor is solely responsible for the selection, training, methods, tools and safety of these individuals and subcontractors, as well as their compensation including but not limited to taxes and charges incident to their payment including but not limited to, withholding taxes, social security taxes, and unemployment taxes.</li>
+    <li>Contractor is solely responsible for the provision of any Worker&rsquo;s Compensation Insurance coverage with respect to Contractor or Contractor&rsquo;s agents, representatives, subagents, subcontractors, or employees.</li>
+  </ol>
+</div>
+<br>    
+<p><strong><u>CONTRACTOR&rsquo;S RESPONSIBILITIES</u></strong></p>
+        <p>Contractor shall maintain at all times discipline among his or her employees, subcontractors and agents, and agrees not to employ or subcontract any person unfit or without sufficient training and skill to perform the job he is contracted to do.</p>
+    <div class="pd-left">
+    <ol>
+    <li><u>WORK/TOOLS OF TRADE</u></li>
+    </ol>
+    <p>Contractor has sole discretion with respect to its tools of trade, working hours, supervision and direction of Contractor&rsquo;s agents, representatives, subagents, subcontractors, or employees so long as such discretion is not exercised in violation of local, state or federal rules, regulations, ordinances, laws or requirements.&nbsp; Contractor is obligated to perform his task in accordance with the plans and specifications of the homes as provided by McSC and incorporated into this Agreement by reference.&nbsp; Contractor acknowledges to being familiar with all relevant plans and specifications or any work requested by McSC<strong><u>before</u></strong> starting any work.All labor and materials furnished by the Contractor shall be in accordance with all applicable manufacturing and construction codes and with the plans and specifications furnished by McSC.&nbsp; Contractor shall keep a copy of such plans on each job while the work is in progress.</p>
+    <ol start="2">
+    <li><u>STANDARD OF WORK</u></li>
+    </ol>
+    <p>Contractor shall perform all labor in a good and workmanlike manner, according to the standard incorporated by reference into industry practice, and warrants that all labor done and any materials furnished by contractor will meet or exceed the standards of the International Residential code (IRC), the warranty standards as promulgated by the State of Texas (if any), the FHA minimum property standards, and any other applicable federal, state, or local building code requirements.</p>
+    <ol start="3">
+    <li><u>CONTRACTOR SAFETY POLICY</u></li>
+    </ol>
+  </div>
+  <div class="pd-left">
+      <div class="pd-left">
+    <p>Contractor hereby certifies:</p>
+    <ul>
+    <li>That he has implemented a written Health and Safety Policy in accordance with O.S.H.A. standards;</li>
+    <li>That each job site manned with at least one (1) individual who is trained and certified in accordance with O.S.H.A. standards to administer first aid;</li>
+    <li>That he understands he is required to inspect working area(s) to ensure there are no unsafe conditions or hazards prior to starting work.</li>
+    <li>That each crew has immediate access to an OSHA first aid kit; and</li>
+    <li>That he understands and agrees that McSC will not be responsible for supplying a first aid kit at each job address for Contractor use and that first aid for Contractor&rsquo;s employees is clearly and solely the responsibility of each individual Contractor. Contractor hereby agrees to provide for himself and for his employees his own ground fault circuit interrupter or equivalent. O.S.H.A. approved protection and further agrees, in the absence of such protection, to refrain from using any electrical equipment on any of McSCs&rsquo; job site(s).&nbsp;</li>
+    <li>That he understands the McSC reserves the right to inspect the Contractor&rsquo;s compliance. If McSC finds an unsafe acts or hazardous conditions that may cause an injury or illness, work shall be stopped and the hazard abated before work can be continued.&nbsp; Contractor performing unsafe acts or who have created a hazardous condition shall be subject to McSC&rsquo;s safety violation and may be warned, fined and/or removed from jobsite.</li>
+    </ul>
+    </div>
+  </div>
+ <br>
+    <p>Contractor hereby acknowledges his contractual responsibility to refrain from the use of any equipment, scaffolding, ladders, extension cords and/or any type of tool that does not meet or exceed O.S.H.A. specifications.</p>
+    <p>&nbsp;</p>
+    
+    <p><strong><u>LIABILITY FOR INJURY</u></strong></p>
+   
+    <p>Contractor hereby agrees to accept sole responsibility to assume all expenses and liability for any injury or illness sustained by Contractor or any of its subcontractors or employees while on the job site or performing any task or work for in any way associated with McSC and:</p>
+    <div class="pd-left">
+    <ul>
+    <li>To provide adequate training and supervision including safety training to Contractor&rsquo;s employees and subcontractors.</li>
+    <li>To maintain and provide safe, appropriate and well maintained equipment and implements of work for contractor&rsquo;s employees and subcontractors.</li>
+    <li>To supervise and direct his work to the best of his ability; and</li>
+    <li>To give it all attention necessary for such proper supervision and direction.</li>
+    </ul>
+    </div>
+    <br>
+    <p>Contractor and its employees and its contractors shall comply with all of the requirements of the Occupational Safety and Health Act of 1970 related to Contractor&rsquo;s business including but not limited to fire safety, fall protection, GFCI protection, and adequate injury prevention equipment including hard hats and safety glasses as applicable.</p>
+    <br>
+    <p><strong><u>SCOPE OF WORK</u></strong></p>
+    
+    <div class="pd-left">
+        <div class="pd-left">
+    <ul>
+    <li>Rotate toilet in master bathroom with applicable water feed and drain rerouting (drain requires concrete cutting and pour back)</li>
+    <li>Run lines for dual vanity in master bathroom. This includes tying in the drain to the existing drain location (drain requires concrete cutting and pour back), two feeds for dual vanity in new location and vent line in new location (to be tied into existing vent or new routing through roof).</li>
+    <li>Install water feed for refrigerator in new location.</li>
+    <li>Reroute feed lines for master shower with applicable valve kit. Drain to remain in current location.</li>
+    <li>Replace existing valve and drain kits for guest bathroom (feed and drains to remain in same location)</li>
+    <li>Route gas feed to new range location for gas range. To be routed through attic and dropped in at applicable location.</li>
+    <li>Replace existing water and dryer pipe feed and drain lines.</li>
+    <li>Any required plumbing repairs for existing dual vanity feed in guest bathroom, sink in kitchen</li>
+    <li>All plumbing material to be provided by subcontractor. Fixtures, sinks and appliances to be provided by McSC</li>
+    </ul>
+    </div>
+  </div>
+    <br>
+    <p>Master Bath</p>
+    <!--<p><img src="master.png" width="500"></p>-->
+    <br>
+    <p>Kitchen</p>
+    <!--<p><img src="kitchen.png" width="500"></p>-->
+  
+    <p><strong><u>CONTRACTORS INVOICES</u></strong></p>
+    <div class="pd-left">
+    <p>Contractor must submit itemized invoices for payment within 30 days after completion of the work performed on that particular home site. All invoices submitted by Contractor to McSC later than 6 months after such work was performed by Contractor will not be paid, and Contractor expressly waives any and all rights of payment for or collection of such sums from McSC. Invoice amount for contract (reference section 5) is <strong>XXXXXXXXXXX</strong><strong>.</strong></p>
+    <ol>
+    <li><u>CHANGE IN A WORK ORDER</u></li>
+    </ol>
+    <p>McSC reserves the right, from time to time, to order work changes in the nature of additions, deletions, or modifications, without invalidating this Agreement and agrees to make corresponding adjustments in the payments to be made to Contractor.&nbsp; All changes will be authorized by a written change work order signed by McSC and Contractor.&nbsp; Work shall be changed and the payment(s) to be made to Contractor shall be modified only as set out in the written change order. In conjunction with this Agreement, Approved Amendments to Price Lists shall be applicable only to new jobs started after the date of such Amended Price List.</p>
+    <ol start="2">
+    <li><u>ASSIGNMENT OF MANUFACTURERS WARRANTIES</u></li>
+    </ol>
+    <p>Contractor shall furnish and assign to McSC all warranties and/or guarantees by manufacturers on goods, appliances and equipment furnished to McSC and shall further furnish all warranty or related certificates required by any municipality, VA and/or FHA.</p>
+    <ol start="3">
+    <li><u>INSPECTION</u></li>
+    </ol>
+    <p>Contractor shall be responsible for inspecting any work of another contractor that may affect his own work, and shall report in writing to McSC any defects in such work upon discovery of the defect prior to commencing work, or shall be deemed to have accepted such work as correct and fit to be accommodated into Contractor&rsquo;s own work.</p>
+    <ol start="4">
+    <li><u>WARRANTY PERIOD</u></li>
+    </ol>
+    <p>Contractor warrants all labor and material furnished by him to be free of defect for a period of at least one (1) year from the date of the deed conveying the property from McSC to the ultimate purchaser.</p>
+    </div>
+    <br>
+   
+    <p><strong><u>PAYMENT TERMS</u></strong></p>
+   
+    <p>Payment terms are net 30.&nbsp; No payments shall be due under this Agreement unless and until Contractor has timely performed and delivered all work requested by McSC.&nbsp; No payments will be disbursed until McSC has had reasonable opportunity to inspect the work performed and/or delivered, and has received an invoice identifying the subject work.</p>
+    <div class="pd-left">    
+    <ol>
+    <li><u>PAYMENTS WITHHELD</u></li>
+    </ol>
+    <p>Contractor agrees that payments may be withheld and all costs incurred by McSC shall be charged against all monies due Contractor under this Agreement if:</p>
+    <div class="pd-left">
+      <ul>
+    <li>Work is found defective and not remedied by Contractor.</li>
+    <li>Contractor does not make prompt and proper payments to his employees, agents and/or subcontractors.</li>
+    <li>Contractor does not make prompt payments for labor, materials or equipment furnished by third parties.</li>
+    <li>Contractor does not timely furnish itemized invoices as specified in this Agreement.</li>
+    <li>Another contractor is damaged by an act for which Contractor is responsible.</li>
+    <li>Claims or liens are filed on the job as a result of Contractor&rsquo;s failure to make full and timely payments as required.</li>
+    <li>In the opinion of the McSC, Contractor&rsquo;s work is not progressing satisfactorily.</li>
+    <li>McSC reasonably believes that the work cannot or will not be completed in accordance with all the terms and conditions of this Agreement.</li>
+    <li>Contractor fails to perform warranty service under this Agreement or any other prior or contemporaneous agreement with McSC.</li>
+    <li>McSC is fined by any governmental agency on account of or arising out of Contractor&rsquo;s, his employees or his agent&rsquo;s violation of any law, ordinance, regulation, administrative ruling or court order.</li>
+    <li>Contractor shall notify the McSC if they have not received the approved extra purchase orwork order for non-emergency work and the work is being delayed, or in the case of emergency work, they have not received the approved extra purchase or changed work order by the end of the following business day.</li>
+    <li>Contractor will not be paid for work they perform without the required work order(s) documentation.</li>
+    </ul>
+    </div>
+  
+    <ol start="2">
+    <li><u>TAXES</u></li>
+    </ol>
+    <p>Contractor shall pay all taxes required or imposed by law in connection with work under this Agreement including sales, use or similar taxes, and Contractor shall secure and pay for all licenses and permits necessary for proper completion of the work including sales tax permits where required.&nbsp; This Agreement is to be considered a Lump Sum Contract.&nbsp; State and local sales and use taxes are included in the Lump Sum Contract Price.</p>
+    <ol start="3">
+    <li><u>WORK IN PROGRESS</u></li>
+    </ol>
+    <p>At all times, during the performance of this Agreement, McSC shall be entitled to hold, of all work in progress, statutory sums in accordance with the laws of the State of Texas.&nbsp; Contractor waives his right to constitutional and statutory liens on any job not fully performed by Contractor.</p>
+  </div>
+  <br>
+
+  <p><strong><u>DEFAULT BY CONTRACTOR</u></strong></p>
+  <div class="pd-left">
+  <ol>
+     <li><u>DEFECTIVE WORK</u></li>
+    </ol>
+    <p>When McSC notifies Contractor (orally or in writing) that any part of the work is defective, incorrect or does not conform to the terms of the plans and specifications, Contractor agrees to:</p>
+   
+    <div class="pd-left">
+      <ul>
+    <li>Make all repairs and correct such defects under the warranty within eight (8) hours of notice of such defect for emergency matters, and within forty-eight (48) hours of notice of such defect on a non-emergency basis;</li>
+    <li>McSC shall determine whether a defect constitutes an emergency;</li>
+    <li>To bear the cost of doing so, including the cost incurred by McSC for any disturbance of work being completed by McSC or its other Contractors; and</li>
+    <li>Where applicable, Warrant Mechanicals (i.e., plumbing, electrical and HVAC systems) for two (2) years.</li>
+    </ul>
+    </div>
+  
+<br>
+    <ol start="2">
+    <li><u>WORK STOPPAGE </u></li>
+    </ol>
+    <p>Contractor shall continually perform in a professional manner the work designated under this Agreement and at a pace consistent with McSC&rsquo;s completion schedule.&nbsp; In the event Contractor shall not substantially perform in a continuous manner and if Contractor shall fail to do so for three (3) consecutive days under any work orders, McSC shall have the right to give three (3) days written notice to Contractor and shall be entitled to terminate the employment of Contractor and declare Contractor in breach of this Agreement.</p>
+    <ol start="3">
+    <li><u>BREACH </u></li>
+    </ol>
+    <p>In the event of a breach of this Agreement by Contractor, McSCshall be entitled to retain all sums due Contractor under any work orders and shall be entitled to cause the work to be performed by others, and shall apply any sums then due Contractor against such costs of completion and thereafter to the costs of a one (1) year warranty, and after all warranties have expired any excess shall be paid to Contractor.&nbsp; In the event costs of such completion result in a deficiency, Contractor shall be fully responsible for the deficiency, together with any damages, costs of court, and reasonable attorney&rsquo;s fees incurred by McSC in the recovery of such deficiency.</p>
+  </div>
+  
+    <p><strong><u>COMPLIANCE WITH LAWS, ORIDNANCES, AND BUILDING CODES</u></strong></p>
+    <div class="pd-left">
+    <p>Contractor agrees to comply with all current applicable laws, ordinances, building codes and all rules, regulations, or orders of all public or regulatory authorities relating to the performance of the work.</p>
+    <p><u>O.S.H.A. COMPLIANCE</u></p>
+    <p>Contractor and each of his employees will not enter McSC&rsquo;s job site(s) without implementing O.S.H.A. approved fire protection and prevention standards in their entirety, and agree that, in the case of conflict between the Contractor&rsquo;s Fire Safety Program and McSC&rsquo;s Fire Safety Program, McSC&rsquo;s Fire Safety program will prevail.</p>
+    <p>WORKING CONDITIONS: Contractor shall be responsible for providing adequate safety training, safety devices, and safety clothing where necessary to ensure the safety of its employees and subcontractors and to immediately reporting unsafe work practice and/or job condition(s) to McSC and provide safe working procedures including equipment, training, and supervision for his employees, subcontractors, and agents. Contractor will comply with all provisions of the 1970 Occupational Safety and Health Act (OSHA) and all other applicable OSHA rules and regulations. This includes, but not limited to:</p>
+    <ul>
+    <li>Compliance with OSHA&rsquo;s Hazard and Communication Standard and provide McSC a copy of all Materials Safety Data Sheets for all hazardous or toxic chemicals used in connection with the work;</li>
+    <li>Compliance with OSHA&rsquo;s Fall Protection in the Construction Industry; and</li>
+    <li>Contractor shall immediately notify McSC of any job related injury to or death of any person employed by Contractor, or otherwise under the control of Contractor, in connection with the McSC</li>
+    </ul>
+    <br>
+    <ol>
+    <li><u>SAFETY</u></li>
+    </ol>
+    <p>Contractor agrees to maintain proper storm water, fire and material safety.</p>
+   
+    <ol start="2">
+    <li><u>DUTY TO NOTIFY</u></li>
+    </ol>
+    <p>Contractor agrees to assist McSC in maintaining a healthy, safe work environment for both employees and Contractors on an ongoing basis.&nbsp; Contractor shall instruct its employees to immediately notify representatives or employees of McSC if, in the Contractor&rsquo;s or employee of Contractor&rsquo;s opinion, there is any condition, situation, or conduct on the work site which is currently dangerous or hazardous in any way to the employees of Contractor or any other person present on the job site or who may come upon the job site in the immediate future.&nbsp; Contractor also agrees to notify McSC immediately if any of Contractors employees or Contractors are injured during work being performed by McSC or on McSC&rsquo;s job site.&nbsp;</p>
+    <ol start="3">
+    <li><u>WAGE AND HOUR LAWS AND IMMIGRATION REGULATIONS</u></li>
+    </ol>
+    <p>Contractor hereby certifies to McSC that it is in full compliance and shall remain in full compliance with the wage and hour (including overtime compensation) laws applicable to the State of Texas.&nbsp; Violation of any of the provisions shall be deemed a material default under this Contract, and any liabilities incurred by Contractor as a result thereof shall be subject to the indemnity provisions of this Contract.&nbsp;</p>
+    <p>Contractor warrants and agrees that all employees, subcontractors, and agents will be of legal age (18&nbsp;years) to perform such work and comply with the requirements of all applicable immigration laws including the Immigration Reform and Central Act (IRCA) with respect to all Contractor&rsquo;s employees. Contractor agrees to obtain properly completed Employment Eligibility Verification Forms (Form I-9) for all Contractors&rsquo; employees as required by IRCA; and verify social security numbers and other documentation submitted with each Form I-9.</p>
+    </div>
+
+    <p><strong><u>INDEMNITY AND INSURANCE</u></strong></p>
+  
+    <p>Contractor shall secure and maintain for the duration of the Contract such insurance as will protect it from claims under the Worker's Compensation Statute for the state in which the work is located and from such claims for bodily injury, death or property damage as may arise in the performance of Contractor&rsquo;s services under this Agreement, such coverage to be equal or greater than the minimum limits hereinafter set forth.&nbsp;</p>
+    <p>The Contractor hereby agrees to assume the entire responsibility and liability for any and all injuries or death of any and all persons and any and all losses or damage to property caused by or resulting from or arising out of any act, neglect or negligence, omission or agreement on the part of the Contractor, its agents, officers, employees, subcontractors or servants in connection with this Agreement or with the prosecution of the work hereunder, whether covered by the insurance specified herein or not.</p>
+    <p>Contractor shall indemnify, defend and save harmless the McSC and its affiliates, agents, officers, employees, (including but not limited to home owners and property owners associations established by McSC or its officers and employees) from any and all claims, losses, damages, fines or penalties, legal suits or actions including reasonable attorney's fees, expenses and costs which may arise out of any and all work performed by Contractor or its agents, employees, subcontractors or servants and to assume all liability of Contractor and of McSC for such claims, losses, damages, legal suits or actions for the injuries, deaths, losses and or damages to persons or property.</p>
+    
+    <p><strong><u>GENERAL TERMS AND CONDITIONS</u></strong></p>
+    
+
+    <p><u>NOTICES</u></p>
+    
+    <table class="table">
+        <tbody>
+        <tr>
+        <td width="337">
+        <p><strong><u>McSloy Construction, LLC</u></strong></p>
+        </td>
+        <td width="305">
+        <p><strong><u>CONTRACTOR</u></strong></p>
+        
+        <p>______________________________________</p>
+        
+        <p>______________________________________</p>
+        <p>______________________________________</p>
+        </td>
+        
+        
+        </tr>
+        
+        
+        
+        </tbody>
+        </table>
+    <p>All notices must be in writing and must be delivered by personal delivery, by certified mail return receipt requested, email with confirmation by receipted notification, or by facsimile to the location for each party designated below.</p>
+   
+    <p>This Agreement (including Attachments) contains the entire agreement among the parties, and no oral statements or prior written matters not specifically incorporated herein shall be of any force and effect.&nbsp; No variation, modification or changes hereof shall be binding on either party hereto unless set forth in a document executed by all the parties hereto.&nbsp; If there is conflict between this Agreement and any terms contained in any proposal, invoice or other agreement between McSC and Contractor, the terms of this Agreement shall control.</p>
+    <table class="table">
+        <tbody>
+        <tr>
+        <td width="217">
+        <p>&nbsp;</p>
+        </td>
+        <td width="217">
+        <p>CONTRACTOR</p>
+        </td>
+        <td width="217">
+        <p>MCSLOY CONSTRUCTION LLC</p>
+        </td>
+        </tr>
+        <tr>
+        <td width="217">
+        <p>Name of Company</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        </tr>
+        <tr>
+        <td width="217">
+        <p>Name of Representative</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        </tr>
+        <tr>
+        <td width="217">
+        <p>Signature</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        </tr>
+        <tr>
+        <td width="217">
+        <p>Date</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        </tr>
+        <tr>
+        <td width="217">
+        <p>Phone Number</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        <td width="217">
+        <p>aa</p>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+    <p>&nbsp;</p>
+   
+    <p><strong>&nbsp;</strong></p>
+</div>
+<button (click)="converttopdf();">Convert to pdf</button>
 </div>
 <div id="additemsintobid" class="modal fade" role="dialog">
     <div class="modal-dialog">

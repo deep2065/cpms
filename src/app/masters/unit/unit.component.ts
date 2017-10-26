@@ -15,6 +15,7 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 export class Unit {
   
   unit : FirebaseListObservable<any[]>;
+  list=false;
   subcategoryitems : FirebaseListObservable<any[]>;
     constructor(db:AngularFireDatabase) {
       this.unit = db.list('/units');
@@ -28,6 +29,7 @@ export class Unit {
       if(data.cname!=""){
       this.unit.push(data);
       this.success = "Unit Added Successfully";
+     this.list=true;
       }else{
       this.error="Please Fill Unit Name Field";
       }

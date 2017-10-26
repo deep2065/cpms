@@ -1,66 +1,18 @@
 
 <div class="col-md-12">
-  <table  class="table table-striped">
-    <tr>
-      <th>S.N </th>
-      <th>Unit</th>
-      <th>Notes </th>
-      <th>Action </th>
-    </tr>
-    <tr *ngFor="let item of unit | async; let i= index">
-        <td>{{i+1}}</td>
-      <td>{{item.unit}}</td>
-      <td>{{item.notes}}</td>
-      <td><button class="button" (click)="deleteunit(item)"><i class="fa fa-trash" aria-hidden="true"></i></button> 
-        <button class="button" data-toggle="modal" data-target="#editcategory" (click)="editunit(item)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
-    </tr>
-  </table>
-  <div class="col-md-12">
-    <div class="form-group"> 
-        <div class="col-sm-offset-6" style="text-align:center">
-          <button [routerLinkActive]="['active']" type="button" class="btn btn-default"><a routerLink="/app/masters/unit">Add Trade</a></button>
-          
-        </div>
-      </div>
+    <div class="modal-header">       
+        <h4 class="modal-title">Unit List</h4>
+        <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
 </div>
-</div>
-<div id="editcategory" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">       
-          <h4 class="modal-title">Update Your Trade</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-            <h4 class="modal-title">{{error}}</h4>
-          <form class="form-horizontal"  #upform="ngForm" (ngSubmit)="updatecategory(upform.value)">
-            <div class="form-group">
-              <label class="control-label col-sm-12" for="ecname">Category Name</label>
-              <div class="col-sm-10">
-                <input type="hidden" [(ngModel)]='updata.$key' name="key">
-                <input type="text" class="form-control" [(ngModel)]='updata.cname' required name="cname" id="ecname"  placeholder="Enter Category Name"  ngModel>
-              </div>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+    (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+
+    <div class="col-md-12">
+        <div class="form-group"> 
+            <div class="col-sm-offset-6" style="text-align:center">
+              <button [routerLinkActive]="['active']" type="button" class="btn btn-default"><a routerLink="/app/masters/unit">Add Unit</a></button>
+              
             </div>
-            <div class="form-group">
-              <label class="control-label col-sm-12"  for="edesc">Description</label>
-              <div class="col-sm-10"> 
-                <textarea class="form-control" [(ngModel)]='updata.desc'  name="desc" id="edesc" ngModel ></textarea>
-              </div>
-            </div>
-            
-            <div class="form-group"> 
-              <div class="col-sm-offset-12">
-                <button type="submit" class="btn btn-default">Update</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-  
+          </div>
     </div>
   </div>

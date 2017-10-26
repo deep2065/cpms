@@ -621,7 +621,7 @@ pdfforclient(){
 
  var pdf =doc.output('datauristring');
  var msg = 'Dear '+this.prodata.clientname+'<br>';
- msg+='Your Bid has been created. Please find the attachment.';
+ msg+='Your Bid has been created. Please find the attachment. <br> <a href=http://localhost:3000/masters/signature/'+this.bidproid+'>Click Here To Signature</a>';
   this.sendemail.sendemail(this.prodata.clientemail,"Your Bid Details",msg,pdf,function(data){    
    console.log(data);
 })
