@@ -82,6 +82,12 @@ import { Remodeltype } from './remodeltype/remodeltype.component';
 import {Approvebid}  from './approvebid/approvebid.component';
 import {Awarditem}  from './awarditem/awarditem.component';
 import {Signature}  from './signature/signature.component';
+import {Allproject}  from './allproject/allproject.component';
+import {Currentproject}  from './currentproject/currentproject.component';
+import {Finishedproject}  from './finishproject/finishproject.component';
+import {Allbid}  from './allbid/allbid.component';
+import {Contract}  from './contract/contract.component';
+
 
 
 import {
@@ -123,6 +129,11 @@ export const routes = [
   {path: 'approvebid', component: Approvebid},
   {path: 'awarditem/:key', component: Awarditem},
   {path: 'signature/:key', component: Signature}, 
+  {path: 'allproject', component: Allproject}, 
+  {path: 'currentproject', component: Currentproject}, 
+  {path: 'finishedproject', component: Finishedproject}, 
+  {path: 'allbid', component: Allbid}, 
+  {path: 'contract/:key', component: Contract}, 
 ];
 
 @NgModule({
@@ -163,6 +174,11 @@ export const routes = [
     Approvebid,
     Awarditem,
     Signature,
+    Allproject,
+    Currentproject,
+    Finishedproject,
+    Allbid,
+    Contract,
   ],
   imports: [
     CommonModule,

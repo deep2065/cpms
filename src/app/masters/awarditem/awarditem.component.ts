@@ -657,12 +657,14 @@ awarditem(){
 estimatedata=[];
 totaldata:any=0;
 vendorname = '';
+singalvendor:any;
 selectitems(key){
   var trade ='';
   this.vendor.forEach(ven=>{
 if(key==ven.$key){
   trade = ven.trade;
   this.vendorname = ven.conname;
+  this.singalvendor=ven;
 }
   })
   var esti =[];  
@@ -699,7 +701,7 @@ addvendorcost(data,id){
 vendorcontrct(){
   this.vendorcost.forEach(p=>{    
   //  this.db.list('/projects/'+this.bidkey+'/estimator').$ref.ref.child(p.id).child('award').set(1);
-    this.db.list('/projects/'+this.bidkey+'/estimator').$ref.ref.child(p.id).update({award:1,cost:p.vcost});
+    this.db.list('/projects/'+this.bidkey+'/estimator').$ref.ref.child(p.id).update({award:1,cost:p.vcost,vendor:this.singalvendor});
   })
  // alert("This Process is under development");
 } 

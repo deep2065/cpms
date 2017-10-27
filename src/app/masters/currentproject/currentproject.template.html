@@ -1,0 +1,18 @@
+
+<div class="col-md-12">
+    <div class="modal-header">       
+        <h4 class="modal-title">Current Project List</h4>
+        <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
+</div>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+    (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)" (custom)="onCustom($event)"></ng2-smart-table>
+
+    <div class="col-md-12">
+        <div class="form-group"> 
+            <div class="col-sm-offset-6" style="text-align:center">
+              <button [routerLinkActive]="['active']" type="button" class="btn btn-default"><a routerLink="/app/masters/unit">Add Unit</a></button>
+              
+            </div>
+          </div>
+    </div>
+  </div>
