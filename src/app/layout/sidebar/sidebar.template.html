@@ -1,4 +1,6 @@
+<div *ngIf="!sign">
 <ul id="side-nav" class="side-nav">
+
   <li [routerLinkActive]="['active']">
     <a routerLink="dashboard"><i class="fa fa-home"></i> <span class="name">Dashboard <sup class="text-warning fw-bold">new</sup></span></a>
   </li>
@@ -169,7 +171,7 @@
 
     
     
-   <!-- <li [routerLinkActive]="['active']">
+    <!--<li [routerLinkActive]="['active']">
       <a routerLink="masters/signature/-KwPhOFYH5OsCdPLbdeA"><i class="fa fa-pencil"></i> <span class="name">Signature</span></a>
     </li>-->
    
@@ -310,6 +312,8 @@
     </ul>
   </li>-->
 </ul>
+</div>
+
 
 <!--<h5 class="sidebar-nav-title">Labels <a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
 

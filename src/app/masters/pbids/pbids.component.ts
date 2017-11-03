@@ -468,14 +468,12 @@ disapprove(){
         this.makepdf(this.bidtrade[i],co.cemail,co.conname);
           }
         }));
-      }   
-    /*  this.sendemail.sendemail("dkk152207@gmail.com","This is test email","Hi this is test email",function(data){
-        
-          console.log(data);
-      })*/
-      this.pdfforclient();   
-   // console.log(this.bidtrade);             
+      }      
+      this.pdfforclient();              
       this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('approve');
+      this.prodata=new projectdata();
+      this.additem=[];
+      this.estimator=[];
     }
      }
   
@@ -608,7 +606,9 @@ pdfforclient(){
     var temp = [val.item,val.quantity,"$ "+val.ltotal];
     rows.push(temp);
     total+=val.ltotal;
+    if(val.notes){
     notes+=val.notes+"\n";
+    }
     top1=top1+40;
   });
   rows.push(['','Total',"$ "+total,'']);

@@ -84,7 +84,8 @@ prodata = new projectdata();
       this.items = db.list('/items');
       this.vendors = db.list('/vendors');
       this.protype23 = db.list('/protypes');
-      this.project=db.list('/projects');
+     // this.project=db.list('/projects');
+      this.project=db.list('/mainproject');
 db.list('/projects').subscribe(p=>p.forEach(ele=>
   {
     if(ele.status=='approve'){
@@ -118,8 +119,9 @@ db.list('/projects').subscribe(p=>p.forEach(ele=>
         key = params['key']; // (+) converts string 'id' to a number       
      });
      this.bidkey=key;
-     db.list('/projects').subscribe(keys=>keys.forEach(ele=>{
-      if(ele.$key==key){
+     db.list('/mainproject').subscribe(keys=>keys.forEach(ele1=>{
+      if(ele1.$key==key){
+        var ele = ele1.projectdetail;        
         this.estimator=ele.estimator;
         ele.estimator.forEach(r=>{
           if(trade.indexOf(r.trade)== -1){
@@ -429,8 +431,9 @@ items123=[];
 bidproid = '';
 bidtrade=[];
 selectbids(id){
-  this.project.subscribe(p=>p.forEach(ele=>{
-    if(ele.$key==id){
+  this.project.subscribe(p=>p.forEach(ele1=>{
+    if(ele1.$key==id){
+      var ele = ele1.projectdetail;      
       var itrade = [];
       this.bidproid=id;
       this.bidid=ele.items;
@@ -466,7 +469,7 @@ selectbids(id){
       this.prodata.housesqft=ele.housesqft;
       this.prodata.items=ele.items;
       this.prodata.comment=ele.comment;
-      this.prodata.status='disapprove';
+      this.prodata.status=ele.status;
       this.bidtrade=itrade;
     }
   }));
@@ -671,7 +674,7 @@ if(key==ven.$key){
   var total:any=0;
 this.estimator.forEach(function(val,key,arr){
   var estimate;
-  if(val.trade==trade){
+  if(val.trade==trade && !val.award){
     estimate={item:val.item,quantity:val.quantity,price:val.price,factor:val.factor,ltotal:val.ltotal,notes:val.notes,trade:val.trade};
     
    esti[key]=estimate;
@@ -701,7 +704,7 @@ addvendorcost(data,id){
 vendorcontrct(){
   this.vendorcost.forEach(p=>{    
   //  this.db.list('/projects/'+this.bidkey+'/estimator').$ref.ref.child(p.id).child('award').set(1);
-    this.db.list('/projects/'+this.bidkey+'/estimator').$ref.ref.child(p.id).update({award:1,cost:p.vcost,vendor:this.singalvendor});
+    this.db.list('/mainproject/'+this.bidkey+'/projectdetail/estimator').$ref.ref.child(p.id).update({award:1,cost:p.vcost,vendor:this.singalvendor});
   })
  // alert("This Process is under development");
 } 
@@ -761,7 +764,15 @@ converttopdf(){
         var lines =doc.splitTextToSize(paragraph, (pdfInMM-lMargin-rMargin));
   doc.text(lMargin,20,lines);
  // doc.text(lines,pageCenter,20); //see this line
-	doc.output("dataurlnewwindow");
+//	doc.output("dataurlnewwindow");
+var pdf =doc.output('datauristring');
+  var msg = 'Dear '+this.prodata.clientname+'<br>';
+  msg+='Your item has been awarded. Please find the attachment. <br> Sign Contract :- <a href=http://localhost:3000/masters/signature/'+this.bidproid+'>Click Here To Signature</a>';
+   this.sendemail.sendemail("info@zaptas.com","Vendor Contract",msg,pdf,function(data){    
+    console.log(data);
+ })
+
+ 
 
  /* var doc = new jsPDF('p','pt','a4');
   doc.text(150,35,data.tital);

@@ -433,8 +433,9 @@ bidproid = '';
 bidtrade=[];
 
 selectbids(id){
-  this.project.subscribe(p=>p.forEach(ele=>{
-    if(ele.$key==id){
+  this.project.subscribe(p=>p.forEach(ele1=>{
+    if(ele1.$key==id){
+      var ele = ele1.projectdetail;
       var itrade = [];
       this.bidproid=id;
       this.bidid=ele.items;
@@ -470,7 +471,7 @@ selectbids(id){
       this.prodata.housesqft=ele.housesqft;
       this.prodata.items=ele.items;
       this.prodata.comment=ele.comment;
-      this.prodata.status='disapprove';
+      this.prodata.status=ele.status;
       this.bidtrade=itrade;      
       this.pdfforclient();
     }
@@ -786,7 +787,8 @@ priview(){
 
 awardbid(){
   var data = {sign:this.sign};
-  this.db.list('/projects/'+this.bidkey).$ref.ref.child("sign").set(this.sign);
+  this.db.list('/mainproject/'+this.bidkey+'/projectdetail').$ref.ref.child("sign").set(this.sign);
+  this.db.list('/mainproject/'+this.bidkey+'/projectdetail').$ref.ref.child("password").set('');
     
 }
 

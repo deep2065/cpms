@@ -268,40 +268,51 @@ prodata = new projectdata();
         icon: 'fa fa-calendar'
     }
     }
-
+    loaditems(data){
+      var estimate;
+      this.remodel.forEach(re=>{
+        if(re.$key==data){
+          this.additem=re.items;
+        }
+      })
+      var i=0;
+     this.additem.forEach(a=>{
+      estimate={item:a.item,quantity:'',price:'',factor:'',ltotal:'',notes:'',trade:a.trade};      
+      this.estimator[i]=estimate;
+      this.itemn.push(a.item);
+      i++;
+     });
+    }
     checkditem(event,value){
       if(event.target.checked){
+      var estimate;
+      estimate={item:value.itemname.itemname,quantity:'',price:'',factor:'',ltotal:'',notes:'',trade:value.trade};
+        var id=this.additem.length;     
+        this.estimator[id]=estimate;        
         this.additem.push(value);
+        this.itemn.push(value.itemname.itemname);
       }else{
         this.additem.splice(this.additem.indexOf(value),1);
+        var key;
+        this.estimator.forEach(function(val,key1,arr){
+          if(val.item==value.itemname.itemname){
+            key = key1;
+          }
+        });
+        this.estimator.splice(key,1);
+        this.itemn.splice(key,1);
       }
-      console.log(this.additem);
     }
 
     removeitemfromarray(value,id){
       console.log(value);
       var id:any=id;
       if(confirm('Are you confirm delete item')){ 
-        this.additem=[];
-        this.bidsname=[];      
-        this.db.list('/projects/'+this.bidproid+'/items').$ref.ref.child(id).remove();
-        this.db.list('/projects/'+this.bidproid+'/estimator').$ref.ref.child(id).remove();
-        console.log(this.bidproid);        
-   
       this.additem.splice(id,1);
+      this.estimator.splice(id,1);
+      this.itemn.splice(id,1);
       }
-      /*if(this.estimator.length>0){
-        this.estimator.forEach(function(val,ind,arr){
-          if(val.item==value.itemname){
-            id=ind;
-          }
-        });
-      //  this.estimator.splice(id,1);
-      }
-
       
-      console.log(this.additem);*/
-     // this.additem.splice(this.additem.indexOf(value),1);
     }
 
     getestimatordata(){
@@ -325,10 +336,14 @@ prodata = new projectdata();
         document.getElementById("price_"+id).innerHTML=price1;
         document.getElementById("total_"+id).innerHTML=total;
         var itemname =  document.getElementById("itemname_"+id).innerHTML;
-        estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total};
+        var notes1:any =  document.getElementById("notes_"+id);
+        var trade1:any = document.getElementById("trade_"+id);
+        estimate={item:itemname,quantity:qty,price:price1,factor:aj.value,ltotal:total,notes:notes1.value,trade:trade1.value};
+        
         }
       });
       this.estimator[id]=estimate;
+      console.log(this.estimator);
     }
     changeadj(event,id){
       var estimate;
@@ -363,13 +378,11 @@ submitbid(){
   this.prodata.totalprice=total.toString();
   this.prodata.biddate = this.biddate.toDateString();
   this.prodata.bidexpair = this.bidexpair.toDateString();
-  this.prodata.bidkey=this.bidproid;
+  this.prodata.bidkey=this.bidproid;  
   this.project.update(this.bidproid,this.prodata);
   this.prodata=new projectdata();
   this.additem=[];
   this.estimator=[];
-
- console.log(this.prodata);
 }
 
 addnewprotype(event){
@@ -421,12 +434,16 @@ this.estimator[id]=estimate;
 bidid:any;
 items123=[];
 bidproid = '';
+itemn=[];
 selectbids(id){
   console.log(this.additem);
   this.project.subscribe(p=>p.forEach(ele=>{
     if(ele.$key==id){
       this.bidproid=id;
       this.bidid=ele.items;
+      ele.items.forEach(r=>{
+        this.itemn.push(r.name);
+      })
       this.additem = ele.items||[];
       this.estimator=ele.estimator||[];
       this.prodata.projecttype=ele.projecttype;

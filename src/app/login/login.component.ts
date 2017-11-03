@@ -33,7 +33,20 @@ var users = this.db.list('/users').subscribe(keys =>keys.forEach(element => {
 going = false;
 this.route.navigate(["/app/dashboard"]);
  }else{
-  this.error = "Username and Password Not Match";
+  
+  this.db.list("mainproject").subscribe(key=>key.forEach(m=>{
+    if(m.projectdetail.clientemail==data.email && m.projectdetail.password==data.password ){
+      window.sessionStorage.setItem("isLogin","true");
+      window.sessionStorage.setItem("userkey",m.$key);
+      window.sessionStorage.setItem("username",m.projectdetail.clientname);      
+      window.sessionStorage.setItem("sign","true");      
+      this.loginservice.isLogin=true;
+     going = false;
+      this.route.navigate(["/app/masters/signature/"+m.$key]);
+    }else{
+      this.error = "Username and Password Not Match";
+    }
+  }));
  }
   }    
 }));

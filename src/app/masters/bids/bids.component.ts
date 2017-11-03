@@ -68,7 +68,7 @@ prodata = new projectdata();
   protype23:FirebaseListObservable<any[]>;
   project:FirebaseListObservable<any[]>;
   remodel = [];
-    constructor(db:AngularFireDatabase,private elementRef:ElementRef) {
+    constructor(private db:AngularFireDatabase,private elementRef:ElementRef) {
       this.quantity = db.list('/quantitys');
       this.item = db.list('/costdatas');
       this.items = db.list('/items');
@@ -439,21 +439,8 @@ loaditems(data){
   console.log(this.additem)
 }
    
-convert(){
- /* var item = {
-    "Name" : "XYZ",
-    "Age" : "22",
-    "Gender" : "Male"
-  };
-  var doc = new jsPDF();
-  var col = ["Item","Value"];
-  var rows = [];
-
-  for(var key in this.estimator){
-      var temp = [key, this.estimator[key]];
-      rows.push(temp);
-  }
-*/
+preview(){
+ 
 var doc = new jsPDF('p','pt', 'a4', true);
 doc.rect(40, 35, 157, 165);
 doc.setFontSize(12);
@@ -471,7 +458,13 @@ doc.text(45, 135, this.prodata.clientmobile);
 doc.rect(220, 35, 157, 165);
 doc.text(225, 45, 'Bid Info');
 doc.text(225, 60, 'Remodel Type');
-doc.text(225, 75, this.prodata.remodeltype);
+var name='';
+this.db.list('/remodels').subscribe(r=>r.forEach(re=>{
+  if(re.$key==this.prodata.remodeltype){
+    name= re.remodelname;
+  }
+})); 
+doc.text(225, 75, name);
 
 doc.text(225, 90, '#Bed Rooms :- ');
 doc.text(320, 90, this.prodata.bedroom);

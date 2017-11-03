@@ -15,6 +15,7 @@ export class Sidebar {
 
   menus =[];
   user : FirebaseListObservable<any>;
+  sign:any=false;
   constructor(private renderer: Renderer, private el: ElementRef, private db :AngularFireDatabase, private aroute:ActivatedRoute) {
   /* var key = window.sessionStorage.getItem("userkey");
      db.list('/users/'+key+'/permission').subscribe(keys=>keys.forEach(permi=>{
@@ -25,7 +26,7 @@ export class Sidebar {
       }));
     }));
     */
-   
+   this.sign=window.sessionStorage.getItem("sign");
   }
 
   ngAfterViewInit() {

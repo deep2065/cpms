@@ -87,6 +87,7 @@ import {Currentproject}  from './currentproject/currentproject.component';
 import {Finishedproject}  from './finishproject/finishproject.component';
 import {Allbid}  from './allbid/allbid.component';
 import {Contract}  from './contract/contract.component';
+import {Newproject}  from './newproject/newproject.component';
 
 
 
@@ -134,6 +135,7 @@ export const routes = [
   {path: 'finishedproject', component: Finishedproject}, 
   {path: 'allbid', component: Allbid}, 
   {path: 'contract/:key', component: Contract}, 
+  {path: 'newproject/:key', component: Newproject}, 
 ];
 
 @NgModule({
@@ -179,6 +181,7 @@ export const routes = [
     Finishedproject,
     Allbid,
     Contract,
+    Newproject,
   ],
   imports: [
     CommonModule,

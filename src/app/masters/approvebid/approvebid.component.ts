@@ -441,7 +441,7 @@ selectbids(id){
       this.prodata.comment=ele.comment;
       this.prodata.status='disapprove';
       this.bidtrade=itrade;
-      this.prodata.sign=ele.sign;
+      this.prodata.sign=ele.sign||'';
     }
   }));
 
@@ -457,7 +457,7 @@ materiallist(){
 
 disapprove(){
   this.bidsname=[];
-  if(confirm("Are you sure to disapprove this bid")){
+  if(confirm("Are you sure to disapprove this bid")){   
     this.db.list("/oldproject").push(this.prodata);
     this.db.list('/projects/'+this.bidproid).$ref.ref.child('status').set('disapprove');
   }
@@ -623,9 +623,14 @@ pdfforclient(){
 
 movetoproject(){
   //console.log(this.prodata.sign);
-  if(!this.prodata.sign){
+  document.getElementById('openprojectdates').click();
+ /* if(!this.prodata.sign){
     alert("Wait For Client Confirmation");
-  }else{
+  }
+  
+  else{
+    document.getElementById('openprojectdates').click();
+    
   var totalitem = this.estimator.length;
   var i=0;
   this.estimator.forEach(e=>{
@@ -639,18 +644,16 @@ i++;
   }else{
     document.getElementById('openprojectdates').click();    
   }
-}
+}*/
 }
 
 motoprojectalldata(){
   var procost:any=0;
-  this.estimator.forEach(e=>{
-    procost+=parseFloat(e.cost);
-  })
+  
   var data = {
     projectname:this.prodata.clientname,
     projecttotal:this.prodata.totalprice,      
-    projectcost:procost,
+    projectcost:0,
     netprofit:(parseFloat(this.prodata.totalprice)-procost),
     projectdetail:this.prodata,
     projectstartdate:this.projectstartdate.toDateString(),

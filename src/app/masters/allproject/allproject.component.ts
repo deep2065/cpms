@@ -8,6 +8,8 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LocalDataSource } from 'ng2-smart-table';
 
+import { ActivatedRoute, Router }       from '@angular/router';
+
 
 @Component({
   selector: '[allproject]',
@@ -25,7 +27,7 @@ export class Allproject {
   public solicitacoes: any;
   
   unit : FirebaseListObservable<any[]>;
-    constructor(private db:AngularFireDatabase) {      
+    constructor(private db:AngularFireDatabase, private route:Router) {      
       this.dados = this.db.list('/mainproject');
       this.source = new LocalDataSource();
       let _self = this;
@@ -100,8 +102,8 @@ export class Allproject {
 
     onCustom(event){
       if(event.action=="view"){
-       // this.route.navigate(["/app/masters/vendordetails/"+event.data.$key]);
-       alert("Under Development");
+       this.route.navigate(["/app/masters/newproject/"+event.data.$key]); 
+       //alert("Under Development");
       }
     }
 
